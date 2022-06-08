@@ -244,6 +244,7 @@ static NSString *const kHadRate = @"kHadRate";
 
 // 请求用户或激活用户信息
 - (void) requestUserInfo {
+    self.fromWatchAd = YES;
     if (QDConfigManager.shared.email
         &&![QDConfigManager.shared.email isEqual:@""]
         && QDConfigManager.shared.password
@@ -267,6 +268,9 @@ static NSString *const kHadRate = @"kHadRate";
     }
     if (QDVPNManager.shared.status == NEVPNStatusConnected) {
         [self.connectButton updateUIStatus:status_button_connected];
+    }
+    if (QDVPNManager.shared.status == NEVPNStatusDisconnected) {
+        [self.connectButton updateUIStatus:status_button_disconnected];
     }
 }
 
