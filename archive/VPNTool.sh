@@ -1,0 +1,1 @@
+pyinstaller -F --add-data ExportOptions.plist:ExportOptions VPNTool.py
