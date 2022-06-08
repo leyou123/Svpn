@@ -1,0 +1,426 @@
+/*
+  Localizable.strings
+  International
+
+  Created by a on 2019/11/19.
+  Copyright © 2019 com. All rights reserved.
+*/
+
+AppName = "Super VPN";
+
+Connect        = "Connect";
+Connecting     = "Connecting";
+Disconnecting  = "Disconnecting";
+Connected      = "Connected";
+Connected_Desc = "Connected";
+Connect_fail      = "Connection Fail";
+Connect_fail_info = "After diagnosis, you need to reinstall the VPN configuration, which can help you resolve the connection failure.";
+Connect_refail_info = "Unfortunately, the connection still fails, please contact us for further assistance.";
+Connect_Tip1 = "Generating anonymous IP...";
+Connect_Tip2 = "Connecting to the server...";
+Connect_Tip3 = "Testing network speed...";
+Connect_success      = "Connection Success";
+Connect_success_otherLine      = "The location you selected is currently busy, and SuperVPN automatically connected to the best location.";
+Connect_success_ok      = "OK, thanks";
+Connect_success_no      = "No,change location";
+Ping_fail_info = "Unfortunately,the connection failed,please contact us for further assistance.";
+
+// controller name
+HomeTitleName = "Super VPN";
+LineTitleName = "Lines";
+UserTitleName = "User Center";
+RecordTitleName = "Purchase Record";
+Home_GetTimeADs = "Get Time For Free\nClick to watch ad";
+Home_GetTimeADsP_desc = "Click to watch ad";
+Home_ConnectSupport = "Contact Support";
+Home_Share   = "Share SuperVPN";
+LineTrial = "Location";
+LinePremium = "Premium Location";
+
+LineAuto        = "Recommend";
+LineQuickAccess = "Quick Access";
+LineLocations   = "All locations";
+LineUnlock      = "Unlock more lines";
+
+// user controller
+User_uid        = "User ID";
+User_VIPVariety = "Status";
+User_ExpireDate = "Expire Date";
+User_Record     = "Purchase Records";
+User_FAQ        = "FAQ";
+User_RateUs     = "Rate Super VPN";
+User_VersionUpdate = "Check for Updates";
+User_Share      = "Share Super VPN";
+User_Version    = "Version";
+User_Email      = "E-Mail Login";
+
+// record controller
+Record_No = "No Record";
+
+// vip种类
+VIP_Free_Trial = "Free Trial";
+VIP_VIP        = "Premium";
+VIP_None_VIP   = "Basic";
+Expired        = "Expired";
+
+HomeNoNodes   = "Sorry, no line available";
+HomeNoNetwork = "Please check your network";
+
+// 设备未激活
+Device_no_active = "Your device is not activated";
+
+Dialog_Premium_Expired = "Your Premium has expired";
+Dialog_Ok     = "OK";
+Dialog_Cancel = "Cancel";
+Dialog_Warning_Limit = "Sorry, Super VPN does not provide service in China Mainland(uid=%@)";
+Dialog_Ignore = "Ignore";
+Dialog_BeVip  = "Subscribe";
+
+Dialog_Retry  = "Retry";
+Dialog_Getit  = "GET IT";
+
+PayFailed                  = "Payment Failed";
+PaySuccess                 = "Payment Successful";
+VIPPaying                  = "Processing...";
+VIPCreateOrding            = "Order generated...";
+VIPCreateOrderSuccess      = "Order generated successfully";
+VIPCreateOrderFailed       = "Order generated failed";
+VIPCreateOrderInvaild      = "Invalid item ID=%@ ";
+
+VIPRestore                 = "Restore";
+VIPRestoring               = "Processing...";
+VIPRestoreStart            = "Restore the previous subscripiton purchase";
+VIPRestoreSuccess          = "Restore successful";
+VIPRestoreFail             = "Restore Failed";
+VIPRestoreFailDesc         = "You don’t have any purchase to restore";
+
+Version_Info   = "New Version %@";
+Version_Latest = "Already the latest version";
+Version_Update = "Update";
+
+Instruction = "Instruction";
+PrivacyPolicy = "Privacy Policy";
+TermsOfService = "Terms Of Service";
+Restore = "Purchase Restore";
+Subscribe = "Subscribe";
+
+Feature_Title_0     = "FASTER";
+Feature_Title_Sub_0 = "100+ virtual locations for you";
+Feature_Title_1     = "OPTIMIZED";
+Feature_Title_Sub_1 = "Optimized for Netflix and Game";
+Feature_Title_2     = "SECURITY";
+Feature_Title_Sub_2 = "Protect your online data with the high encryption";
+Feature_Title_3     = "TRUSTED";
+Feature_Title_Sub_3 = "More then 800,000 users choose SUPER VPN";
+
+Feature_Button_Next = "Next";
+Feature_Button_Free = "Start Free Trail";
+
+VIPTrailDays7              = "Start your 7-days Free Trail";
+VIPStoreTitle1             = "Upgrade to Premium to enjoy the following features";
+VIPStoreTitle2             = "PAY LESS UPGRADE TO\nANNUAL Premium";
+VIPPrice1                  = "Then %@ per month";
+VIPPrice2                  = "%@/month";
+VIPPrice21                 = "%@/90-days";
+VIPPrice22                 = "%@/180-days";
+VIPPrice3                  = "%@/year";
+VIPPrice31                 = "Then %@ per year";
+VIPPrice32                 = "7-day free trail then %@/Year";
+VIPPrice33                 = "7-day free trail then %@/Month";
+VIPPrice34                 = "3-day free trail then %@/Week";
+VIPPrice35                 = "7-day free trail";
+VIPPrice36                 = "3-day free trail";
+VIPPrice37                 = "7-day Premium";
+VIPPrice4                  = "Save %0.2f%% now";
+VIPPrice5                  = "Save %0.2f%%・%@/mo";
+VIPNoteText                = "Note:\nIf you purchase the year subscription for the first time. You can get a 7-days free trail. You will start a yearly subscription plan and be charged %@ at the end of your trial unless you cancel it before it ends.\nYou can cancel your subscription anytime. Payment will be charged to your Apple ID account at the confirmation of purchase. Subscription automatically renews unless it is canceled at least 24 hours before the end of the current period. You can manage and cancel your subscriptions by going to your account settings on the AppStore after purchase.\nThe Subscribe Record is tied to your phone's UID, as long as you don't restore or change your phone, it will not be lost.";
+VIPPrivatePolicy           = "Privacy Policy";
+VIPUserAgreement           = "Terms of Service";
+
+VIPStoreContent_Title1             = "Upgrade To Premium Now";
+VIPStoreContent_Desc1             = "Enjoy the following privileges";
+
+Basic = "Trial";
+BasicFeature0 = "Restricted Connect Speed";
+BasicFeature1 = "A few Virtual Lines";
+BasicFeature2 = "Only Support one Device";
+BasicFeature3 = "Can't Access some Apps";
+
+Premium = "Premium";
+PremiumFeature0 = "Faster Connect Speed than Before";
+PremiumFeature1 = "More Virtual Lines can Access";
+PremiumFeature2 = "Support Sign in Multiple Devices";
+PremiumFeature3 = "Optimized for Netflix and other Apps";
+
+Feature_Button_Subscribe = "Subscribe";
+Feature_Button_Ok        = "OK";
+
+VIPPromotionDesc1          = "Free 7-days of the Premium";
+VIPPromotionDesc2          = "Unlock the speed and features";
+VIPPromotionDesc3          = "Pay less upgrade to annual Premium";
+VIPPromotionText1          = "Start Free Trail";
+VIPPromotionText2          = "Get Premium";
+
+VIPStoreTitle  = "Join the Premium";
+VIPStoreDesc0  = "Boost speed and unlock more features";
+VIPStoreDesc1  = "· Access All Source You Want";
+VIPStoreDesc2  = "· Tap to Different Virtual Lines";
+VIPStoreDesc3  = "· Enjoy 4K Video Experience";
+VIPStoreDesc4  = "· Sign in multiple devices";
+
+// time
+Home_Time = "Remaining Time:";
+Home_Ad_RefreshTime = "The ADs reset time: %@(GMT 00:00)";
+Home_Time_Add     = "Watch Ad Add free time";
+Time_Year   = "year";
+Time_Years  = "years";
+Time_Month  = "month";
+Time_Months = "months";
+Time_Day    = "day";
+Time_Days   = "days";
+Time_Hour    = "hour";
+Time_Hours   = "hours";
+Home_Remain_Time = "Trial Remaining Time";
+Home_PremiumRemain_Time = "Premium Remaining Time";
+
+
+// ad request fail
+Ad_Request_Fail = "Ad Request Fail";
+Ad_Request_Text = "Get a 7-day free trial and remove ads";
+Ad_Request_ToVip = "Get Premium & No ads";
+
+// ad request success
+Ad_reward_suc   = "Successful";
+Ad_reward_text  = "Do you want to add more time or unlock more features?";
+Ad_reward_watch = "Watch the AD";
+Ad_rm           = "Get Premium and remove ADs";
+
+// ad max
+Ad_Play_Limit = "You have reached the max ADs times today!";
+
+// config
+Config_Add_Title        = "Allow Super VPN to add configurations to your device";
+Config_Add_Tip          = "For the VPN to work, you should allow the following permissions";
+Config_Install_Fail_Tip = "VPN Configuration required";
+Config_Desc = "Use Touch-ID or Enter Password to allow";
+
+// 原生广告界面
+NativeAd_Time           = "Time: ";
+NativeAd_Time_Add       = "I Need More Time";
+NativeAd_Connected      = "Connected";
+NativeAd_Connected_Rate = "How was the connection?";
+NativeAd_Rate_Satisfy   = "Satisfy";
+NativeAd_Rate_Soso      = "So-So";
+NativeAd_Rate_UnSatisfy = "Unsatisfy";
+NativeAd_Rate_Title = "Are you satisfied with this connection?";
+
+Privacy_Title    = "We are serious about your privacy";
+Privacy_Content0 = "Generally speaking, we need some data to provide you our products and services. We try to minimize the collection of the following data, and we anonymize or delete it as soon as possible:";
+Privacy_Content1 = "- Unique Device ID";
+Privacy_Content2 = "- Language Settings";
+Privacy_Content3 = "- Payment information";
+Privacy_Content4 = "We promise the personal data and online activities will not be recorded.";
+Privacy_Content5 = "ACCEPT&CONTINUE";
+
+// 赠送会员过期提醒
+Notification_Expired_Remind = "Your Free Trail will expired in %ld day.";
+// 非VIP提醒
+Notification_NoneVIP_Remind = "You can get free time by watching the ads. Try it!";
+
+// 进入应用
+Notificaiton_Enter  = "Enter";
+Notificaiton_Cancel = "Ignore";
+
+Notice_Default_Text = "Welcome! Enjoy now!";
+
+
+// dialog
+Dialog_Contact_Title = "How to contact us";
+Dialog_Contact_Text = "Please contact our Support E-mail (vpnletgo@gmail.com) to solve this problem and attach your uid(you can find it in the User Center).";
+Email    = "E-mail";
+Password = "Password";
+Password_Simple = "Simple";
+Password_Medium = "Medium";
+Password_Complex = "Complex";
+Password_Tip = "Password length should not be less than 6 bits";
+Password_New = "New Password";
+Password_Reset_Ok = "OK";
+Reset_Password = "Reset Password";
+Email_Verification = "E-mail Verification";
+
+// 邮箱登录
+Login_Uppercase = "Sign in with E-mail";
+Login_Lowercase = "Submit";
+Login_Forget_Password = "Forgot Password?";
+Login_New_User        = "New user?";
+Login_Register_Now    = "Link the E-mail";
+Login_By_Email = "Sign in with E-mail";
+Login_By_Quick = "Quick Sign In";
+Login_Title = "E-Mail Login";
+Login_Login = "Login";
+Login_bind_mailbox_text = "E-Mail not link yet? ";
+Login_Link = "Link";
+
+// 注册
+Register_Uppercase = "Link the E-mail";
+Register_Lowercase = "Submit";
+Register_SignIn = "Have an account?";
+Register_Target = "To login Android&Mac&Windows";
+
+// forgot
+Forgot_Reset_Password_Tip = "In order to protect your account, we need to verify your E-mail";
+Forgot_Email = "Forgot E-mail?";
+Forgot_Verify = "Verify";
+Send_Code = "Send Code";
+Resend_Code = "Resend Code";
+Forgot_Email_title_tip = "Fill in the email";
+Forgot_Email_desc_tip = "and verify to protect your account";
+Forgot_Email ="E-mail";
+Forgot_Email_Code ="E-mail Verification";
+ForgotEmail = "Forget E-mail?";
+Forgot_Nextstep = "Next Step";
+
+
+// dialog
+Dialog_Contact_Title = "How to contact us";
+Dialog_Contact_Text  = "Please contact our Support E-mail(vpnletgo@gmail.com) to solve this problem and attach your Device ID(you can find it in the User Center).";
+
+// error
+Error_Email_Empty    = "E-mail address cannot be empty";
+Error_Email_Invaid   = "Invalid E-mail address";
+Error_Password_Empty = "Password can not be empty";
+Error_Code_Invaid   = "Invalid E-mail Verification";
+
+// success
+Login_success = "Sign in with E-mail Successful";
+Register_success = "Link the E-mail Successful";
+Password_Reset_success = "Password Reset Successful";
+Password_modify_success = "Password Reset Successful";
+Send_Code_Success = "Sent successful, Please check your E-mail";
+
+// user
+User_Guest   = "Guest";
+User_Account = "Account";
+User_UUID    = "Device ID";
+User_Sign_Out = "Sign out";
+User_Not_associated = "Not Linked";
+User_Devices = "Devices";
+User_Unbind  = "Unlink E-mail";
+
+// 解绑
+Dialog_Disassociate_title   = "Unlink E-mail?";
+Dialog_Disassociate_message = "This means that you cann't login by email for multi-device any more. Please enter password to confirm.";
+Dialog_Disassociate_Success = "Unlink successfully";
+
+Dialog_Sign_Out_Title = "Sign Out";
+Dialog_Sign_Out_message = "Are you sure to sign out?";
+Dialog_Sign_Out_Ok      = "Sign Out";
+Dialog_Sign_Out_Success = "Sign out successfully";
+
+// 复制
+Copy = "Copy";
+Copy_Success = "Copy success";
+
+// 购买成功，引导绑定邮箱
+Dialog_Purchase_Success_Title = "Purchase Successfully";
+Dialog_Purchase_Success_Message = "Recommendation: Link E-mail to sign in to multiple devices.";
+
+// 热销
+VIP_Hot = "60% off";
+
+// 绑定邮箱
+Associate_Email ="Link E-mail for Multiple Devices";
+Associate_Email_Reward ="Link E-mail for Multi-login and Reward";
+
+// uuid已复制
+UUID_Copyed = "uuid copyed";
+
+// 分享
+Share      = "Share Us";
+Share_Slide = "Share";
+Share_Text = "Free, fast, private and reliable VPN";
+Share_Your = "Your Share Code";
+Share_Redeem_Text1 = "Share to your friends who have not used it, both of you will get free time";
+Share_Redeem_Text2 = "Share to your friends who have not used it, then they will get free time";
+Share_Success = "Share succeed";
+Share_Success_Mesage = "When the code be used, you will be rewarded with free time";
+
+// 兑换奖励
+Redeem_reward      = "Redeem";
+Redeem_reward_text = "Please enter redeem code";
+Redeem_placeholder = "Redeem Code";
+Redeem_Error_Empty = "Redeem code can not be empty";
+Redeem_Success     = "Redeem succeed";
+Dialog_Submit      = "Redeem";
+
+// 扫码界面
+Scan_Title        = "Scan";
+Scan_Tip          = "Scan QR code to login PC/Mac";
+Scan_Code_Title   = "Confirm Login";
+Scan_Code_Message = "Confirm Login?";
+Scan_Code_Request_Auth = "Super VPN will use camera to login PC/Mac. Please allow Super VPN to use camera.
+";
+Scan_Code_Ok      = "OK";
+Scan_Code_Cancel  = "Cancel";
+Scan_Code_Invaild = "Invalid QR code";
+Scan_Code_Success = "Confirm succeed";
+
+Benefits_Title     = "Premium Benefits";
+Benefits_Step_0    = "Install Super VPN";
+Benefits_Step_1    = "Get Premium";
+Benefits_Step_2    = "Login other platforms";
+
+Benefits_Platform_0 = "Login other platforms";
+Benefits_Platform_1_Format = "Email";
+Benefits_Platform_1 = "You can use %@ to login Mac & PC & Andriod";
+Benefits_Platform_2 = "Get more details";
+
+Benefits_Line_0 = "More stable lines";
+Benefits_Line_1 = "Enjoy 4K video and game experience";
+
+Benefits_Privacy_0 = "Secure online privacy";
+Benefits_Privacy_1 = "Military-grade online privacy protection";
+
+Scan_Guide_Message = "For security, please link your E-mail and then scan the QR code.";
+Scan_Guide_Cancel = "Cancel";
+Scan_Guide_OK = "Go for it";
+
+Feedback_Text        = "Contact Support";
+Feedback_myproblem   = "My question";
+Feedback_failconnect = "Connect failed";
+Feedback_slowspeed   = "Slow speed";
+Feedback_lackline    = "Lack of lines";
+Feedback_Disconnect_Game = "Disconnect in game";
+Feedback_somethings_else = "Something else";
+Feedback_details     = "Problem description";
+Feedback_details_placeholder1 = "Please describe the problem details";
+Feedback_details_placeholder2 = "Please describe the problem details. We'll reward 1 day for your feedback";
+Feedback_details_placeholder3 = "Please enter your problem description.
+（English is recommended）";
+Feedback_email = "E-mail";
+Feedback_contact = "Contact email";
+Feedback_email_placeholder = "Please enter your Whatsapp, Telegram or E-mail";
+Feedback_email_placeholder1 = "Please enter your E-mail";
+Feedback_email_error = "Invalid Email address";
+Feedback_submit = "Submit";
+Feedback_issue  = "What's the issue?";
+Feedback_issue_title = "Issue";
+Feedback_email_invaild = "Please enter a valid email";
+Feedback_content_invaild = "Please enter at least 10 characters";
+
+Toast_Feedback_fail = "You haven't writen your problem here";
+Toast_Feedback_succ1 = "Thanks for your feedback\nJoin us and get Free Premium";
+Toast_Feedback_succ2 = "Thanks for your feedback and rewards have been distributed";
+Toast_Register_Reward = "Thank you, reward 3 day free time";
+Toast_Reward          = "Congratulations! You have get %@";
+
+Recommand_App_Text = "Truly Free VPN has no date limit";
+Recommand_Dialog_Title = "Recommend";
+Recommand_Dialog_Text = "Recommend a free VPN with multiple lines";
+Recommand_Dialog_Button = "Get";
+
+Recommand_slog_text = "Get premium for free";
+
+Dialog_Notify_title   = "BE IN TOUCH";
+Dialog_Notify_message = "Push notifications disabled
+To get messages about discount news and special offers, enable notifications in settings";

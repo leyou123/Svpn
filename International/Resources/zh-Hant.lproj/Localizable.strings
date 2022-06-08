@@ -1,0 +1,410 @@
+/*
+  Localizable.strings
+  International
+
+  Created by a on 2019/11/19.
+  Copyright © 2019 com. All rights reserved.
+*/
+
+AppName = "Super VPN";
+
+Connect = "點擊連接";
+Connecting = "連接中";
+Disconnecting  = "斷開中";
+Connected = "已連接";
+Connected_Desc = "已連接";
+Connect_fail      = "連接失敗";
+Connect_fail_info = "經過診斷，你需要重新安裝VPN配置，可以幫助你解決連接失敗。";
+Connect_refail_info = "很遺憾，連接依然失敗，請聯繫我們，來獲得會進一步的幫助。";
+Connect_Tip1 = "正在生成匿名IP...";
+Connect_Tip2 = "正在連接伺服器...";
+Connect_Tip3 = "正在進行速度測試...";
+Connect_success      = "連接成功";
+Connect_success_otherLine      = "您選擇的線路目前繁忙，我們為您分配了最佳的線路";
+Connect_success_ok      = "好的, 謝謝";
+Connect_success_no      = "不，更改位置";
+Ping_fail_info = "很遺憾，連接失敗，請聯繫我們尋求進一步幫助。";
+
+// controller name
+HomeTitleName = "Super VPN";
+LineTitleName = "選擇線路";
+UserTitleName = "用戶中心";
+RecordTitleName = "購買記錄";
+Home_GetTimeADs = "获取免费试用时间\n点击观看广告";
+Home_GetTimeADsP_desc = "点击观看广告";
+Home_ConnectSupport = "快速反馈您的问题";
+LineTrial = "线路列表";
+LinePremium = "线路列表";
+
+LineAuto   = "推薦";
+LineQuickAccess = "快捷訪問";
+LineLocations   = "所有线路";
+LineUnlock      = "解鎖更多線路";
+
+// user controller
+User_uid        = "用戶ID";
+User_VIPVariety = "會員狀態";
+User_ExpireDate = "到期時間";
+User_Record     = "購買記錄";
+User_FAQ        = "常見問題";
+User_RateUs     = "評價我們";
+User_VersionUpdate = "檢查更新";
+User_Share      = "分享 SuperVPN";
+User_Version    = "檢查版本";
+Home_Share   = "马上分享 SuperVPN";
+User_Email      = "郵箱登錄";
+
+// record controller
+Record_No = "沒有記錄";
+
+// vip種類
+VIP_Free_Trial = "試用";
+VIP_VIP        = "會員";
+VIP_None_VIP   = "非會員";
+Expired        = "已過期";
+
+HomeNoNodes   = "線路初始化失敗";
+HomeNoNetwork = "請檢查您的網路連接";
+
+// 設備未啟動
+Device_no_active = "您的設備未啟動";
+
+Dialog_Premium_Expired = "您的會員已到期";
+Dialog_Ok     = "好的";
+Dialog_Cancel = "取消";
+Dialog_Warning_Limit = "因政策原因，Super VPN不為中國大陸用戶提供服務(用戶id=%@)";
+Dialog_Ignore = "忽略";
+Dialog_BeVip  = "訂閱";
+
+Dialog_Retry  = "重試";
+Dialog_Getit  = "好的";
+
+PayFailed                  = "支付失敗";
+PaySuccess                 = "支付成功";
+VIPPaying                  = "處理中...";
+VIPCreateOrding            = "訂單生成中...";
+VIPCreateOrderSuccess      = "訂單生成成功";
+VIPCreateOrderFailed       = "訂單生成失敗";
+VIPCreateOrderInvaild      = "請求無效!ID=%@!";
+
+VIPRestore                 = "恢復訂單";
+VIPRestoring               = "處理中...";
+VIPRestoreStart            = "恢復歷史訂單中...";
+VIPRestoreSuccess          = "恢復成功";
+VIPRestoreFail             = "恢復失敗";
+VIPRestoreFailDesc         = "您未有需要恢復的訂單";
+
+Version_Info   = "最新版本: %@";
+Version_Latest = "當前已是最新版本了";
+Version_Update = "升級";
+
+// instruction
+Instruction = "說明";
+PrivacyPolicy = "隱私政策";
+TermsOfService = "服務協議";
+Restore = "恢復購買";
+Subscribe = "訂閱";
+
+Feature_Title_0     = "網上衝浪";
+Feature_Title_Sub_0 = "成為會員用戶,訪問全球虛擬節點";
+Feature_Title_1     = "令人驚歎的速度";
+Feature_Title_Sub_1 = "無延遲地訪問網頁,進行遊戲;支持網飛,BBC多款App";
+Feature_Title_2     = "隱私安全,值得信賴";
+Feature_Title_Sub_2 = "軍工級別的安全防護,線上守護您的隱私";
+Feature_Title_3     = "來自全球用戶的認可";
+Feature_Title_Sub_3 = "我們擁有百萬級別的基礎用戶,數以萬計的會員用戶";
+
+Feature_Button_Next = "下一步";
+Feature_Button_Free = "開始免費試用";
+
+VIPTrailDays7              = "免費體驗7天會員";
+VIPStoreTitle1             = "升級至會員以享有以下權益";
+VIPStoreTitle2             = "以優惠價格升級至年度會員";
+VIPPrice1                  = "之後每月支付 %@";
+VIPPrice2                  = "%@/月";
+VIPPrice21                 = "%@/90天";
+VIPPrice22                 = "%@/180天";
+VIPPrice3                  = "%@/年";
+VIPPrice31                 = "之後每年支付 %@";
+VIPPrice32                 = "7天免費體驗然後每年%@";
+VIPPrice33                 = "7天免費體驗然後每月%@";
+VIPPrice34                 = "3天免費體驗然後每週%@";
+VIPPrice4                  = "優惠 %0.2f%%";
+VIPPrice5                  = "優惠 %0.2f%%・%@/月";
+VIPNoteText                = "注意:\n如果您是首次購買連續包年套餐，那麼您可以獲得長達7天的免費體驗。若在這7天內您沒有取消訂閱，則會視作你同意訂閱，並將按照%@進行收費。\n您隨時可以取消訂閱，操作完成後會記入您的AppleID帳戶。如果未在訂閱期限結束前24小時內取消訂閱，那麼則會自動續訂。您隨時可以在蘋果商店的訂閱管理中管理您的訂閱。\n您的訂閱記錄與您的設備uid是綁定的。只要您沒有刷機或更換手機，您的訂閱記錄便不會丟失。";
+
+VIPStoreContent_Title1             = "立刻成为会员";
+VIPStoreContent_Desc1             = "享受如下特权";
+
+VIPPrivatePolicy           = "隱私政策";
+VIPUserAgreement           = "服務協議";
+
+Basic = "試用";
+BasicFeature0 = "受限制的連接速度";
+BasicFeature1 = "僅支持訪問少數節點";
+BasicFeature2 = "限制在一臺設備上使用";
+BasicFeature3 = "一些App的使用受限制";
+
+Premium = "會員";
+PremiumFeature0 = "更快的連接速度";
+PremiumFeature1 = "更多的全球虛擬節點";
+PremiumFeature2 = "支持在多設備使用";
+PremiumFeature3 = "支持網飛等國外App";
+
+Feature_Button_Subscribe = "訂閱";
+Feature_Button_Ok        = "好的";
+
+VIPPromotionDesc1          = "免費體驗7天會員";
+VIPPromotionDesc2          = "更快速度,更多功能";
+VIPPromotionDesc3          = "以優惠價格升級至年度會員";
+VIPPromotionText1          = "開始免費試用";
+VIPPromotionText2          = "成為會員";
+
+VIPStoreTitle  = "成為會員";
+VIPStoreDesc0  = "感受不一樣的連接速度";
+VIPStoreDesc1  = "· 享受更為海量的線上資源";
+VIPStoreDesc2  = "· 訪問更多優質的線路節點";
+VIPStoreDesc3  = "· 體驗更加流暢的4K畫質";
+VIPStoreDesc4  = "· 能夠在多臺設備進行登錄";
+
+// time
+Home_Time = "剩餘時間:";
+Home_Ad_RefreshTime = "每日廣告次數重置時間: %@(GMT 00:00)";
+Home_Time_Add       = "看廣告增加時長";
+Time_Year   = "年";
+Time_Years  = "年";
+Time_Month  = "月";
+Time_Months = "月";
+Time_Day    = "天";
+Time_Days   = "天";
+Time_Hour    = "小時";
+Time_Hours   = "小時";
+
+// ad request fail
+Ad_Request_Fail = "廣告請求失敗";
+Ad_Request_Text = "獲取7天免費試用並去除廣告";
+Ad_Request_ToVip = "成為會員，無廣告";
+
+// ad request success
+Ad_reward_suc   = "添加成功";
+Ad_reward_text  = "獲取更多時長或解鎖更多功能";
+Ad_reward_watch = "繼續觀看";
+Ad_rm           = "去除廣告,成為會員";
+
+// ad max
+Ad_Play_Limit = "您今日流覽次數已達上限";
+
+// config
+Config_Add_Title        = "允許Super VPN添加配置檔";
+Config_Add_Tip          = "若要讓VPN正常運行，您必須同意該設置";
+Config_Install_Fail_Tip = "安裝VPN配置後才能使用服務";
+Config_Desc = "請使用指紋解鎖或密碼予以同意";
+
+// 原生廣告介面
+NativeAd_Time           = "剩餘時間: ";
+NativeAd_Time_Add       = "添加時間";
+NativeAd_Connected      = "已連接";
+NativeAd_Connected_Rate = "請對這次連接打分:";
+NativeAd_Rate_Satisfy   = "滿意";
+NativeAd_Rate_Soso      = "一般";
+NativeAd_Rate_UnSatisfy = "不滿意";
+NativeAd_Rate_Title = "对于本次连接，你满意吗？";
+
+Privacy_Title    = "我們認真對待您的隱私問題";
+Privacy_Content0 = "通常來說，我們需要獲取您的一些數據用於更好地提供我們的產品與服務。我們會儘量減少這些數據的收集頻次，並在收集後對其做匿名化處理，或會在使用後儘快刪除:";
+Privacy_Content1 = "- 設備uid";
+Privacy_Content2 = "- 系統語言設置";
+Privacy_Content3 = "- 蘋果訂單資訊";
+Privacy_Content4 = "我們承諾：絕不會記錄您的任何個人資料和線上活動";
+Privacy_Content5 = "同意並繼續";
+
+// 贈送會員過期提醒
+Notification_Expired_Remind = "您的免費試用將在%ld天後結束。";
+// 非VIP提醒
+Notification_NoneVIP_Remind = "您可以通過流覽廣告以獲取獎勵時間。快嘗試一下吧！";
+// 進入應用
+Notificaiton_Enter  = "進入應用";
+Notificaiton_Cancel = "忽略";
+
+Notice_Default_Text = "歡迎來到Super VPN！盡情享受吧！";
+
+Email    = "郵箱";
+Password = "密碼";
+Password_Simple = "簡單";
+Password_Medium = "中等";
+Password_Complex = "複雜";
+Password_Tip = "密碼長度不能少於6個字元";
+Password_New = "新密碼";
+Password_Reset_Ok = "OK";
+Reset_Password = "重置密碼";
+Email_Verification = "郵箱驗證碼";
+
+// 郵箱登錄
+Login_Uppercase = "郵箱登錄";
+Login_Lowercase = "OK";
+Login_Forget_Password = "忘記密碼？";
+Login_New_User        = "還未綁定郵箱？";
+Login_Register_Now    = "點擊綁定";
+Login_By_Email = "郵箱登錄";
+Login_By_Quick = "免註冊登錄";
+Login_Title = "郵箱登錄";
+Login_Login = "登錄";
+Login_bind_mailbox_text = "未绑定邮箱？";
+Login_Link = "绑定";
+
+// 註冊
+Register_Uppercase = "綁定郵箱";
+Register_Lowercase = "OK";
+Register_SignIn = "已綁定郵箱?";
+Register_Target = "用於登錄Android&Mac&Windows";
+
+// forgot
+Forgot_Reset_Password_Tip = "為了保護您的帳戶安全，需要進行郵箱驗證";
+Forgot_Email = "忘記郵箱?";
+Forgot_Verify = "驗證";
+Send_Code = "點擊發送";
+Resend_Code = "重新發送";
+Forgot_Nextstep = "下一步";
+Forgot_Email_Code ="驗證碼";
+
+// dialog
+Dialog_Contact_Title = "如何聯繫我們";
+Dialog_Contact_Text  = "請聯繫我們的客服郵箱(vpnletgo@gmail.com)，並在郵件中附上您的設備id(可在個人中心中查看)";
+Forgot_Email_title_tip = "填写邮箱";
+Forgot_Email_desc_tip = "然后为了账户安全验证邮箱";
+
+// error
+Error_Email_Empty    = "郵箱不能為空";
+Error_Email_Invaid   = "無效郵箱";
+Error_Password_Empty = "密碼不能為空";
+Error_Code_Invaid   = "無效的驗證碼";
+
+// success
+Login_success = "郵箱登錄成功";
+Register_success = "郵箱綁定成功";
+Password_Reset_success = "密碼重置成功";
+Password_modify_success = "密碼修改成功";
+Send_Code_Success = "發送成功，請檢查您的郵箱";
+
+// user
+User_Guest   = "訪客";
+User_Account = "帳戶";
+User_UUID    = "設備ID";
+User_Sign_Out = "登出";
+User_Not_associated = "未綁定";
+User_Devices = "設備";
+User_Unbind  = "解綁郵箱";
+
+Dialog_Disassociate_title   = "解綁該郵箱?";
+Dialog_Disassociate_message = "這將意味著你無法再使用該郵箱進行多端登錄。請輸入密碼以確認";
+Dialog_Disassociate_Success = "解綁成功";
+
+Dialog_Sign_Out_Title = "登出該郵箱?";
+Dialog_Sign_Out_message = "確認現在登出嗎?";
+Dialog_Sign_Out_Ok      = "登出";
+Dialog_Sign_Out_Success = "退出登錄成功";
+
+// 複製
+Copy = "複製";
+Copy_Success = "複製成功";
+
+// 購買成功，引導綁定郵箱
+Dialog_Purchase_Success_Title   = "訂閱成功";
+Dialog_Purchase_Success_Message = "建議您綁定郵箱，以方便在多設備上登錄";
+
+// 熱銷
+VIP_Hot = "60% off";
+
+// 绑定邮箱
+Associate_Email ="綁定郵箱以便多設備登錄";
+Associate_Email_Reward ="綁定郵箱以便多端登錄和獲得獎勵";
+
+// uuid已复制
+UUID_Copyed = "uuid已複製";
+
+// 分享
+Share                = "分享好友";
+Share_Slide          = "分享";
+Share_Text           = "1款免费且不限流的VPN";
+Share_Your           = "您的分享码";
+Share_Redeem_Text1   = "推荐给还未使用的好友，双方都能获得免费时长";
+Share_Redeem_Text2   = "推荐给还未使用的好友，让其获得免费时长";
+Share_Success        = "分享成功";
+Share_Success_Mesage = "当好友使用分享码后即可获得免费时长奖励";
+// 兑换奖励
+Redeem_reward      = "兌換獎勵";
+Redeem_reward_text = "請輸入兌換碼";
+Redeem_placeholder = "兌換碼";
+Redeem_Error_Empty = "兌換碼不能為空";
+Redeem_Success     = "兌換成功";
+Dialog_Submit      = "兌換";
+
+// 扫码界面
+Scan_Title      = "掃碼";
+Scan_Tip        = "掃碼以登錄PC/Mac";
+Scan_Code_Title   = "確認登錄";
+Scan_Code_Message = "確認登錄？";
+Scan_Code_Request_Auth = "Super VPN可通過掃描二維碼登錄 PC/Mac. 請允許 Super VPN 使用相機許可權。";
+Scan_Code_Ok      = "確認";
+Scan_Code_Cancel  = "取消";
+Scan_Code_Invaild = "二維碼無效";
+Scan_Code_Success = "授權登錄成功";
+
+Benefits_Title = "會員權益";
+Benefits_Step_0    = "安裝Super VPN";
+Benefits_Step_1    = "成為會員";
+Benefits_Step_2    = "登錄多端";
+
+Benefits_Platform_0 = "登錄多端";
+Benefits_Platform_1_Format = "郵箱";
+Benefits_Platform_1 = "您可通過%@登錄Mac & PC & Andriod";
+Benefits_Platform_2 = "瞭解更多";
+
+Benefits_Line_0 = "更穩定的線路";
+Benefits_Line_1 = "享受4K視頻,遊戲暢玩";
+
+Benefits_Privacy_0 = "隱私安全";
+Benefits_Privacy_1 = "軍工級別的隱私保護";
+
+Scan_Guide_Message = "為了您的帳號安全，請先綁定郵箱後再掃碼。";
+Scan_Guide_Cancel = "取消";
+Scan_Guide_OK = "前往綁定";
+
+Feedback_Text = "反饋";
+Feedback_myproblem   = "我的問題";
+Feedback_failconnect = "連接失敗";
+Feedback_slowspeed   = "速度慢";
+Feedback_lackline    = "缺少我想要的線路";
+Feedback_Disconnect_Game = "玩遊戲時掉線";
+Feedback_somethings_else = "其他";
+Feedback_details     = "問題描述";
+Feedback_details_placeholder1 = "請輸入您的問題描述";
+Feedback_details_placeholder2 = "請輸入您的問題描述。我們將在問題提交後給您1天免費時長作為答謝";
+Feedback_details_placeholder3 = "请输入你遇到的问题.（建议使用英文）";
+Feedback_email = "聯繫郵箱";
+Feedback_contact = "聯繫方式";
+Feedback_email_placeholder = "留下你的Whatsapp, Telegram或者E-mail";
+Feedback_email_placeholder1 = "请输入你的邮箱账号";
+Feedback_email_error = "該郵箱不存在";
+Feedback_submit = "提交";
+Feedback_issue  = "您遇到了什麼問題？";
+Feedback_issue_title = "問題詳情";
+Feedback_email_invaild = "請輸入有效的電子郵箱";
+Feedback_content_invaild = "請至少輸入10個字符";
+
+Toast_Feedback_fail = "您未說明是什麼問題";
+Toast_Feedback_succ1 = "感謝您的反饋\n加入我們就有機會成為免費會員";
+Toast_Feedback_succ2 = "感謝您的回饋，為您添加1天免費時長";
+Toast_Register_Reward = "感謝綁定，贈送您3天免費時長";
+Toast_Reward          = "恭喜! 您獲得了 %@";
+
+Recommand_App_Text = "真正免費的VPN, 沒有流量限制";
+Recommand_Dialog_Title = "推薦";
+Recommand_Dialog_Text = "向您推薦1款節點多的免費VPN";
+Recommand_Dialog_Button = "前往";
+
+Recommand_slog_text = "免費獲得會員";
+
+
+Dialog_Notify_title   = "保持聯繫";
+Dialog_Notify_message = "為更好地獲取折扣消息，請您在設置中允許通知推送";
