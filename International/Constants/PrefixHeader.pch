@@ -1,0 +1,38 @@
+/***************************************************************************************************
+ **  Copyright © 2016年 Jinn Chang. All rights reserved.
+ **  Giuhub: https://github.com/jinnchang
+ **
+ **  FileName: PrefixHeader.pch
+ **  Description: 预加载头文件
+ **  1、在 Precompile Prefix Header 中设为 YES
+ **  2、在 Prefix Header 中设为 $(SRCROOT)/Constant/PrefixHeader.pch
+ **  3、上述路径是相对路径，根据实际文件路径而定
+ **
+ **  Author:  jinnchang
+ **  Date:    2016/9/8
+ **  Version: 1.0.0
+ **  Remark:  Create New File
+ **************************************************************************************************/
+
+#ifndef PrefixHeader_pch
+#define PrefixHeader_pch
+#ifdef __OBJC__
+
+#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
+
+#import "SystemConstant.h"
+#import "UtilConstant.h"
+#import "AppConstant.h"
+#import "NotificationConstant.h"
+#import "VendorConstant.h"
+#import "ManagerConstant.h"
+
+#if DEBUG
+#define NSLog(FORMAT, ...) fprintf(stderr,"\nfunction:%s line:%d content:%s\n", __FUNCTION__, __LINE__, [[NSString stringWithFormat:FORMAT, ##__VA_ARGS__] UTF8String]);
+#else
+#define NSLog(FORMAT, ...) nil
+#endif
+
+#endif
+#endif
