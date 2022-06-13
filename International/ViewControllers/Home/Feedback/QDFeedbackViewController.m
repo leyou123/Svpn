@@ -86,7 +86,6 @@
     self.viewOriginY = self.view.frame.origin.y;
     self.wrapView = [[UIView alloc] initWithFrame:CGRectMake(0, kStatusBarHeight+44, SCREEN_W, SCREEN_H)];
     [self.view addSubview:self.wrapView];
-    
     [self setupScrollView];
 //    [self setupTitle:NSLocalizedString(@"Feedback_Text", nil)];
 }
@@ -436,15 +435,16 @@
 
 #pragma  mark - button actions
 - (void) outsideAction {
-    self.wrapView.mj_y = self.viewOriginY;
+    self.wrapView.mj_y = kStatusBarHeight+kAppNavigationBarHeight;
     if (self.textView.isFirstResponder)
         [self.textView resignFirstResponder];
     if (self.textField.isFirstResponder)
         [self.textField resignFirstResponder];
+    
 }
 
 - (void) submitAction {
-    self.wrapView.mj_y = self.viewOriginY;
+    self.wrapView.mj_y = kStatusBarHeight+kAppNavigationBarHeight;
     
     // 关闭键盘
     if (self.textView.isFirstResponder)
@@ -501,7 +501,7 @@
             // 刷新用户信息
             [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationUserActive object:nil];
             
-            [self doCommitSuccAction:isSelectLacklines message:NSLocalizedString(@"Toast_Feedback_succ1", nil)];
+//            [self doCommitSuccAction:isSelectLacklines message:NSLocalizedString(@"Toast_Feedback_succ1", nil)];
             
 //            if (!QDConfigManager.shared.isCommitIssue) {
 //                // 奖励

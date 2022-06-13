@@ -10,6 +10,8 @@
 
 @interface QDADsViewController ()
 
+@property (nonatomic, strong) UIImageView * imageView;
+
 @end
 
 @implementation QDADsViewController
@@ -17,28 +19,20 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    [self showOpenAd];
-    [self closeADs];
+//    [self showOpenAd];
+//    [self closeADs];
+    [self.view addSubview:self.imageView];
+    
+//    [QDAdManager.shared setup:YES];
+//    [QDAdManager.shared showInterstitial];
 }
 
-// 显示开屏
-- (void) showOpenAd {
-    BOOL isVIP = (QDConfigManager.shared.activeModel && QDConfigManager.shared.activeModel.member_type == 1);
-    if (QDConfigManager.shared.isNoneFirstEnterApp && !isVIP) {
-        BOOL show_open_ad = [QDVersionManager.shared.versionConfig[@"show_open_ad"] intValue] == 1;
-        if (show_open_ad) {
-            [QDAdManager.shared showInterstitial];
-            return;
-        }
+- (UIImageView *)imageView {
+    if (!_imageView) {
+        _imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight)];
+        _imageView.image = [UIImage imageNamed:@"icon-1"];
     }
-}
-
-- (void)closeADs {
-    [QDAdManager.shared showVideo:^(BOOL result) {
-        if (result) {
-            
-        }
-    }];
+    return _imageView;
 }
 
 /*

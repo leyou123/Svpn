@@ -694,6 +694,9 @@
 
 -(void)selectClick
 {
+    if (!typeStr) {
+        typeStr = @"1";
+    }
     if ([typeStr isEqualToString:@"1"]) {
         [self yearSubcribeAction];
     }else if ([typeStr isEqualToString:@"2"]){

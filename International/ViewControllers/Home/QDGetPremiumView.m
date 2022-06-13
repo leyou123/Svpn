@@ -125,7 +125,7 @@
             self.clickStatus = 1;
         }else {
             self.leftIv.image = [UIImage imageNamed:@"home_bind_mailBox"];
-            self.topLB.text = @"Bind E_Mail";
+            self.topLB.text = @"Bind E-Mail";
             self.bottomLB.text = @"Android&Web&Mac";
             self.clickStatus = 2;
         }

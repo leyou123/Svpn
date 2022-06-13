@@ -158,13 +158,9 @@
 
     // 得到当前时间（世界标准时间 UTC/GMT）
     NSDate *nowDate = [NSDate date];
-    // 设置系统时区为本地时区
-    NSTimeZone *zone = [NSTimeZone systemTimeZone];
-    // 计算本地时区与 GMT 时区的时间差
-    NSInteger interval = [zone secondsFromGMT];
-    // 在 GMT 时间基础上追加时间差值，得到本地时间
-    nowDate = [nowDate dateByAddingTimeInterval:interval];
-
+    // 设置时区
+    NSTimeZone *timeZone = [NSTimeZone timeZoneWithName:@"UTC"];
+    dateFormatter.timeZone = timeZone;
     NSString *nowDateString = [dateFormatter stringFromDate:nowDate];
 
     return nowDateString;

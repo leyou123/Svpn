@@ -263,6 +263,7 @@
         @"uid":@(QDConfigManager.shared.UID),
         @"email":email,
         @"content":content,
+        @"package_id":APP_BUNDLE_ID,
         @"type":type} completed:completed];
 }
 

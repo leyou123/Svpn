@@ -292,9 +292,11 @@ static NSString *const kPasswordKey = @"key_password";
         NSDictionary * dic = [NSMutableDictionary dictionary];
         [dic setValue:[self getReportData:hostArray] forKey:@"items"];
         NSLog(@"%@",dic);
-        [QDModelManager requestFeedBackPing:dic Completed:^(NSDictionary * _Nonnull dictionary) {
-            NSLog(@"%@",dictionary);
-        }];
+        if (QDVPNManager.shared.status != NEVPNStatusConnected) {
+            [QDModelManager requestFeedBackPing:dic Completed:^(NSDictionary * _Nonnull dictionary) {
+                NSLog(@"%@",dictionary);
+            }];
+        }
     }];
 }
 

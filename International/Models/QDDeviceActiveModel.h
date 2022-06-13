@@ -17,7 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 // 套餐等级 1 月套餐 2 季度套餐 3 半年套餐 4 一年套餐
 @property(nonatomic, copy) NSString* set_meal;
 
-// 1 正式会员 2 赠送会员 3 非会员
+// 1 正式会员 2 赠送会员 3 非会员 4 时长会员
 @property(nonatomic, assign) int member_type;
 
 //0 正常 1 拦截

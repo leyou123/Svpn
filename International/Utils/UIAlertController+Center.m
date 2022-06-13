@@ -20,14 +20,8 @@
 {
     if (self.preferredStyle == UIAlertControllerStyleAlert && self.view.window)
     {
-        CGRect myRect = self.view.bounds;
-        CGRect windowRect = [self.view convertRect:myRect toView:nil];
-        if (!CGRectContainsRect(self.view.window.bounds, windowRect) || CGPointEqualToPoint(windowRect.origin, CGPointZero))
-        {
-            CGPoint center = self.view.window.center;
-            CGPoint myCenter = [self.view.superview convertPoint:center fromView:nil];
-            self.view.center = myCenter;
-        }
+        CGPoint myCenter = CGPointMake(kScreenWidth/2.0, kScreenHeight/2.0);
+        self.view.center = myCenter;
     }
     else if (self.preferredStyle == UIAlertControllerStyleActionSheet && self.traitCollection.userInterfaceIdiom == UIUserInterfaceIdiomPhone && self.view.window)
     {

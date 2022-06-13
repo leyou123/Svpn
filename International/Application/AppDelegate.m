@@ -75,6 +75,7 @@ static BOOL isEnterBackground = NO;
     // 通知用户界面刷新
     if(isEnterBackground) {
         [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationUserChange object:nil];
+        [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationAppBecomeActive object:nil];
         
         // 检查0点时间
         [QDActivityManager.shared checkZeroTime];
@@ -129,6 +130,8 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
 // 初始化
 - (void) setup {
     
+    [QDAdManager.shared setup:YES];
+    
     [self initWindow];
     
     // 标签栏
@@ -164,8 +167,6 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
     // 初始化完成统计
     [QDTrackManager track:QDTrackType_app_inited data:@{}];
 //    [QDLocalNoticationManager.shared setup];
-//    [QDAdManager.shared setup:YES];
-    [UnityOpenAds.shared setup];
 }
 
 // 注册通知
@@ -368,7 +369,6 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
     
     self.window.rootViewController = self.drawerController;
     [self.window makeKeyAndVisible];
-    
 }
 
 - (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController {

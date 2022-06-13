@@ -43,7 +43,6 @@
 //    // 开发环境
     #define HOST_URLs @[@"https://api.9527.click"]
 //#define HOST_URLs @[@"https://test.9527.click"]
-//#define HOST_URLs @[@"http://54.219.209.151:8000"]
 //#define HOST_URLs @[@"http://54.177.55.54:10050"]
 
 

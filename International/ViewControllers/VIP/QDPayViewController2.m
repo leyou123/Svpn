@@ -37,6 +37,8 @@
     // back
     self.view.backgroundColor = [UIColor whiteColor];
     
+    typeStr = @"1";
+    
     // scrollview
     [self setupScrollView];
     

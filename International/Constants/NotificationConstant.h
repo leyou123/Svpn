@@ -16,6 +16,7 @@ static NSString * const kNotificationLineRefresh = @"NotificationLineRefresh";
 static NSString * const kNotificationConfigInstallStart = @"kNotificationConfigInstallStart";
 static NSString * const kNotificationConfigInstallFail = @"NotificationConfigInstallFail";
 static NSString * const kNotificationConfigInstallEnd = @"NotificationConfigInstallEnd";
+static NSString * const kNotificationAppBecomeActive = @"NotificationAppBecomeActive";
 
 // 页面切换
 static NSString * const kNotificationtabChanged = @"NotificationtabChanged";
