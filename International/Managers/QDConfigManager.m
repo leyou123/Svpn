@@ -275,7 +275,7 @@ static NSString *const kPasswordKey = @"key_password";
     
     self.vipNodes  = arr;
     
-    [self startPing];
+//    [self startPing];
 }
 
 - (void)startPing {

@@ -291,7 +291,9 @@
         make.height.equalTo(@(44));
         make.centerX.equalTo(self.scrollView);
     }];
-    if (QDConfigManager.shared.email && ![QDConfigManager.shared.email isEqualToString:@""]) self.textField.text = QDConfigManager.shared.email;
+    NSLog(@"%@",QDConfigManager.shared.email);
+    if (QDConfigManager.shared.activeModel.email && ![QDConfigManager.shared.activeModel.email isEqualToString:@""])
+        self.textField.text = QDConfigManager.shared.activeModel.email;
     
     UIView* lineView = [[UIView alloc] initWithFrame:CGRectZero];
     lineView.backgroundColor = RGB_HEX(0xe5eff0);

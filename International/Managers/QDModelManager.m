@@ -302,7 +302,7 @@
 }
 
 // 连接记录
-+ (void) requestConnectRecord:(NSString *)time pingResult:(BOOL)ping connectResult:(BOOL)connect completed:(void (^)(NSDictionary *dictionary)) completed {
++ (void) requestConnectRecord:(NSString *)time pingResult:(int)ping connectResult:(int)connect completed:(void (^)(NSDictionary *dictionary)) completed {
     [[QDHTTPManager shared] request:HTTPMethodTypePost type:kAPIConnectRecord parameters:@{
         @"uuid":QDConfigManager.shared.UUID,
         @"node_ip":QDConfigManager.shared.node.ip,
@@ -310,8 +310,8 @@
         @"ping_result":@(ping),
         @"connect_result":@(connect),
         @"connect_time":time,
-        @"dev_name":[QDDeviceUtils platformString],
-        @"network":[QDDeviceUtils deviceNetWork],
+        @"dev_name":[QDDeviceUtils platformString] ? [QDDeviceUtils platformString] : @"",
+        @"network":[QDDeviceUtils deviceNetWork] ? [QDDeviceUtils deviceNetWork] : @"",
         @"operator":[QDDeviceUtils getCarrierInfo]
     } completed:completed];
 }

@@ -127,7 +127,10 @@ static NSString *const kServiceKey = @"com.superoversea";
     CTTelephonyNetworkInfo *telephonyInfo = [[CTTelephonyNetworkInfo alloc] init];
     CTCarrier *carrier = [telephonyInfo subscriberCellularProvider];
     NSString *carrierName=[carrier carrierName];
-    return carrierName;
+    if (carrierName) {
+        return carrierName;
+    }
+    return @"";
 }
 
 @end

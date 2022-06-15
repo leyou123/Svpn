@@ -123,18 +123,8 @@
         NSString* canel        = nil;
         NSString* message      = NSLocalizedString(@"Version_Latest", nil);
         
-        if (needUpdate) {
-            title   = [NSString stringWithFormat:NSLocalizedString(@"Version_Info", nil), appstoreVersion];
-            message = [self.appstoreInfoDict[@"results"][0] objectForKey:@"releaseNotes"];
-            if (!needForceUpdate) {
-                canel = NSLocalizedString(@"Dialog_Cancel", nil);
-            }
-            [QDDialogManager showVersionUpdate:title message:message ok:ok cancel:canel okBlock:^{
-                    NSURL *url =[NSURL URLWithString:trackViewUrl];
-                    [[UIApplication sharedApplication] openURL:url options:@{} completionHandler:nil];
-                } cancelBlock:^{
-            }];
-        } else {
+        // 弹窗开关 0 不弹窗 1 弹窗
+        if ([self.appInfoDict[@"data"][@"switch"] integerValue] == 0) {
             // 不是自动检测更新
             if (!isAuto) {
                 ok = NSLocalizedString(@"Dialog_Ok", nil);
@@ -144,7 +134,32 @@
                     
                 }];
             }
+        }else {
+            if (needUpdate) {
+                title   = [NSString stringWithFormat:NSLocalizedString(@"Version_Info", nil), appstoreVersion];
+                message = [self.appstoreInfoDict[@"results"][0] objectForKey:@"releaseNotes"];
+                if (!needForceUpdate) {
+                    canel = NSLocalizedString(@"Dialog_Cancel", nil);
+                }
+                [QDDialogManager showVersionUpdate:title message:message ok:ok cancel:canel okBlock:^{
+                        NSURL *url =[NSURL URLWithString:trackViewUrl];
+                        [[UIApplication sharedApplication] openURL:url options:@{} completionHandler:nil];
+                    } cancelBlock:^{
+                }];
+            } else {
+                // 不是自动检测更新
+                if (!isAuto) {
+                    ok = NSLocalizedString(@"Dialog_Ok", nil);
+                    [QDDialogManager showDialog:title message:message ok:ok cancel:canel okBlock:^{
+                        
+                    } cancelBlock:^{
+                        
+                    }];
+                }
+            }
         }
+        
+        
     });
 }
 

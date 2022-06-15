@@ -91,7 +91,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (void) requestCountrySublinesCountry:(NSString *)country completed:(void (^)(NSDictionary *dictionary)) completed;
 
 // 连接记录
-+ (void) requestConnectRecord:(NSString *)time pingResult:(BOOL)ping connectResult:(BOOL)connect completed:(void (^)(NSDictionary *dictionary)) completed;
++ (void) requestConnectRecord:(NSString *)time pingResult:(int)ping connectResult:(int)connect completed:(void (^)(NSDictionary *dictionary)) completed;
 
 // ping反馈
 + (void) requestFeedBackPing:(NSDictionary *)list Completed:(void (^)(NSDictionary *dictionary)) completed;
