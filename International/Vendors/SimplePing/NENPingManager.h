@@ -26,7 +26,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface NENPingManager : NSObject
 
-- (void)getFatestAddress:(NSArray *)addressList completionHandler:(CompletionHandler)completionHandler;
+- (void)getFatestAddress:(NSArray *)addressList requestTimes:(int)times completionHandler:(CompletionHandler)completionHandler;
 
 @end
 

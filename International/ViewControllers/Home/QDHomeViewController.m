@@ -56,6 +56,7 @@
 #import "MMDrawerController.h"
 #import "FFSimplePingHelper.h"
 #import "UnityOpenAds.h"
+#import "NENPingManager.h"
 
 static NSString *const kLastTime = @"kLastTime";
 static NSString *const kHadRate = @"kHadRate";
@@ -106,6 +107,8 @@ static NSString *const kHadRate = @"kHadRate";
 @property (nonatomic, assign) BOOL canShowAds;
 
 @property (nonatomic,strong) FFSimplePingHelper *simplePingHelper;
+
+@property (nonatomic,strong) NENPingManager *pingHelper;
 
 @end
 
@@ -1110,21 +1113,21 @@ static NSString *const kHadRate = @"kHadRate";
         case NEVPNStatusDisconnected:
         {
             // 任务状态
-//            if ([QDTaskManager.shared hasTaskByType:QDTaskTypeDisconnected]) {
-//
-//                // 移除断开任务
-//                [QDTaskManager.shared remove:QDTaskTypeDisconnected];
-//
-//                // 若存在连接任务，则执行
-//                if ([QDTaskManager.shared hasTaskByType:QDTaskTypeConnected]) {
-//                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//                        // 无任务执行
-//                        if (![QDTaskManager.shared hasTask]) return;
-//                        [QDTaskManager.shared remove:QDTaskTypeConnected];
+            if ([QDTaskManager.shared hasTaskByType:QDTaskTypeDisconnected]) {
+
+                // 移除断开任务
+                [QDTaskManager.shared remove:QDTaskTypeDisconnected];
+
+                // 若存在连接任务，则执行
+                if ([QDTaskManager.shared hasTaskByType:QDTaskTypeConnected]) {
+                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                        // 无任务执行
+                        if (![QDTaskManager.shared hasTask]) return;
+                        [QDTaskManager.shared remove:QDTaskTypeConnected];
 //                        [self startConnnectVPN];
-//                    });
-//                }
-//            }
+                    });
+                }
+            }
         }
             break;
         case NEVPNStatusConnecting:
@@ -1137,8 +1140,8 @@ static NSString *const kHadRate = @"kHadRate";
                 // 移除连接任务
                 [QDTaskManager.shared removeAll];
                 
-                // 验证网络是否可访问
-                [self verifyCanAccessUrl];
+//                // 验证网络是否可访问
+//                [self verifyCanAccessUrl];
             }
             if (QDVPNManager.shared.status == NEVPNStatusConnected) {
                 [self.connectButton updateUIStatus:status_button_connected];
@@ -1287,19 +1290,19 @@ static NSString *const kHadRate = @"kHadRate";
 // 连接之后的动作，非会员连接后弹出
 - (void) doConnectAction {
     
-    // 防止重复弹出
-    for (UIViewController* vc in self.navigationController.viewControllers) {
-        if ([NSStringFromClass([vc class]) isEqual:@"QDNativeAdViewController"]) {
-            return;
-        }
-    }
+//    // 防止重复弹出
+//    for (UIViewController* vc in self.navigationController.viewControllers) {
+//        if ([NSStringFromClass([vc class]) isEqual:@"QDNativeAdViewController"]) {
+//            return;
+//        }
+//    }
 
 //    if (!QDConfigManager.shared.activeModel || QDConfigManager.shared.activeModel.member_type != 1) {
 //
 //    }
     self.canShowAds = YES;
     QDNativeAdViewController* vc = [QDNativeAdViewController new];
-    vc.hidesBottomBarWhenPushed = YES;
+//    vc.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:vc animated:YES];
 //    // 丢弃（不稳定，容易引起崩溃）
 //    [QDStoreReviewManager.shared show];
@@ -1350,11 +1353,14 @@ static NSString *const kHadRate = @"kHadRate";
             [QDVPNManager.shared start:dict completion:^(NSError * _Nonnull error) {
                 if (error) {
                     
-                    if ([QDTaskManager.shared hasTask]) {
+//                    if ([QDTaskManager.shared hasTask]) {
                         // 连接失败
                         [QDTrackManager track:QDTrackType_connect_fail_tunnel data:@{@"node_id":QDConfigManager.shared.node.nodeid}];
                         [self doConnectFail:@"隧道连接失败"];
-                    }
+//                    }
+                }else {
+                    // 验证网络是否可访问
+                    [self verifyCanAccessUrl];
                 }
             }];
         } else {
@@ -1454,13 +1460,48 @@ static NSString *const kHadRate = @"kHadRate";
 }
 
 - (void)startPingWIthAction:(int)action complete:(void(^)(void))complete {
+    
+    [self.connectButton updateUIStatus:status_button_loading];
+    NSArray * arr = @[QDConfigManager.shared.node.host];
+    self.pingHelper = [[NENPingManager alloc] init];
+    [self.pingHelper getFatestAddress:arr requestTimes:1 completionHandler:^(NSString * _Nonnull host, NSArray * _Nullable itemArr) {
+        NSInteger delayTimes = [[[[itemArr firstObject] objectForKey:host] firstObject] integerValue];
+        if (delayTimes == 10000) {
+            [QDModelManager requestConnectRecord:[QDDateUtils getNowDateString] pingResult:0 connectResult:0 completed:^(NSDictionary * _Nonnull dictionary) {
+
+            }];
+            if (QDConfigManager.shared.otherLinesNodes.count > 0) {
+                QDNodeModel * node = [QDConfigManager.shared connectFailUpdateLines];
+                [self.lineButton updateNode:QDConfigManager.shared.node];
+                if (action == 1) {
+                    [self startPing];
+                }else {
+                    [self changeStartPing];
+                }
+            }else {
+                [self.connectButton updateUIStatus:status_button_fail];
+                [QDDialogManager showDialog:NSLocalizedString(@"Connect_fail", nil) message:NSLocalizedString(@"Ping_fail_info", nil) ok:NSLocalizedString(@"Connect_success_ok", nil) cancel:nil okBlock:^{
+                    self.canShowAds = YES;
+                    QDFeedbackViewController* vc = [QDFeedbackViewController new];
+                    vc.hidesBottomBarWhenPushed = YES;
+                    [self.navigationController pushViewController:vc animated:YES];
+                } cancelBlock:^{
+                }];
+            }
+        }else {
+            complete();
+        }
+    }];
+    
+    return;
+    
     if (self.simplePingHelper) {
         self.simplePingHelper = nil;
     }
     // ping判断
     self.simplePingHelper = [[FFSimplePingHelper alloc] initWithHostName:QDConfigManager.shared.node.host];
     [self.simplePingHelper startPing];
-    [self.connectButton updateUIStatus:status_button_loading];
+    
     __strong typeof(self) strongSelf = self;
     self.simplePingHelper.resultStatus = ^(NSInteger result) {
         if (result == 10000) {
@@ -1675,6 +1716,7 @@ static NSString *const kHadRate = @"kHadRate";
                 [QDTaskManager.shared add:QDTaskTypeConnected];
                 [QDTaskManager.shared add:QDTaskTypeDisconnected];
                 [QDVPNManager.shared stop];
+                [self changeStartPing];
             }
         }
     }];

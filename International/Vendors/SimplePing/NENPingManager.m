@@ -44,7 +44,7 @@
 
 @implementation NENPingManager
 
-- (void)getFatestAddress:(NSArray *)addressList completionHandler:(CompletionHandler)completionHandler
+- (void)getFatestAddress:(NSArray *)addressList requestTimes:(int)times completionHandler:(CompletionHandler)completionHandler
 {
     [[NSOperationQueue mainQueue] addOperationWithBlock:^{
         if (addressList.count == 0) {
@@ -63,7 +63,7 @@
         
         for (NSString *address in addressList) {
             dispatch_group_enter(group);
-            NENSinglePinger *singlePinger = [NENSinglePinger startWithHostName:address count:3 pingCallBack:^(NENPingItem *pingitem) {
+            NENSinglePinger *singlePinger = [NENSinglePinger startWithHostName:address count:times pingCallBack:^(NENPingItem *pingitem) {
                 switch (pingitem.status) {
                     case NENSinglePingStatusDidStart:
                         break;

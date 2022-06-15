@@ -288,7 +288,7 @@ static NSString *const kPasswordKey = @"key_password";
         }
     }
     self.pingManager = [[NENPingManager alloc] init];
-    [self.pingManager getFatestAddress:self.addressList completionHandler:^(NSString * _Nonnull host, NSArray * _Nullable hostArray) {
+    [self.pingManager getFatestAddress:self.addressList requestTimes:3 completionHandler:^(NSString * _Nonnull host, NSArray * _Nullable hostArray) {
         NSDictionary * dic = [NSMutableDictionary dictionary];
         [dic setValue:[self getReportData:hostArray] forKey:@"items"];
         NSLog(@"%@",dic);
