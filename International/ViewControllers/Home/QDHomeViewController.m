@@ -941,7 +941,7 @@ static NSString *const kHadRate = @"kHadRate";
     // 初始化完成统计
     [QDTrackManager track:QDTrackType_app_inited data:@{}];
 //    [QDLocalNoticationManager.shared setup];
-//    [QDAdManager.shared setup:YES];
+    [QDAdManager.shared setup:YES];
 }
 // 展示开屏广告
 - (void)showAds {

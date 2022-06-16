@@ -130,7 +130,7 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
 // 初始化
 - (void) setup {
     
-    [QDAdManager.shared setup:YES];
+//    [QDAdManager.shared setup:YES];
     
     [self initWindow];
     
