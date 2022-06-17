@@ -82,6 +82,8 @@ static BOOL isEnterBackground = NO;
     }
     isEnterBackground = NO;
     
+    [QDAdManager.shared setup:YES];
+    
     BOOL isVIP = (QDConfigManager.shared.activeModel && QDConfigManager.shared.activeModel.member_type == 1);
     
     // 开屏广告

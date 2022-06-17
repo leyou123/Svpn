@@ -2108,7 +2108,7 @@
 				CODE_SIGN_ENTITLEMENTS = International/International.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 4;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = FPCZYL3D8P;
 				ENABLE_BITCODE = NO;
@@ -2141,7 +2141,7 @@
 				CODE_SIGN_ENTITLEMENTS = International/International.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 4;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = FPCZYL3D8P;
 				ENABLE_BITCODE = NO;
@@ -2171,7 +2171,7 @@
 				CODE_SIGN_ENTITLEMENTS = PacketTunnel/PacketTunnel.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 4;
 				DEFINES_MODULE = NO;
 				DEVELOPMENT_TEAM = FPCZYL3D8P;
 				ENABLE_BITCODE = NO;
@@ -2209,7 +2209,7 @@
 				CODE_SIGN_ENTITLEMENTS = PacketTunnel/PacketTunnel.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 4;
 				DEFINES_MODULE = NO;
 				DEVELOPMENT_TEAM = FPCZYL3D8P;
 				ENABLE_BITCODE = NO;

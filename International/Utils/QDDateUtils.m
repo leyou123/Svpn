@@ -158,9 +158,9 @@
 
     // 得到当前时间（世界标准时间 UTC/GMT）
     NSDate *nowDate = [NSDate date];
-    // 设置时区
-    NSTimeZone *timeZone = [NSTimeZone timeZoneWithName:@"UTC"];
-    dateFormatter.timeZone = timeZone;
+//    // 设置时区
+//    NSTimeZone *timeZone = [NSTimeZone timeZoneWithName:@"UTC"];
+//    dateFormatter.timeZone = timeZone;
     NSString *nowDateString = [dateFormatter stringFromDate:nowDate];
 
     return nowDateString;
