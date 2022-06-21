@@ -58,6 +58,8 @@
 #import "UnityOpenAds.h"
 #import "NENPingManager.h"
 
+#import "QDSuperPingManager.h"
+
 static NSString *const kLastTime = @"kLastTime";
 static NSString *const kHadRate = @"kHadRate";
 
@@ -109,6 +111,8 @@ static NSString *const kHadRate = @"kHadRate";
 @property (nonatomic,strong) FFSimplePingHelper *simplePingHelper;
 
 @property (nonatomic,strong) NENPingManager *pingHelper;
+
+@property (nonatomic,strong) QDSuperPingManager *superPing;
 
 @end
 
@@ -297,6 +301,7 @@ static NSString *const kHadRate = @"kHadRate";
             [QDConfigManager.shared preprogressNodes];
             [QDConfigManager.shared setDefaultNode];
             [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationLineRefresh object:nil];
+            [self notifyLineRefresh];
         } else {
             NSLog(@"requestNodes request failed %@", resultModel.message);
         }
@@ -941,7 +946,7 @@ static NSString *const kHadRate = @"kHadRate";
     // 初始化完成统计
     [QDTrackManager track:QDTrackType_app_inited data:@{}];
 //    [QDLocalNoticationManager.shared setup];
-    [QDAdManager.shared setup:YES];
+//    [QDAdManager.shared setup:YES];
 }
 // 展示开屏广告
 - (void)showAds {
@@ -1301,7 +1306,7 @@ static NSString *const kHadRate = @"kHadRate";
 //
 //    }
     self.canShowAds = YES;
-    QDNativeAdViewController* vc = [QDNativeAdViewController new];
+    QDNativeAdViewController* vc = [[QDNativeAdViewController alloc] init];
 //    vc.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:vc animated:YES];
 //    // 丢弃（不稳定，容易引起崩溃）
@@ -1463,11 +1468,45 @@ static NSString *const kHadRate = @"kHadRate";
     
     [self.connectButton updateUIStatus:status_button_loading];
     NSArray * arr = @[QDConfigManager.shared.node.host];
+    
+    self.superPing = [[QDSuperPingManager alloc] init];
+    [self.superPing getFatestAddress:arr requestTimes:1 completionHandler:^(NSString * _Nonnull, NSArray * _Nullable) {
+        
+    }];
+    
+    return;
+    
     self.pingHelper = [[NENPingManager alloc] init];
     [self.pingHelper getFatestAddress:arr requestTimes:1 completionHandler:^(NSString * _Nonnull host, NSArray * _Nullable itemArr) {
-        NSInteger delayTimes = [[[[itemArr firstObject] objectForKey:host] firstObject] integerValue];
-        if (delayTimes == 10000) {
-            [QDModelManager requestConnectRecord:[QDDateUtils getNowDateString] pingResult:0 connectResult:0 completed:^(NSDictionary * _Nonnull dictionary) {
+        if (host && itemArr) {
+            NSInteger delayTimes = [[[[itemArr firstObject] objectForKey:host] firstObject] integerValue];
+            if (delayTimes == 10000) {
+                [QDModelManager requestConnectRecord:[QDDateUtils getNowDateString] pingResult:0 connectResult:2 completed:^(NSDictionary * _Nonnull dictionary) {
+
+                }];
+                if (QDConfigManager.shared.otherLinesNodes.count > 0) {
+                    QDNodeModel * node = [QDConfigManager.shared connectFailUpdateLines];
+                    [self.lineButton updateNode:QDConfigManager.shared.node];
+                    if (action == 1) {
+                        [self startPing];
+                    }else {
+                        [self changeStartPing];
+                    }
+                }else {
+                    [self.connectButton updateUIStatus:status_button_fail];
+                    [QDDialogManager showDialog:NSLocalizedString(@"Connect_fail", nil) message:NSLocalizedString(@"Ping_fail_info", nil) ok:NSLocalizedString(@"Connect_success_ok", nil) cancel:nil okBlock:^{
+                        self.canShowAds = YES;
+                        QDFeedbackViewController* vc = [QDFeedbackViewController new];
+                        vc.hidesBottomBarWhenPushed = YES;
+                        [self.navigationController pushViewController:vc animated:YES];
+                    } cancelBlock:^{
+                    }];
+                }
+            }else {
+                complete();
+            }
+        }else {
+            [QDModelManager requestConnectRecord:[QDDateUtils getNowDateString] pingResult:0 connectResult:2 completed:^(NSDictionary * _Nonnull dictionary) {
 
             }];
             if (QDConfigManager.shared.otherLinesNodes.count > 0) {
@@ -1488,49 +1527,8 @@ static NSString *const kHadRate = @"kHadRate";
                 } cancelBlock:^{
                 }];
             }
-        }else {
-            complete();
         }
     }];
-    
-    return;
-    
-    if (self.simplePingHelper) {
-        self.simplePingHelper = nil;
-    }
-    // ping判断
-    self.simplePingHelper = [[FFSimplePingHelper alloc] initWithHostName:QDConfigManager.shared.node.host];
-    [self.simplePingHelper startPing];
-    
-    __strong typeof(self) strongSelf = self;
-    self.simplePingHelper.resultStatus = ^(NSInteger result) {
-        if (result == 10000) {
-            [QDModelManager requestConnectRecord:[QDDateUtils getNowDateString] pingResult:0 connectResult:0 completed:^(NSDictionary * _Nonnull dictionary) {
-                
-            }];
-            [strongSelf.simplePingHelper stopPing];
-            if (QDConfigManager.shared.otherLinesNodes.count > 0) {
-                QDNodeModel * node = [QDConfigManager.shared connectFailUpdateLines];
-                [strongSelf.lineButton updateNode:QDConfigManager.shared.node];
-                if (action == 1) {
-                    [strongSelf startPing];
-                }else {
-                    [strongSelf changeStartPing];
-                }
-            }else {
-                [strongSelf.connectButton updateUIStatus:status_button_fail];
-                [QDDialogManager showDialog:NSLocalizedString(@"Connect_fail", nil) message:NSLocalizedString(@"Ping_fail_info", nil) ok:NSLocalizedString(@"Connect_success_ok", nil) cancel:nil okBlock:^{
-                    strongSelf.canShowAds = YES;
-                    QDFeedbackViewController* vc = [QDFeedbackViewController new];
-                    vc.hidesBottomBarWhenPushed = YES;
-                    [strongSelf.navigationController pushViewController:vc animated:YES];
-                } cancelBlock:^{
-                }];
-            }
-        }else {
-            complete();
-        }
-    };
 }
 
 - (void)startPing {
@@ -1603,25 +1601,6 @@ static NSString *const kHadRate = @"kHadRate";
     [self.lineButton updateNode:QDConfigManager.shared.node];
     // 显示节点
     [self.lineButton setHidden:NO];
-}
-
-- (NSString *)currentDateStr{
-    NSDate *currentDate = [NSDate date];//获取当前时间，日期
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];// 创建一个时间格式化对象
-    [dateFormatter setDateFormat:@"YYYY/MM/dd hh:mm:ss SS "];//设定时间格式,这里可以设置成自己需要的格式
-    NSString *dateString = [dateFormatter stringFromDate:currentDate];//将时间转化成字符串
-    return dateString;
-}
-
-- (NSTimeInterval)nowTimeInterval {
-    // 现在的时间戳
-    
-    // 获取当前时间0秒后的时间
-    NSDate *date = [NSDate dateWithTimeIntervalSinceNow:0];
-    // *1000 是精确到毫秒，不乘就是精确到秒
-    NSTimeInterval time = [date timeIntervalSince1970];
-//    NSString *timeStr = [NSString stringWithFormat:@"%.0f", time];
-    return time;
 }
 
 // 更新用户剩余时间

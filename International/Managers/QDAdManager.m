@@ -58,14 +58,12 @@ typedef void(^ResultBlock)(void);
 - (void) loadAd {
     dispatch_async(dispatch_get_main_queue(), ^{
         // 提前加载广告
-//        [GoogleOpenAd.shared requestAppOpenAd];
         [GoogleVideoAd.shared preLoadRewardedAd];
         [GoogleInterstitialAd.shared loadAd];
         [GoogleNatvieAd.shared setup];
         [GoogleRewardInterstitialAd.shared loadAd];
         [VungleAds.shared setup];
         [UnityOpenAds.shared setup];
-//        [CharboostAd.shared setup];
     });
 }
 
@@ -215,8 +213,8 @@ typedef void(^ResultBlock)(void);
     if (QDAdManager.shared.forbidAd) return;
     if (GoogleOpenAd.shared.isShow) return;
     if (GoogleInterstitialAd.shared.isShow) return;
-    if (VungleAds.shared.isShow) return;
-//    if (CharboostAd.shared.isShow) return;
+//    if (VungleAds.shared.isShow) return;
+//    if (CharboostAd.shared.isShow) returcn;
 
     
 //    if (self.showOrder == 0) {

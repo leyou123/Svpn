@@ -26,7 +26,6 @@ static SDWebImageDownloaderConfig * _defaultDownloaderConfig;
         _maxConcurrentDownloads = 6;
         _downloadTimeout = 15.0;
         _executionOrder = SDWebImageDownloaderFIFOExecutionOrder;
-        _acceptableStatusCodes = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(200, 100)];
     }
     return self;
 }
@@ -42,8 +41,6 @@ static SDWebImageDownloaderConfig * _defaultDownloaderConfig;
     config.urlCredential = self.urlCredential;
     config.username = self.username;
     config.password = self.password;
-    config.acceptableStatusCodes = self.acceptableStatusCodes;
-    config.acceptableContentTypes = self.acceptableContentTypes;
     
     return config;
 }

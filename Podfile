@@ -13,7 +13,7 @@ target 'International' do
   pod 'MJRefresh'
   pod 'JXCategoryView'
   pod 'IAPHelper'
-  pod 'SDWebImage'
+  pod 'SDWebImage', '~> 5.10.0'
   pod 'SVProgressHUD'
   pod 'RMStore'
   pod 'Firebase/Analytics'

@@ -93,7 +93,6 @@
         }
     }];
     self.progressView.hidden = YES;
-    
     self.disProgressView = [UIImageView new];
     NSString *filePath1 = [[NSBundle bundleWithPath:[[NSBundle mainBundle] bundlePath]]pathForResource:@"home_disconnecting" ofType:@"gif"];
     NSData *imageData1 = [NSData dataWithContentsOfFile:filePath1];

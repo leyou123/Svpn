@@ -24,7 +24,7 @@
  */
 @property (class, readonly) SDImageFormat imageFormat;
 /**
- The supported image format UTI Type. Such as `kSDUTTypeGIF`.
+ The supported image format UTI Type. Such as `kUTTypeGIF`.
  This can be used for cases when we can not detect `SDImageFormat. Such as progressive decoding's hint format `kCGImageSourceTypeIdentifierHint`.
  @note Subclass override.
  */

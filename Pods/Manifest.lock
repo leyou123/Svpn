@@ -144,9 +144,9 @@ PODS:
   - RMStore (0.7.1):
     - RMStore/Core (= 0.7.1)
   - RMStore/Core (0.7.1)
-  - SDWebImage (5.12.1):
-    - SDWebImage/Core (= 5.12.1)
-  - SDWebImage/Core (5.12.1)
+  - SDWebImage (5.10.4):
+    - SDWebImage/Core (= 5.10.4)
+  - SDWebImage/Core (5.10.4)
   - SGQRCode (3.0.1)
   - SVProgressHUD (2.2.5)
   - UnityAds (4.2.1)
@@ -167,7 +167,7 @@ DEPENDENCIES:
   - MMDrawerController (= 0.5.7)
   - Pushwoosh
   - RMStore
-  - SDWebImage
+  - SDWebImage (~> 5.10.0)
   - SGQRCode (~> 3.0.1)
   - SVProgressHUD
   - UnityAds
@@ -232,12 +232,12 @@ SPEC CHECKSUMS:
   PromisesObjC: 99b6f43f9e1044bd87a95a60beff28c2c44ddb72
   Pushwoosh: 641b2575b7176f10513d0b6518bc6060e258206c
   RMStore: 64ba13a9c040e3b7572765d169f77175cd3243e5
-  SDWebImage: 4dc3e42d9ec0c1028b960a33ac6b637bb432207b
+  SDWebImage: c666b97e1fa9c64b4909816a903322018f0a9c84
   SGQRCode: bf02d60e18d6660a9d75ff1c8b9b467f064f054e
   SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
   UnityAds: a2274b216f9ed1e4d1d74c08178f21223f08e17a
   VungleSDK-iOS: bee61557642964b441d799bf88e6ea6f6eb29afc
 
-PODFILE CHECKSUM: 61a8191fd756476ca261d8495da0c3718b18a8cc
+PODFILE CHECKSUM: 7a123e0515aa587045a731b07380d616ed7494e1
 
 COCOAPODS: 1.11.3

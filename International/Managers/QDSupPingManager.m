@@ -5,23 +5,23 @@
 //  Created by hzg on 2021/5/7.
 //
 
-#import "QDPingManager.h"
+#import "QDSupPingManager.h"
 #import "STDPingServices.h"
 
-@interface QDPingManager()
+@interface QDSupPingManager()
 
 // 延迟结果
 @property (nonatomic, strong)NSMutableDictionary *delayServicesDict;
 
 @end
 
-@implementation QDPingManager
+@implementation QDSupPingManager
 
-+ (QDPingManager *) shared {
++ (QDSupPingManager *) shared {
     static dispatch_once_t onceToken;
-    static QDPingManager *instance;
+    static QDSupPingManager *instance;
     dispatch_once(&onceToken, ^{
-        instance = [QDPingManager new];
+        instance = [QDSupPingManager new];
     });
     return instance;
 }

@@ -314,10 +314,6 @@ static CGFloat SDImageScaleFromPath(NSString *string) {
     return;
 }
 
-- (NSUInteger)sd_imageFrameCount {
-    return self.animatedImageFrameCount;
-}
-
 - (SDImageFormat)sd_imageFormat {
     return self.animatedImageFormat;
 }

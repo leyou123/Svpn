@@ -140,12 +140,11 @@ static void * SDWebImageDownloaderContext = &SDWebImageDownloaderContext;
 }
 
 - (void)dealloc {
-    [self.downloadQueue cancelAllOperations];
-    [self.config removeObserver:self forKeyPath:NSStringFromSelector(@selector(maxConcurrentDownloads)) context:SDWebImageDownloaderContext];
-    
-    // Invalide the URLSession after all operations been cancelled
     [self.session invalidateAndCancel];
     self.session = nil;
+    
+    [self.downloadQueue cancelAllOperations];
+    [self.config removeObserver:self forKeyPath:NSStringFromSelector(@selector(maxConcurrentDownloads)) context:SDWebImageDownloaderContext];
 }
 
 - (void)invalidateSessionAndCancel:(BOOL)cancelPendingOperations {
@@ -347,14 +346,6 @@ static void * SDWebImageDownloaderContext = &SDWebImageDownloaderContext;
         
     if ([operation respondsToSelector:@selector(setMinimumProgressInterval:)]) {
         operation.minimumProgressInterval = MIN(MAX(self.config.minimumProgressInterval, 0), 1);
-    }
-    
-    if ([operation respondsToSelector:@selector(setAcceptableStatusCodes:)]) {
-        operation.acceptableStatusCodes = self.config.acceptableStatusCodes;
-    }
-    
-    if ([operation respondsToSelector:@selector(setAcceptableContentTypes:)]) {
-        operation.acceptableContentTypes = self.config.acceptableContentTypes;
     }
     
     if (options & SDWebImageDownloaderHighPriority) {

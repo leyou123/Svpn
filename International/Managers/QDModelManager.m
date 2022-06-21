@@ -269,11 +269,6 @@
 
 // 请求增加用户时间(NEW)
 + (void) requestUserAddTimeNew:(int)type time:(int)time completed:(void (^)(NSDictionary *dictionary)) completed {
-    NSDictionary * dic = @{
-        @"uid":@(QDConfigManager.shared.UID),
-        @"key":QDConfigManager.shared.key,
-        @"time":@(time),
-        @"vip_type":@(type)};
     [[QDHTTPManager shared] request:HTTPMethodTypePost type:kAPITypeUserAddTimeNew parameters:@{
         @"uid":@(QDConfigManager.shared.UID),
         @"key":QDConfigManager.shared.key,

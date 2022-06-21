@@ -15,7 +15,7 @@
 #import "QDModelManager.h"
 #import "QDAdManager.h"
 #import "QDActivityManager.h"
-#import "QDPingManager.h"
+#import "QDSupPingManager.h"
 #import "QDTrackManager.h"
 #import "QDVersionManager.h"
 #import "QDVPNManager.h"

@@ -21,6 +21,8 @@
 #import "UIViewController+MMDrawerController.h"
 #import "QDPayViewController3.h"
 #import "UnityOpenAds.h"
+#import "QDADsViewController.h"
+
 static BOOL isEnterBackground = NO;
 
 
@@ -131,9 +133,7 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
 
 // 初始化
 - (void) setup {
-    
-//    [QDAdManager.shared setup:YES];
-    
+        
     [self initWindow];
     
     // 标签栏
@@ -160,8 +160,6 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
     // 更新本地价格
     [self updateLocalPrice];
     
-//    // 广告
-//    [QDAdManager.shared setup];
     [self registerNotification];
     
     [QDLocalNoticationManager.shared setup];

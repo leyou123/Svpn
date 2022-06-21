@@ -9,7 +9,7 @@
 #import "QDDeviceUtils.h"
 #import "QDPayViewController.h"
 #import "AESCipher.h"
-#import "QDPingManager.h"
+#import "QDSupPingManager.h"
 #import "NENPingManager.h"
 #import "QDDateUtils.h"
 #import "QDModelManager.h"
@@ -275,7 +275,7 @@ static NSString *const kPasswordKey = @"key_password";
     
     self.vipNodes  = arr;
     
-//    [self startPing];
+    [self startPing];
 }
 
 - (void)startPing {

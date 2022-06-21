@@ -9,9 +9,9 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface QDPingManager : NSObject
+@interface QDSupPingManager : NSObject
 
-+ (QDPingManager *) shared;
++ (QDSupPingManager *) shared;
 
 // ping
 - (void) ping:(NSString*)ip;
