@@ -206,7 +206,8 @@
             if (![node isEqual:QDConfigManager.shared.node]) {
                 QDConfigManager.shared.node = node;
             }
-            [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationLineChange object:nil];
+//            [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationLineChange object:nil];
+            QDConfigManager.shared.lineChanged = YES;
             [weakSelf.navigationController popToRootViewControllerAnimated:NO];
         }];
     }

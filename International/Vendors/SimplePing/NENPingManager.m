@@ -156,4 +156,10 @@
     }];
 }
 
+- (void)stopAllPing {
+    for (NENSinglePinger * pinger in self.singlePingerArray) {
+        [pinger stop];
+    }
+}
+
 @end

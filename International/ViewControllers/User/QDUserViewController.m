@@ -219,7 +219,6 @@
 
 - (void) setTableViewData {
     if (!QDConfigManager.shared.activeModel) return;
-    
     self.dataArray = [NSMutableArray array];
     
     NSString* variety = [self getVIPVariety];
@@ -249,7 +248,6 @@
                   @{@"name":NSLocalizedString(@"User_Share", nil), @"type":@(9), @"content":@"", @"image":@"share"},
                   @{@"name":NSLocalizedString(@"User_Version", nil), @"type":@(6), @"content":v, @"image":@"version"},
                 ]
-                
 //                @{@"name":NSLocalizedString(@"Redeem_reward", nil), @"type":@(10), @"content":@""}
             ];
         } else {
@@ -265,7 +263,7 @@
                     @{@"name":NSLocalizedString(@"User_Share", nil), @"type":@(9), @"content":@"", @"image":@"share"},
                     @{@"name":NSLocalizedString(@"User_Version", nil), @"type":@(6), @"content":v, @"image":@"version"},
                 ]
-                
+            
 //                @{@"name":NSLocalizedString(@"User_Record", nil), @"type":@(3), @"content":@""},
                 
 //                @{@"name":NSLocalizedString(@"Redeem_reward", nil), @"type":@(10), @"content":@""}

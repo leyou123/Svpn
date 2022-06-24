@@ -58,8 +58,6 @@
 #import "UnityOpenAds.h"
 #import "NENPingManager.h"
 
-#import "QDSuperPingManager.h"
-
 static NSString *const kLastTime = @"kLastTime";
 static NSString *const kHadRate = @"kHadRate";
 
@@ -112,8 +110,6 @@ static NSString *const kHadRate = @"kHadRate";
 
 @property (nonatomic,strong) NENPingManager *pingHelper;
 
-@property (nonatomic,strong) QDSuperPingManager *superPing;
-
 @end
 
 @implementation QDHomeViewController
@@ -155,16 +151,26 @@ static NSString *const kHadRate = @"kHadRate";
             self.canShowAds = NO;
         }
     }
+    
+    
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    // 刷新选中线路
+    if (QDConfigManager.shared.lineChanged) {
+        [self notifyLineChange];
+    }
 }
 
 #pragma mark -- data
 - (void) setData {
-    
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notifyUserActive) name:kNotificationUserLoginSuccess object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notifyUserActive) name:kNotificationUserActive object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(requestUserInfo) name:kNotificationUserChange object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appBecomeActive) name:kNotificationAppBecomeActive object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notifyLineChange) name:kNotificationLineChange object:nil];
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notifyLineChange) name:kNotificationLineChange object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notifyLineRefresh) name:kNotificationLineRefresh object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notifyNetworkChanged) name:kNotificationNetworkChanged object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notifyConfigInstallStart) name:kNotificationConfigInstallStart object:nil];
@@ -182,7 +188,8 @@ static NSString *const kHadRate = @"kHadRate";
     [[NSNotificationCenter defaultCenter] removeObserver:self name:kNotificationUserLoginSuccess object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:kNotificationUserChange object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:kNotificationUserActive object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:kNotificationLineChange object:nil];
+//    [[NSNotificationCenter defaultCenter] removeObserver:self name:kNotificationLineChange object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kNotificationAppBecomeActive object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:kNotificationLineRefresh object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:kNotificationNetworkChanged object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:kNotificationConfigInstallStart object:nil];
@@ -191,6 +198,7 @@ static NSString *const kHadRate = @"kHadRate";
     [[NSNotificationCenter defaultCenter] removeObserver:self name:kNotificationConfigUpdate object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:kNotificationRecommandApp object:nil];
 }
+
 
 - (void) responseRequestUserInfo:(BOOL)isRegister result:(NSDictionary*) dictionary {
     if (self.scrollView.mj_header.isRefreshing) {
@@ -215,14 +223,14 @@ static NSString *const kHadRate = @"kHadRate";
         // 刷新用户信息
         [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationUserActive object:nil];
         
-        // 请求节点信息
-        if (!QDConfigManager.shared.nodes || QDConfigManager.shared.nodes.count == 0) {
-            [self requestNodes];
-        } else {
-            // 刷新节点列表
-            [QDConfigManager.shared preprogressNodes];
-            [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationLineRefresh object:nil];
-        }
+//        // 请求节点信息
+//        if (!QDConfigManager.shared.nodes || QDConfigManager.shared.nodes.count == 0) {
+//            [self requestNodes];
+//        } else {
+//            // 刷新节点列表
+//            [QDConfigManager.shared preprogressNodes];
+//            [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationLineRefresh object:nil];
+//        }
         
     } else if (resultModel.code == kHttpStatusCode404) {
         QDConfigManager.shared.email    = nil;
@@ -271,6 +279,14 @@ static NSString *const kHadRate = @"kHadRate";
 //            [self responseRequestUserInfo:YES result:dictionary]; 
         }];
     }
+    // 请求全部节点信息
+//    if (!QDConfigManager.shared.nodes || QDConfigManager.shared.nodes.count == 0) {
+        [self requestNodes];
+//    } else {
+//        // 刷新节点列表
+//        [QDConfigManager.shared preprogressNodes];
+//        [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationLineRefresh object:nil];
+//    }
     if (QDVPNManager.shared.status == NEVPNStatusConnected) {
         [self.connectButton updateUIStatus:status_button_connected];
     }
@@ -1295,12 +1311,12 @@ static NSString *const kHadRate = @"kHadRate";
 // 连接之后的动作，非会员连接后弹出
 - (void) doConnectAction {
     
-//    // 防止重复弹出
-//    for (UIViewController* vc in self.navigationController.viewControllers) {
-//        if ([NSStringFromClass([vc class]) isEqual:@"QDNativeAdViewController"]) {
-//            return;
-//        }
-//    }
+    // 防止重复弹出
+    for (UIViewController* vc in self.navigationController.viewControllers) {
+        if ([NSStringFromClass([vc class]) isEqual:@"QDNativeAdViewController"]) {
+            return;
+        }
+    }
 
 //    if (!QDConfigManager.shared.activeModel || QDConfigManager.shared.activeModel.member_type != 1) {
 //
@@ -1469,18 +1485,13 @@ static NSString *const kHadRate = @"kHadRate";
     [self.connectButton updateUIStatus:status_button_loading];
     NSArray * arr = @[QDConfigManager.shared.node.host];
     
-    self.superPing = [[QDSuperPingManager alloc] init];
-    [self.superPing getFatestAddress:arr requestTimes:1 completionHandler:^(NSString * _Nonnull, NSArray * _Nullable) {
-        
-    }];
-    
-    return;
+    NSLog(@"otherLinesNodes:%@ ------nodename：%@",QDConfigManager.shared.otherLinesNodes, QDConfigManager.shared.node.name);
     
     self.pingHelper = [[NENPingManager alloc] init];
     [self.pingHelper getFatestAddress:arr requestTimes:1 completionHandler:^(NSString * _Nonnull host, NSArray * _Nullable itemArr) {
         if (host && itemArr) {
             NSInteger delayTimes = [[[[itemArr firstObject] objectForKey:host] firstObject] integerValue];
-            if (delayTimes == 10000) {
+            if (delayTimes == 1000) {
                 [QDModelManager requestConnectRecord:[QDDateUtils getNowDateString] pingResult:0 connectResult:2 completed:^(NSDictionary * _Nonnull dictionary) {
 
                 }];
@@ -1647,6 +1658,8 @@ static NSString *const kHadRate = @"kHadRate";
 // 更新线路
 -(void)notifyLineChange {
     
+    QDConfigManager.shared.lineChanged = NO;
+    
     // 判断是否可以连接
     if (![self canConnecting]) return;
     
@@ -1658,6 +1671,8 @@ static NSString *const kHadRate = @"kHadRate";
     
     // 若有任务
     if ([QDTaskManager.shared hasTask]) return;
+    
+    NSLog(@"%@",[NSNotificationCenter defaultCenter]);
     
     [self changeStartPing];
 }
@@ -1695,7 +1710,7 @@ static NSString *const kHadRate = @"kHadRate";
                 [QDTaskManager.shared add:QDTaskTypeConnected];
                 [QDTaskManager.shared add:QDTaskTypeDisconnected];
                 [QDVPNManager.shared stop];
-                [self changeStartPing];
+                [self startConnnectVPN];
             }
         }
     }];

@@ -36,6 +36,8 @@ typedef NS_ENUM(NSUInteger, NENSinglePingStatus) {
 
 - (instancetype)initWithHostName:(NSString *)hostName count:(NSInteger)count pingCallBack:(PingCallBack)pingCallBack;
 
+- (void)stop;
+
 @end
 
 

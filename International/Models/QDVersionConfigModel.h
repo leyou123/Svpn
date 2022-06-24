@@ -14,6 +14,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property(nonatomic, copy) NSString* json_config;
 
+@property(nonatomic, assign) int operator_switch;
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -293,19 +293,25 @@
     }
     
     [SVProgressHUD show];
-    [QDModelManager requestLoginByEmailAndUnbind:QDConfigManager.shared.activeModel.uid email:account password:password completed:^(NSDictionary * _Nonnull dictionary) {
-        QDDeviceActiveResultModel* resultModel = [QDDeviceActiveResultModel mj_objectWithKeyValues:dictionary];
-        [SVProgressHUD dismiss];
-        if (resultModel.code == kHttpStatusCode200) {
-            [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"Login_success", nil)];
-            QDConfigManager.shared.activeModel = resultModel.data;
-            QDConfigManager.shared.email    = account;
-            QDConfigManager.shared.password = password;
-//            [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationUserLoginSuccess object:nil];
-            [self closeAction];
-            [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationUserGoHomeView object:nil];
-        } else {
-            [SVProgressHUD showErrorWithStatus:resultModel.message];
+    [QDModelManager requestVerifyEmail:account password:password completed:^(NSDictionary * _Nonnull dictionary) {
+        if ([dictionary[@"code"] integerValue] == 200) {
+            [QDModelManager requestLoginByEmailAndUnbind:QDConfigManager.shared.activeModel.uid email:account password:password completed:^(NSDictionary * _Nonnull dictionary) {
+                QDDeviceActiveResultModel* resultModel = [QDDeviceActiveResultModel mj_objectWithKeyValues:dictionary];
+                [SVProgressHUD dismiss];
+                if (resultModel.code == kHttpStatusCode200) {
+                    [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"Login_success", nil)];
+                    QDConfigManager.shared.activeModel = resultModel.data;
+                    QDConfigManager.shared.email    = account;
+                    QDConfigManager.shared.password = password;
+        //            [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationUserLoginSuccess object:nil];
+                    [self closeAction];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationUserGoHomeView object:nil];
+                } else {
+                    [SVProgressHUD showErrorWithStatus:resultModel.message];
+                }
+            }];
+        }else {
+            [SVProgressHUD showErrorWithStatus:dictionary[@"message"]];
         }
     }];
 }

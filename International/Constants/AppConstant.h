@@ -30,7 +30,7 @@
 #define APP_COLOR_CLEAR      [UIColor clearColor]
 
 #define APP_FONT_SYSTEM(s)   [UIFont systemFontOfSize:s]
-#define APP_FONT_BOLD(s)     [UIFont boldSystemFontOfSize:s]
+#define APP_FONT_BOLD(s)     [UIFont boldSystemFontOfSize:s] 
 #define APP_FONT_LETTER(s)   [UIFont fontWithName:@"Courier" size:s]
 #define kSFUITextFont(s)   [UIFont fontWithName:@"SF UI Text" size:s]
 #define kSFUIDisplayFont(s)   [UIFont fontWithName:@"SF UI Display" size:s]
@@ -148,7 +148,10 @@ typedef NS_ENUM(NSInteger, APIType) {
     kAPIConnectRecord,
     
     // ping反馈
-    kAPIFeedBackPing
+    kAPIFeedBackPing,
+    
+    //验证邮箱
+    kAPIVerifyEmail
 };
 
 // 声明全局的字典，用于将枚举APIType和对应的URL关联起来
@@ -212,7 +215,9 @@ typedef NS_ENUM(NSInteger, APIType) {
     [NSNumber numberWithInteger:kAPIConnectRecord]:\
     @"/report/connect", \
     [NSNumber numberWithInteger:kAPIFeedBackPing]:\
-    @"/report/ping"}
+    @"/report/ping", \
+    [NSNumber numberWithInteger:kAPIVerifyEmail]:\
+    @"/user/verify_email"}
 
 
 // 请求状态码

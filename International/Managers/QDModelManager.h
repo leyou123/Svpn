@@ -93,8 +93,11 @@ NS_ASSUME_NONNULL_BEGIN
 // 连接记录
 + (void) requestConnectRecord:(NSString *)time pingResult:(int)ping connectResult:(int)connect completed:(void (^)(NSDictionary *dictionary)) completed;
 
-// ping反馈
+// 全部ping反馈
 + (void) requestFeedBackPing:(NSDictionary *)list Completed:(void (^)(NSDictionary *dictionary)) completed;
+
+// 验证邮箱
++ (void) requestVerifyEmail:(NSString*)email password:(NSString*)password completed:(void (^)(NSDictionary *dictionary)) completed;
 
 @end
 

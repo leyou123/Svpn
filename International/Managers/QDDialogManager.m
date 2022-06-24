@@ -35,6 +35,9 @@
 //    }];
     
     UIViewController* vc = [UIUtils getCurrentVC];
+    
+    NSLog(@"****************%@",vc);
+    
     [vc presentViewController:alert animated:NO completion:nil];
     
     return alert;

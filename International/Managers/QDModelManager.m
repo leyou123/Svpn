@@ -24,7 +24,8 @@
 
 // 请求节点列表
 + (void) requestNodes:(void (^)(NSDictionary *dictionary)) completed {
-    [[QDHTTPManager shared] request:HTTPMethodTypePost type:kAPITypeNodes parameters:@{@"uid":@(QDConfigManager.shared.UID), @"key":QDConfigManager.shared.key} completed:completed];
+    [[QDHTTPManager shared] request:HTTPMethodTypePost type:kAPITypeNodes parameters:@{@"uid":@(QDConfigManager.shared.UID), @"key":QDConfigManager.shared.key,@"uuid":QDConfigManager.shared.UUID} completed:completed];
+//    [[QDHTTPManager shared] request:HTTPMethodTypePost type:kAPITypeNodes parameters:@{@"uid":@(QDConfigManager.shared.UID), @"key":QDConfigManager.shared.key} completed:completed];
 }
 
 // 注册节点
@@ -298,17 +299,30 @@
 
 // 连接记录
 + (void) requestConnectRecord:(NSString *)time pingResult:(int)ping connectResult:(int)connect completed:(void (^)(NSDictionary *dictionary)) completed {
-    [[QDHTTPManager shared] request:HTTPMethodTypePost type:kAPIConnectRecord parameters:@{
-        @"uuid":QDConfigManager.shared.UUID,
-        @"node_ip":QDConfigManager.shared.node.ip,
-        @"node_name":QDConfigManager.shared.node.name,
-        @"ping_result":@(ping),
-        @"connect_result":@(connect),
-        @"connect_time":time,
-        @"dev_name":[QDDeviceUtils platformString] ? [QDDeviceUtils platformString] : @"",
-        @"network":[QDDeviceUtils deviceNetWork] ? [QDDeviceUtils deviceNetWork] : @"",
-        @"operator":[QDDeviceUtils getCarrierInfo]
-    } completed:completed];
+    NSDictionary * dic;
+    if (QDVersionManager.shared.operator_switch == 1) {
+        dic = @{
+            @"uuid":QDConfigManager.shared.UUID,
+            @"node_ip":QDConfigManager.shared.node.ip,
+            @"node_name":QDConfigManager.shared.node.name,
+            @"ping_result":@(ping),
+            @"connect_result":@(connect),
+            @"connect_time":time,
+            @"dev_name":[QDDeviceUtils platformString] ? [QDDeviceUtils platformString] : @"",
+            @"network":[QDDeviceUtils deviceNetWork] ? [QDDeviceUtils deviceNetWork] : @"",
+            @"operator":[QDDeviceUtils getCarrierInfo]
+        };
+    }else {
+        dic = @{
+            @"uuid":QDConfigManager.shared.UUID,
+            @"node_ip":QDConfigManager.shared.node.ip,
+            @"node_name":QDConfigManager.shared.node.name,
+            @"ping_result":@(ping),
+            @"connect_result":@(connect),
+            @"connect_time":time,
+        };
+    }
+    [[QDHTTPManager shared] request:HTTPMethodTypePost type:kAPIConnectRecord parameters:dic completed:completed];
 }
 
 // ping反馈
@@ -316,5 +330,16 @@
     [[QDHTTPManager shared] request:HTTPMethodTypePost type:kAPIFeedBackPing parameters:list completed:completed];
 }
 
+// 验证邮箱
++ (void) requestVerifyEmail:(NSString*)email password:(NSString*)password completed:(void (^)(NSDictionary *dictionary)) completed {
+    
+    [[QDHTTPManager shared] request:HTTPMethodTypePost type:kAPIVerifyEmail parameters:@{
+        @"email":email,
+        @"password":password,
+        @"key":QDConfigManager.shared.key,
+        @"uuid":QDConfigManager.shared.UUID,
+        @"platform_id":APP_PLATFORM_ID,
+        @"package_id":APP_BUNDLE_ID} completed:completed];
+}
 
 @end

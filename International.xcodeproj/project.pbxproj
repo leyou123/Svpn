@@ -211,10 +211,6 @@
 		AD5812B6281793A200E4D5FE /* SFUIText-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AD5812B2281793A200E4D5FE /* SFUIText-Regular.ttf */; };
 		AD5812B7281793A200E4D5FE /* SFUIDisplay-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = AD5812B3281793A200E4D5FE /* SFUIDisplay-Regular.otf */; };
 		AD5812B8281793A200E4D5FE /* SFUIText-Semibold.otf in Resources */ = {isa = PBXBuildFile; fileRef = AD5812B4281793A200E4D5FE /* SFUIText-Semibold.otf */; };
-		AD7037682861D50C006BFF36 /* QDSupSinglePinger.m in Sources */ = {isa = PBXBuildFile; fileRef = AD7037672861D50C006BFF36 /* QDSupSinglePinger.m */; };
-		AD70376B2861D5E1006BFF36 /* QDSuperPingManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AD70376A2861D5E1006BFF36 /* QDSuperPingManager.m */; };
-		AD70376E2861D70F006BFF36 /* QDPingItem.m in Sources */ = {isa = PBXBuildFile; fileRef = AD70376D2861D70F006BFF36 /* QDPingItem.m */; };
-		AD7037712861DC21006BFF36 /* QDAddressItem.m in Sources */ = {isa = PBXBuildFile; fileRef = AD7037702861DC21006BFF36 /* QDAddressItem.m */; };
 		AD7F54AB284EF0F200A83A84 /* NENPingManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 16D568AB284E0401004FF067 /* NENPingManager.m */; };
 		AD7F54B1284F36F100A83A84 /* GoogleRewardInterstitialAd.m in Sources */ = {isa = PBXBuildFile; fileRef = AD7F54B0284F36F100A83A84 /* GoogleRewardInterstitialAd.m */; };
 		AD87436E281958C600B56FD8 /* QDBaseNavColorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD87436D281958C600B56FD8 /* QDBaseNavColorViewController.m */; };
@@ -673,14 +669,6 @@
 		AD5812B2281793A200E4D5FE /* SFUIText-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFUIText-Regular.ttf"; sourceTree = "<group>"; };
 		AD5812B3281793A200E4D5FE /* SFUIDisplay-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFUIDisplay-Regular.otf"; sourceTree = "<group>"; };
 		AD5812B4281793A200E4D5FE /* SFUIText-Semibold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFUIText-Semibold.otf"; sourceTree = "<group>"; };
-		AD7037662861D50C006BFF36 /* QDSupSinglePinger.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QDSupSinglePinger.h; sourceTree = "<group>"; };
-		AD7037672861D50C006BFF36 /* QDSupSinglePinger.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QDSupSinglePinger.m; sourceTree = "<group>"; };
-		AD7037692861D5E1006BFF36 /* QDSuperPingManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QDSuperPingManager.h; sourceTree = "<group>"; };
-		AD70376A2861D5E1006BFF36 /* QDSuperPingManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QDSuperPingManager.m; sourceTree = "<group>"; };
-		AD70376C2861D70F006BFF36 /* QDPingItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QDPingItem.h; sourceTree = "<group>"; };
-		AD70376D2861D70F006BFF36 /* QDPingItem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QDPingItem.m; sourceTree = "<group>"; };
-		AD70376F2861DC21006BFF36 /* QDAddressItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QDAddressItem.h; sourceTree = "<group>"; };
-		AD7037702861DC21006BFF36 /* QDAddressItem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QDAddressItem.m; sourceTree = "<group>"; };
 		AD7F54AF284F36F100A83A84 /* GoogleRewardInterstitialAd.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GoogleRewardInterstitialAd.h; sourceTree = "<group>"; };
 		AD7F54B0284F36F100A83A84 /* GoogleRewardInterstitialAd.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GoogleRewardInterstitialAd.m; sourceTree = "<group>"; };
 		AD87436C281958C600B56FD8 /* QDBaseNavColorViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QDBaseNavColorViewController.h; sourceTree = "<group>"; };
@@ -858,14 +846,6 @@
 				16D568AE284E0608004FF067 /* NENSinglePinger.m */,
 				16D568A4284DFE74004FF067 /* NENPingManager.h */,
 				16D568AB284E0401004FF067 /* NENPingManager.m */,
-				AD7037692861D5E1006BFF36 /* QDSuperPingManager.h */,
-				AD70376A2861D5E1006BFF36 /* QDSuperPingManager.m */,
-				AD7037662861D50C006BFF36 /* QDSupSinglePinger.h */,
-				AD7037672861D50C006BFF36 /* QDSupSinglePinger.m */,
-				AD70376F2861DC21006BFF36 /* QDAddressItem.h */,
-				AD7037702861DC21006BFF36 /* QDAddressItem.m */,
-				AD70376C2861D70F006BFF36 /* QDPingItem.h */,
-				AD70376D2861D70F006BFF36 /* QDPingItem.m */,
 			);
 			path = SimplePing;
 			sourceTree = "<group>";
@@ -1784,7 +1764,6 @@
 				3C17AAF927900E74009E63C3 /* QDDialogManager2.m in Sources */,
 				3C558C1E266F58E200FECA47 /* QDUserViewController.m in Sources */,
 				164D00B6283DDE1F00625213 /* FFSimplePingHelper.m in Sources */,
-				AD7037682861D50C006BFF36 /* QDSupSinglePinger.m in Sources */,
 				3CDFFAC6268AEE5300A723E3 /* QDVersionConfigModel.m in Sources */,
 				3C558C562679F3B500FECA47 /* QDLineExpandTableViewCell.m in Sources */,
 				3C558B9F266E0E7200FECA47 /* QDNodesResultModel.m in Sources */,
@@ -1908,7 +1887,6 @@
 				3C558C35266F722600FECA47 /* QDRecordTableViewCell.m in Sources */,
 				3C558BA8266E0E7200FECA47 /* QDProductRequestModel.m in Sources */,
 				3CD23CC72758C2820017FC48 /* QDQRCodeViewController.m in Sources */,
-				AD7037712861DC21006BFF36 /* QDAddressItem.m in Sources */,
 				3C558BCC266E175900FECA47 /* SAMKeychainQuery.m in Sources */,
 				3C7F52D2269DBD010055840B /* GoogleNatvieAd.m in Sources */,
 				3C558BFF266E224F00FECA47 /* QDCollectionViewProxy.m in Sources */,
@@ -1933,12 +1911,10 @@
 				3C558B97266E0E7200FECA47 /* QDBaseRequestModel.m in Sources */,
 				3C8E7314275EFC1F005192A9 /* QDVIPView.m in Sources */,
 				3C3874432693EAE9005A09A9 /* QDTimeView.m in Sources */,
-				AD70376E2861D70F006BFF36 /* QDPingItem.m in Sources */,
 				3CDFFAC9268AEEB200A723E3 /* QDVersionConfigResultModel.m in Sources */,
 				AD9CB0B028178EA1008A1E93 /* QDUserTableCell.m in Sources */,
 				3C558BAD266E0E7200FECA47 /* QDNodeModel.m in Sources */,
 				3CDFFAC12689AE1800A723E3 /* QDPayViewController.m in Sources */,
-				AD70376B2861D5E1006BFF36 /* QDSuperPingManager.m in Sources */,
 				3C558BA5266E0E7200FECA47 /* QDProductResultModel.m in Sources */,
 				3C558C01266E224F00FECA47 /* QDNavigationBarHiddenViewController.m in Sources */,
 				3C558C522679F3B500FECA47 /* QDLineTableViewProxy.m in Sources */,
@@ -2132,7 +2108,7 @@
 				CODE_SIGN_ENTITLEMENTS = International/International.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = FPCZYL3D8P;
 				ENABLE_BITCODE = NO;
@@ -2165,7 +2141,7 @@
 				CODE_SIGN_ENTITLEMENTS = International/International.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = FPCZYL3D8P;
 				ENABLE_BITCODE = NO;
@@ -2195,7 +2171,7 @@
 				CODE_SIGN_ENTITLEMENTS = PacketTunnel/PacketTunnel.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEFINES_MODULE = NO;
 				DEVELOPMENT_TEAM = FPCZYL3D8P;
 				ENABLE_BITCODE = NO;
@@ -2233,7 +2209,7 @@
 				CODE_SIGN_ENTITLEMENTS = PacketTunnel/PacketTunnel.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEFINES_MODULE = NO;
 				DEVELOPMENT_TEAM = FPCZYL3D8P;
 				ENABLE_BITCODE = NO;

@@ -135,7 +135,7 @@ static NSString *const kPasswordKey = @"key_password";
             [vipNodes addObject:m];
         }
     }
-    
+    self.allVipNodes = vipNodes;
     NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"weights" ascending:NO];
     [freeNodes sortUsingDescriptors:[NSArray arrayWithObject:sortDescriptor]];
     [vipNodes sortUsingDescriptors:[NSArray arrayWithObject:sortDescriptor]];
@@ -314,7 +314,7 @@ static NSString *const kPasswordKey = @"key_password";
                 [dict setValue:[self getPingTime:timesArr order:0] forKey:@"ping_val1"];
                 [dict setValue:[self getPingTime:timesArr order:1] forKey:@"ping_val2"];
                 [dict setValue:[self getPingTime:timesArr order:2] forKey:@"ping_val3"];
-                [dict setValue:[self getPingResult:timesArr] forKey:@"ping_result"];
+                [dict setValue:@"" forKey:@"ping_result"];
                 [dict setValue:[QDDateUtils getNowDateString] forKey:@"ping_time"];
                 [array addObject:dict];
             }
@@ -332,14 +332,6 @@ static NSString *const kPasswordKey = @"key_password";
     }
 }
 
-- (NSString *)getPingResult:(NSArray *)arr {
-    for (NSNumber * time in arr) {
-        if ([time doubleValue] == 1000) {
-            return @"0";
-        }
-    }
-    return @"1";
-}
 
 // 获取指定数量的免费或付费节点
 - (NSMutableArray*) getNodes:(NSMutableArray*)source num:(int)num type:(int)type {
@@ -357,7 +349,9 @@ static NSString *const kPasswordKey = @"key_password";
 
 // 设置默认节点
 - (void) setDefaultNode {
-
+    if (self.otherLinesNodes.count > 0) {
+        return;
+    }
     // 设置默认节点
     if (!self.node_id || QDVPNManager.shared.status != NEVPNStatusConnected) {
         if (self.activeModel&&self.activeModel.member_type == 1) {
@@ -489,7 +483,7 @@ static NSString *const kPasswordKey = @"key_password";
     self.otherLinesNodes = [NSMutableArray array];
     NSArray * arr = [NSArray array];
     if (QDConfigManager.shared.activeModel.member_type == 1) {
-        arr = self.nodes;
+        arr = self.allVipNodes;
     }else {
         arr = self.freeNodes;
     }

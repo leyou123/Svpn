@@ -424,7 +424,9 @@
     UIViewController *currentVC;
     if ([rootVC presentedViewController]) {
         // 视图是被presented出来的
-        rootVC = [rootVC presentedViewController];
+        if (![[rootVC presentedViewController] isKindOfClass:[UIAlertController class]]) {
+            rootVC = [rootVC presentedViewController];
+        }
     }
 
     if ([rootVC isKindOfClass:[UITabBarController class]]) {

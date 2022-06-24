@@ -36,6 +36,7 @@
         QDVersionConfigResultModel* result = [QDVersionConfigResultModel mj_objectWithKeyValues:dictionary];
         if (result&&result.code == kHttpStatusCode200 && result.data) {
             QDVersionManager.shared.versionConfig = [result.data.json_config mj_JSONObject];
+            QDVersionManager.shared.operator_switch = result.data.operator_switch;
             NSLog(@"versionConfig = %@", QDVersionManager.shared.versionConfig);
             [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationConfigUpdate object:nil];
             [QDTrackManager track:QDTrackType_connect_cms_suc data:@{}];

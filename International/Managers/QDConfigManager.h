@@ -64,6 +64,7 @@
 @property(nonatomic, strong) NSArray<QDNodeModel*>* freeNodes;
 @property(nonatomic, strong) NSArray<QDNodeModel*>* vipNodes;
 @property(nonatomic, strong) NSMutableArray<QDNodeModel*>* otherLinesNodes;
+@property(nonatomic, strong) NSArray<QDNodeModel*>* allVipNodes;
 
 // 防封机制
 @property (nonatomic, assign) NSInteger failTimes;
@@ -83,12 +84,18 @@
 @property (nonatomic, copy) NSString *email;
 @property (nonatomic, copy) NSString *password;
 
+/////////////////////////////////////////////////////////////////
+// 根据ip获取三条线路
 - (void)getOtherTwoLinsWith:(NSString *)ip;
 
+// 连接失败切换下个国家
 - (QDNodeModel *)connectFailUpdateLines;
 
-// 加密key
+// 选择的国家
 @property (nonatomic, copy) NSString *defaultCountry;
+
+// 选择的国家
+@property (nonatomic, assign) BOOL lineChanged;
 
 @end
 

@@ -28,6 +28,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)getFatestAddress:(NSArray *)addressList requestTimes:(int)times completionHandler:(CompletionHandler)completionHandler;
 
+- (void)stopAllPing;
+
 @end
 
 NS_ASSUME_NONNULL_END
