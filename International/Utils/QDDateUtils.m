@@ -152,18 +152,22 @@
 }
 
 + (NSString *)getNowDateString {
-    // 获取当前时间
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]  init];
     [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    NSLocale *locale = [[NSLocale alloc]  initWithLocaleIdentifier:[[NSLocale preferredLanguages]  objectAtIndex:0]];
+    [dateFormatter setLocale:locale];
+    NSString *dateStr = [dateFormatter stringFromDate:[NSDate date]];
 
-    // 得到当前时间（世界标准时间 UTC/GMT）
-    NSDate *nowDate = [NSDate date];
-//    // 设置时区
-//    NSTimeZone *timeZone = [NSTimeZone timeZoneWithName:@"UTC"];
-//    dateFormatter.timeZone = timeZone;
-    NSString *nowDateString = [dateFormatter stringFromDate:nowDate];
+    return dateStr;
+}
 
-    return nowDateString;
++ (NSString *)getNowDateTimestamp {
+    NSDate *datenow = [NSDate date];
+    NSTimeZone *zone = [NSTimeZone localTimeZone];
+    // 获取指定时间所在时区与UTC时区的间隔秒数
+    NSInteger seconds = [zone secondsFromGMTForDate:[NSDate date]];
+    NSString *timeSp = [NSString stringWithFormat:@"%ld", (long)[datenow timeIntervalSince1970] - seconds];
+    return timeSp;
 }
 
 @end

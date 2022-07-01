@@ -40,6 +40,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (NSString *)getNowDateString;
 
++ (NSString *)getNowDateTimestamp;
+
 @end
 
 NS_ASSUME_NONNULL_END

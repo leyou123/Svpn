@@ -19,4 +19,15 @@
     return [UIImage imageNamed:imageNamed];
 }
 
+// 根据ping结果，来判断拥挤
++ (UIImage*) getSpeedImage:(int)pingResult {
+    NSString* imageNamed;
+    if (pingResult == 1) {
+        imageNamed = @"line_speed_normal";
+    }else {
+        imageNamed = @"line_speed_slow1";
+    }
+    return [UIImage imageNamed:imageNamed];
+}
+
 @end

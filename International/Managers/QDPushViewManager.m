@@ -86,16 +86,16 @@ static NSInteger IntervalTime = 1 * 24 * 60 * 60;
 // 随机推送弹窗视图, 每天弹一次
 - (void) popRandomView {
     
-    // 顶层视图
+//    // 顶层视图
     UIViewController* topVC = [self getCurrentVC];
     NSString* topVCName = NSStringFromClass([topVC class]);
-    
+
     if (![topVCName isEqualToString:@"QDHomeViewController"]
         && ![topVCName isEqualToString:@"QDUserViewController"]
         && ![topVCName isEqualToString:@"QDSubscriptionViewController"]) {
         return;
     }
-    
+
     NSTimeInterval currentTimestamp = [[NSDate date] timeIntervalSince1970];
     if (self.lastShowTimestamp == 0) self.lastShowTimestamp = currentTimestamp;
     if (currentTimestamp - self.lastShowTimestamp < IntervalTime) {

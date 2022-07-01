@@ -24,8 +24,7 @@
 
 // 请求节点列表
 + (void) requestNodes:(void (^)(NSDictionary *dictionary)) completed {
-    [[QDHTTPManager shared] request:HTTPMethodTypePost type:kAPITypeNodes parameters:@{@"uid":@(QDConfigManager.shared.UID), @"key":QDConfigManager.shared.key,@"uuid":QDConfigManager.shared.UUID} completed:completed];
-//    [[QDHTTPManager shared] request:HTTPMethodTypePost type:kAPITypeNodes parameters:@{@"uid":@(QDConfigManager.shared.UID), @"key":QDConfigManager.shared.key} completed:completed];
+    [[QDHTTPManager shared] request:HTTPMethodTypePost type:kAPITypeNodes parameters:@{@"uid":@(QDConfigManager.shared.UID), @"key":QDConfigManager.shared.key,@"uuid":QDConfigManager.shared.UUID,@"allNode":@(1)} completed:completed];
 }
 
 // 注册节点
@@ -340,6 +339,11 @@
         @"uuid":QDConfigManager.shared.UUID,
         @"platform_id":APP_PLATFORM_ID,
         @"package_id":APP_BUNDLE_ID} completed:completed];
+}
+
+// 请求测试线路
++ (void) requestTestNode:(NSDictionary *)dic complete:(void (^)(NSDictionary *dictionary)) completed {
+    [[QDHTTPManager shared] request:HTTPMethodTypePost type:kAPITypeTestNode parameters:dic completed:completed];
 }
 
 @end

@@ -67,6 +67,9 @@ NS_ASSUME_NONNULL_BEGIN
 // 节点携带数据
 @property(nonatomic, strong) NSArray* subNodes;
 
+// ping结果
+@property (nonatomic, assign) int pingResult;
+
 @end
 
 NS_ASSUME_NONNULL_END

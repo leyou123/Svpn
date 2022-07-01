@@ -232,8 +232,9 @@
     // superview call this method.
 //    [templateView addHorizontalConstraintsToSuperviewWidth];
 //    [templateView addVerticalCenterConstraintToSuperview];
-    [QDAdManager.shared showNativeAd:templateView];
-    
+    if ([QDVersionManager.shared.versionConfig[@"show_base_link_ad"] intValue] == 1) {
+        [QDAdManager.shared showNativeAd:templateView];
+    }
 }
 
 # pragma mark - notify

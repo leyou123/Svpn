@@ -207,6 +207,8 @@
 		3CFA02282789864A007F41E0 /* QDFeedbackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CFA02272789864A007F41E0 /* QDFeedbackViewController.m */; };
 		3CFA022C278C0797007F41E0 /* QDCheckBoxButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CFA022B278C0797007F41E0 /* QDCheckBoxButton.m */; };
 		3CFA022F278C3477007F41E0 /* QDAppTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CFA022E278C3476007F41E0 /* QDAppTitleView.m */; };
+		AD469015286E988000C61072 /* QDNodeTestModel.m in Sources */ = {isa = PBXBuildFile; fileRef = AD469014286E988000C61072 /* QDNodeTestModel.m */; };
+		AD46901B286EECD500C61072 /* open_loading.gif in Resources */ = {isa = PBXBuildFile; fileRef = AD46901A286EECD500C61072 /* open_loading.gif */; };
 		AD5812B5281793A200E4D5FE /* SFUIDisplay-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = AD5812B1281793A200E4D5FE /* SFUIDisplay-Light.otf */; };
 		AD5812B6281793A200E4D5FE /* SFUIText-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AD5812B2281793A200E4D5FE /* SFUIText-Regular.ttf */; };
 		AD5812B7281793A200E4D5FE /* SFUIDisplay-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = AD5812B3281793A200E4D5FE /* SFUIDisplay-Regular.otf */; };
@@ -226,6 +228,7 @@
 		AD9CB0C22817905F008A1E93 /* QDWatchAD.m in Sources */ = {isa = PBXBuildFile; fileRef = AD9CB0C12817905E008A1E93 /* QDWatchAD.m */; };
 		AD9CB0C52817906D008A1E93 /* QDGetPremiumView.m in Sources */ = {isa = PBXBuildFile; fileRef = AD9CB0C42817906D008A1E93 /* QDGetPremiumView.m */; };
 		ADC6971627EABBCC00AF0C90 /* QDPayViewController3.m in Sources */ = {isa = PBXBuildFile; fileRef = ADC6971527EABBCC00AF0C90 /* QDPayViewController3.m */; };
+		ADDA744E286C5E44001F2359 /* NSObjectSafe.m in Sources */ = {isa = PBXBuildFile; fileRef = ADDA744C286C5E44001F2359 /* NSObjectSafe.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		ADDB01DA2817E515003B3780 /* QDTimerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = ADDB01D92817E515003B3780 /* QDTimerManager.m */; };
 		ADDB01DE28180504003B3780 /* SFUIText-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = ADDB01DD28180504003B3780 /* SFUIText-Medium.otf */; };
 		ADF5732627E9DA540053F802 /* QDVIPView3.m in Sources */ = {isa = PBXBuildFile; fileRef = ADF5732527E9DA540053F802 /* QDVIPView3.m */; };
@@ -665,6 +668,9 @@
 		3CFA022B278C0797007F41E0 /* QDCheckBoxButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QDCheckBoxButton.m; sourceTree = "<group>"; };
 		3CFA022D278C3476007F41E0 /* QDAppTitleView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QDAppTitleView.h; sourceTree = "<group>"; };
 		3CFA022E278C3476007F41E0 /* QDAppTitleView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QDAppTitleView.m; sourceTree = "<group>"; };
+		AD469013286E988000C61072 /* QDNodeTestModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QDNodeTestModel.h; sourceTree = "<group>"; };
+		AD469014286E988000C61072 /* QDNodeTestModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QDNodeTestModel.m; sourceTree = "<group>"; };
+		AD46901A286EECD500C61072 /* open_loading.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = open_loading.gif; sourceTree = "<group>"; };
 		AD5812B1281793A200E4D5FE /* SFUIDisplay-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFUIDisplay-Light.otf"; sourceTree = "<group>"; };
 		AD5812B2281793A200E4D5FE /* SFUIText-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFUIText-Regular.ttf"; sourceTree = "<group>"; };
 		AD5812B3281793A200E4D5FE /* SFUIDisplay-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFUIDisplay-Regular.otf"; sourceTree = "<group>"; };
@@ -697,6 +703,8 @@
 		AD9CB0C42817906D008A1E93 /* QDGetPremiumView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QDGetPremiumView.m; sourceTree = "<group>"; };
 		ADC6971427EABBCC00AF0C90 /* QDPayViewController3.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QDPayViewController3.h; sourceTree = "<group>"; };
 		ADC6971527EABBCC00AF0C90 /* QDPayViewController3.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QDPayViewController3.m; sourceTree = "<group>"; };
+		ADDA744C286C5E44001F2359 /* NSObjectSafe.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSObjectSafe.m; sourceTree = "<group>"; };
+		ADDA744D286C5E44001F2359 /* NSObjectSafe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSObjectSafe.h; sourceTree = "<group>"; };
 		ADDB01D82817E515003B3780 /* QDTimerManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QDTimerManager.h; sourceTree = "<group>"; };
 		ADDB01D92817E515003B3780 /* QDTimerManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QDTimerManager.m; sourceTree = "<group>"; };
 		ADDB01DD28180504003B3780 /* SFUIText-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFUIText-Medium.otf"; sourceTree = "<group>"; };
@@ -953,6 +961,8 @@
 				3C558B90266E0E7200FECA47 /* QDNodeModel.m */,
 				3C558B91266E0E7200FECA47 /* QDNodesResultModel.h */,
 				3C558B6F266E0E7200FECA47 /* QDNodesResultModel.m */,
+				AD469013286E988000C61072 /* QDNodeTestModel.h */,
+				AD469014286E988000C61072 /* QDNodeTestModel.m */,
 				3C558B8A266E0E7200FECA47 /* QDOrderModel.h */,
 				3C558B74266E0E7200FECA47 /* QDOrderModel.m */,
 				3C558B7C266E0E7200FECA47 /* QDOrderRecordModel.h */,
@@ -1102,6 +1112,7 @@
 		3C558BB2266E175900FECA47 /* Vendors */ = {
 			isa = PBXGroup;
 			children = (
+				ADDA7418286C5A15001F2359 /* NSObjectSafe */,
 				AD87B6BE28508D890072836A /* NetSpeed */,
 				164D00B7283F489100625213 /* UnityAds */,
 				164D00B0283DDE1F00625213 /* SimplePing */,
@@ -1208,6 +1219,7 @@
 				1625EB2C282932BD00FD78D4 /* home_crow.gif */,
 				164D00AC282E441500625213 /* home_connecting.gif */,
 				164D00AE282E442600625213 /* home_disconnecting.gif */,
+				AD46901A286EECD500C61072 /* open_loading.gif */,
 				00F6022523839C2200A0E295 /* Localizable.strings */,
 				00F6018F23838F7A00A0E295 /* LaunchScreen.storyboard */,
 			);
@@ -1535,6 +1547,15 @@
 			path = NetSpeed;
 			sourceTree = "<group>";
 		};
+		ADDA7418286C5A15001F2359 /* NSObjectSafe */ = {
+			isa = PBXGroup;
+			children = (
+				ADDA744D286C5E44001F2359 /* NSObjectSafe.h */,
+				ADDA744C286C5E44001F2359 /* NSObjectSafe.m */,
+			);
+			path = NSObjectSafe;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1659,6 +1680,7 @@
 				AD5812B6281793A200E4D5FE /* SFUIText-Regular.ttf in Resources */,
 				00F6019723838F7A00A0E295 /* Assets.xcassets in Resources */,
 				00F6019923838F7A00A0E295 /* LaunchScreen.storyboard in Resources */,
+				AD46901B286EECD500C61072 /* open_loading.gif in Resources */,
 				3C7F52DC269DCAF20055840B /* GADTMediumTemplateView.xib in Resources */,
 				AD5812B5281793A200E4D5FE /* SFUIDisplay-Light.otf in Resources */,
 			);
@@ -1829,6 +1851,7 @@
 				AD9CB0B928178FBA008A1E93 /* QDNoticeView2.m in Sources */,
 				3C558C3D267086C900FECA47 /* QDProductCollectionViewCell.m in Sources */,
 				3CDE00E12744AD4B007F67AD /* QDShareViewController.m in Sources */,
+				ADDA744E286C5E44001F2359 /* NSObjectSafe.m in Sources */,
 				3C7F52B7269ABF1D0055840B /* QDConfigInstallGuideView.m in Sources */,
 				3CD264BA2702FE6200C99B84 /* GoogleInterstitialAd.m in Sources */,
 				3CD23CAD2756268B0017FC48 /* QDPushViewManager.m in Sources */,
@@ -1837,6 +1860,7 @@
 				3C558C5D267AEA8C00FECA47 /* QDRecommandAdView.m in Sources */,
 				3C7F52E0269DCAF20055840B /* GADTMediumTemplateView.m in Sources */,
 				3CA95B1E26E0DC63007CD1A7 /* QDRegisterViewController.m in Sources */,
+				AD469015286E988000C61072 /* QDNodeTestModel.m in Sources */,
 				1625EB2B2828F47B00FD78D4 /* QDADsViewController.m in Sources */,
 				3C558B38266DF65500FECA47 /* QDReceiptManager.m in Sources */,
 				3C558B3D266DF65500FECA47 /* QDHTTPManager.m in Sources */,
@@ -2108,7 +2132,7 @@
 				CODE_SIGN_ENTITLEMENTS = International/International.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 4;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = FPCZYL3D8P;
 				ENABLE_BITCODE = NO;
@@ -2120,7 +2144,7 @@
 				INFOPLIST_FILE = International/Resources/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited)";
-				MARKETING_VERSION = 3.1.8;
+				MARKETING_VERSION = 3.1.9;
 				PRODUCT_BUNDLE_IDENTIFIER = com.superoversea;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = superoversea_dev;
@@ -2141,7 +2165,7 @@
 				CODE_SIGN_ENTITLEMENTS = International/International.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 4;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = FPCZYL3D8P;
 				ENABLE_BITCODE = NO;
@@ -2153,7 +2177,7 @@
 				INFOPLIST_FILE = International/Resources/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited)";
-				MARKETING_VERSION = 3.1.8;
+				MARKETING_VERSION = 3.1.9;
 				PRODUCT_BUNDLE_IDENTIFIER = com.superoversea;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = superoversea_dev;
@@ -2171,7 +2195,7 @@
 				CODE_SIGN_ENTITLEMENTS = PacketTunnel/PacketTunnel.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 4;
 				DEFINES_MODULE = NO;
 				DEVELOPMENT_TEAM = FPCZYL3D8P;
 				ENABLE_BITCODE = NO;
@@ -2186,7 +2210,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/PacketTunnel/libleaf",
 				);
-				MARKETING_VERSION = 3.1.8;
+				MARKETING_VERSION = 3.1.9;
 				OTHER_LDFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.superoversea.PacketTunnel;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2209,7 +2233,7 @@
 				CODE_SIGN_ENTITLEMENTS = PacketTunnel/PacketTunnel.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 4;
 				DEFINES_MODULE = NO;
 				DEVELOPMENT_TEAM = FPCZYL3D8P;
 				ENABLE_BITCODE = NO;
@@ -2224,7 +2248,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/PacketTunnel/libleaf",
 				);
-				MARKETING_VERSION = 3.1.8;
+				MARKETING_VERSION = 3.1.9;
 				OTHER_LDFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.superoversea.PacketTunnel;
 				PRODUCT_NAME = "$(TARGET_NAME)";

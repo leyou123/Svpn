@@ -2,7 +2,7 @@
   "images" : [
     {
       "extent" : "full-screen",
-      "filename" : "1242X2688.png",
+      "filename" : "12422688 – 1.png",
       "idiom" : "iphone",
       "minimum-system-version" : "12.0",
       "orientation" : "portrait",
@@ -11,7 +11,7 @@
     },
     {
       "extent" : "full-screen",
-      "filename" : "828X1792.png",
+      "filename" : "8281792 – 1.png",
       "idiom" : "iphone",
       "minimum-system-version" : "12.0",
       "orientation" : "portrait",
@@ -20,7 +20,7 @@
     },
     {
       "extent" : "full-screen",
-      "filename" : "1125X2436.png",
+      "filename" : "11252436 – 1.png",
       "idiom" : "iphone",
       "minimum-system-version" : "11.0",
       "orientation" : "portrait",
@@ -29,7 +29,7 @@
     },
     {
       "extent" : "full-screen",
-      "filename" : "1242X2208.png",
+      "filename" : "12422208 – 1.png",
       "idiom" : "iphone",
       "minimum-system-version" : "8.0",
       "orientation" : "portrait",
@@ -38,7 +38,7 @@
     },
     {
       "extent" : "full-screen",
-      "filename" : "750X1334.png",
+      "filename" : "7501334 – 1.png",
       "idiom" : "iphone",
       "minimum-system-version" : "8.0",
       "orientation" : "portrait",
@@ -47,7 +47,7 @@
     },
     {
       "extent" : "full-screen",
-      "filename" : "640X960.png",
+      "filename" : "640960.png",
       "idiom" : "iphone",
       "minimum-system-version" : "7.0",
       "orientation" : "portrait",
@@ -55,7 +55,7 @@
     },
     {
       "extent" : "full-screen",
-      "filename" : "640X1136.png",
+      "filename" : "6401136.png",
       "idiom" : "iphone",
       "minimum-system-version" : "7.0",
       "orientation" : "portrait",
@@ -64,7 +64,7 @@
     },
     {
       "extent" : "full-screen",
-      "filename" : "768*1024_ipad_1.png",
+      "filename" : "7681024.png",
       "idiom" : "ipad",
       "minimum-system-version" : "7.0",
       "orientation" : "portrait",
@@ -86,14 +86,14 @@
     },
     {
       "extent" : "full-screen",
-      "filename" : "640X960-1.png",
+      "filename" : "640960 – 1.png",
       "idiom" : "iphone",
       "orientation" : "portrait",
       "scale" : "2x"
     },
     {
       "extent" : "full-screen",
-      "filename" : "640X1136-1.png",
+      "filename" : "6401136 – 1.png",
       "idiom" : "iphone",
       "orientation" : "portrait",
       "scale" : "2x",
@@ -101,14 +101,14 @@
     },
     {
       "extent" : "full-screen",
-      "filename" : "768*1024_ipad.png",
+      "filename" : "7681024 – 1.png",
       "idiom" : "ipad",
       "orientation" : "portrait",
       "scale" : "1x"
     },
     {
       "extent" : "full-screen",
-      "filename" : "15362048_1.png",
+      "filename" : "15362048 – 1.png",
       "idiom" : "ipad",
       "orientation" : "portrait",
       "scale" : "2x"

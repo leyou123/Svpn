@@ -212,7 +212,10 @@
     
     
     // delay
-    self.delayImageView.image = [QDLineTableViewBaseCell getDelayImage:model.weights];
+//    self.delayImageView.image = [QDLineTableViewBaseCell getDelayImage:model.weights];
+    
+    self.delayImageView.image = [QDLineTableViewBaseCell getSpeedImage:model.pingResult];
+
 
 }
 
@@ -253,7 +256,10 @@
     
     
     // delay
-    self.delayImageView.image = [QDLineTableViewBaseCell getDelayImage:model.weights];
+//    self.delayImageView.image = [QDLineTableViewBaseCell getDelayImage:model.weights];
+    
+    self.delayImageView.image = [QDLineTableViewBaseCell getSpeedImage:model.pingResult];
+
 }
 
 - (void)setNodeColor:(UIColor *)nodeColor {

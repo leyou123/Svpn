@@ -147,7 +147,7 @@ static NSString *const kHadRate = @"kHadRate";
     if ([currentVc isKindOfClass:[MMDrawerController class]]) {
         MMDrawerController * vc = (MMDrawerController *)currentVc;
         if (QDConfigManager.shared.isNoneFirstEnterApp && vc.openSide != MMDrawerSideLeft && self.canShowAds) {
-            [self showAds];
+            [self showInsertAds];
             self.canShowAds = NO;
         }
     }
@@ -160,6 +160,16 @@ static NSString *const kHadRate = @"kHadRate";
     // 刷新选中线路
     if (QDConfigManager.shared.lineChanged) {
         [self notifyLineChange];
+    }
+    // 监听连接状态
+//    [self updateConnectStatus];
+    QDVPNManager.shared.statusChangedHandler = ^(NEVPNStatus status) {
+        [self updateConnectStatus];
+    };
+    long lastTime = [[[NSUserDefaults standardUserDefaults] objectForKey:@"allpingtime"] longValue];
+    
+    if ([QDDateUtils getNowUTCTimeTimestamp] - lastTime > 24*60*60 && lastTime != 0) {
+        [self stopVPN];
     }
 }
 
@@ -222,15 +232,6 @@ static NSString *const kHadRate = @"kHadRate";
         
         // 刷新用户信息
         [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationUserActive object:nil];
-        
-//        // 请求节点信息
-//        if (!QDConfigManager.shared.nodes || QDConfigManager.shared.nodes.count == 0) {
-//            [self requestNodes];
-//        } else {
-//            // 刷新节点列表
-//            [QDConfigManager.shared preprogressNodes];
-//            [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationLineRefresh object:nil];
-//        }
         
     } else if (resultModel.code == kHttpStatusCode404) {
         QDConfigManager.shared.email    = nil;
@@ -314,6 +315,8 @@ static NSString *const kHadRate = @"kHadRate";
         if (resultModel.code == kHttpStatusCode200) {
             // 默认第一条线路
             QDConfigManager.shared.nodes = resultModel.data;
+            QDConfigManager.shared.lineHide = resultModel.node_hide_switch;
+            QDConfigManager.shared.testNodes = resultModel.test_nodes;
             [QDConfigManager.shared preprogressNodes];
             [QDConfigManager.shared setDefaultNode];
             [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationLineRefresh object:nil];
@@ -434,7 +437,11 @@ static NSString *const kHadRate = @"kHadRate";
     }];
 //  connect support
     QDClickButtonView * supportView = [[QDClickButtonView alloc] initWithFrame:CGRectZero image:@"home_connectUs" text:NSLocalizedString(@"Home_ConnectSupport", nil) attributeString:@"" Action:^{
-        self.canShowAds = YES;
+        if ([QDVersionManager.shared.versionConfig[@"show_feedback_ad"] intValue] == 1) {
+            self.canShowAds = YES;
+        }else {
+            self.canShowAds = NO;
+        }
         QDFeedbackViewController* vc = [QDFeedbackViewController new];
         vc.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:vc animated:YES];
@@ -459,7 +466,11 @@ static NSString *const kHadRate = @"kHadRate";
         }else if (status == 2) {
             [self onBindAction];
         }else {
-            self.canShowAds = YES;
+            if ([QDVersionManager.shared.versionConfig[@"show_payment_ad"] intValue] == 1) {
+                self.canShowAds = YES;
+            }else {
+                self.canShowAds = NO;
+            }
             QDPayViewController3* vc = [QDPayViewController3 new];
             vc.modalPresentationStyle = UIModalPresentationFullScreen;
             [self presentViewController:vc animated:YES completion:nil];
@@ -659,7 +670,6 @@ static NSString *const kHadRate = @"kHadRate";
     }else {
 //        [self.scanButton setImage:[UIImage imageNamed:@"home_vip"] forState:UIControlStateNormal];
         NSString *filePath = [[NSBundle bundleWithPath:[[NSBundle mainBundle] bundlePath]]pathForResource:@"home_crow" ofType:@"gif"];
-
         NSData *imageData = [NSData dataWithContentsOfFile:filePath];
         UIImage * image = [UIImage sd_imageWithGIFData:imageData];
         [self.scanButton setImage:image forState:UIControlStateNormal];
@@ -753,9 +763,6 @@ static NSString *const kHadRate = @"kHadRate";
     }
     
     self.connectButton = [[QDConnectButtonView alloc] initWithFrame:CGRectZero clickBlock:^{
-        if ((QDVPNManager.shared.status == NEVPNStatusDisconnected) || (QDVPNManager.shared.status == NEVPNStatusInvalid)) {
-            [[QDConfigManager shared] getOtherTwoLinsWith:QDConfigManager.shared.node.ip];
-        }
         [weakSelf onConnectAction];
     }];
     [self.semicircleImage addSubview:self.connectButton];
@@ -794,25 +801,27 @@ static NSString *const kHadRate = @"kHadRate";
 //        make.width.mas_equalTo(@(250));
 //        make.height.mas_equalTo(@(20));
 //    }];
-
-    // 监听连接状态
-    [self updateConnectStatus];
-    QDVPNManager.shared.statusChangedHandler = ^(NEVPNStatus status) {
-        [self updateConnectStatus];
-    };
 }
 
 - (void) setupLine {
     WS(weakSelf);
     self.lineButton = [[QDLineButtonView alloc] initWithFrame:CGRectZero clickBlock:^{
         if (QDConfigManager.shared.activeModel.member_type == 1) {
-            self.canShowAds = YES;
+            if ([QDVersionManager.shared.versionConfig[@"show_node_ad"] intValue] == 1) {
+                self.canShowAds = YES;
+            }else {
+                self.canShowAds = NO;
+            }
             [QDTrackManager track_button:QDTrackButtonType_7];
             RefreshViewController2* vc = [RefreshViewController2 new];
             vc.hidesBottomBarWhenPushed = YES;
             [weakSelf.navigationController pushViewController:vc animated:YES];
         }else {
-            self.canShowAds = YES;
+            if ([QDVersionManager.shared.versionConfig[@"show_node_ad"] intValue] == 1) {
+                self.canShowAds = YES;
+            }else {
+                self.canShowAds = NO;
+            }
             [QDTrackManager track_button:QDTrackButtonType_7];
             RefreshViewController* vc = [RefreshViewController new];
             vc.hidesBottomBarWhenPushed = YES;
@@ -970,6 +979,11 @@ static NSString *const kHadRate = @"kHadRate";
     self.hadShowAds = YES;
 }
 
+// 展示插页广告
+- (void)showInsertAds {
+    [self showInsertAd];
+}
+
 #pragma mark -- connect relations
 // 是否可以连接
 - (BOOL) canConnecting {
@@ -1009,14 +1023,22 @@ static NSString *const kHadRate = @"kHadRate";
         [QDDialogManager showVIPExpired:^{
             self->_typeString = [self platformString];
             if ([self->_typeString isEqualToString:@"iPhone 6s"]||[self->_typeString isEqualToString:@"iPhone 6"]||[self->_typeString isEqualToString:@"iPhone 7"]||[self->_typeString isEqualToString:@"iPhone 8"]) {
-                self.canShowAds = YES;
+                if ([QDVersionManager.shared.versionConfig[@"show_payment_ad"] intValue] == 1) {
+                    self.canShowAds = YES;
+                }else {
+                    self.canShowAds = NO;
+                }
                 QDPayViewController3* vc = [[QDPayViewController3 alloc]init];
                 UIViewController* rootViewController = UIApplication.sharedApplication.keyWindow.rootViewController;
                 vc.modalPresentationStyle = UIModalPresentationFullScreen;
                 [rootViewController presentViewController:vc animated:YES completion:nil];
 
             }else{
-                self.canShowAds = YES;
+                if ([QDVersionManager.shared.versionConfig[@"show_payment_ad"] intValue] == 1) {
+                    self.canShowAds = YES;
+                }else {
+                    self.canShowAds = NO;
+                }
                 QDPayViewController2* vc = [[QDPayViewController2 alloc]init];
                 UIViewController* rootViewController = UIApplication.sharedApplication.keyWindow.rootViewController;
                 vc.modalPresentationStyle = UIModalPresentationFullScreen;
@@ -1210,7 +1232,11 @@ static NSString *const kHadRate = @"kHadRate";
     
     if (QDVPNManager.shared.isReInstallerVPNConfig) {
         [QDDialogManager showDialog:NSLocalizedString(@"Connect_fail", nil) message:NSLocalizedString(@"Connect_refail_info", nil) ok:NSLocalizedString(@"Dialog_Ok", nil) cancel:nil okBlock:^{
-            self.canShowAds = YES;
+            if ([QDVersionManager.shared.versionConfig[@"show_feedback_ad"] intValue] == 1) {
+                self.canShowAds = YES;
+            }else {
+                self.canShowAds = NO;
+            }
             QDFeedbackViewController* vc = [QDFeedbackViewController new];
             vc.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:vc animated:YES];
@@ -1229,8 +1255,10 @@ static NSString *const kHadRate = @"kHadRate";
                     [self.connectButton updateUI];
                 } else {
 
-                    // 显示插屏广告
-                    [self showInsertAd];
+                    if ([QDVersionManager.shared.versionConfig[@"show_link_ad"] intValue] == 1) {
+                        // 显示插屏广告
+                        [self showInsertAd];
+                    }
 
                     // 移除安装配置任务
                     [QDTaskManager.shared remove:QDTaskTypeInstallConfig];
@@ -1292,13 +1320,21 @@ static NSString *const kHadRate = @"kHadRate";
 
         } cancelBlock:^{
             if (QDConfigManager.shared.activeModel.member_type == 1) {
-                self.canShowAds = YES;
+                if ([QDVersionManager.shared.versionConfig[@"show_node_ad"] intValue] == 1) {
+                    self.canShowAds = YES;
+                }else {
+                    self.canShowAds = NO;
+                }
                 [QDTrackManager track_button:QDTrackButtonType_7];
                 RefreshViewController2* vc = [RefreshViewController2 new];
                 vc.hidesBottomBarWhenPushed = YES;
                 [self.navigationController pushViewController:vc animated:YES];
             }else {
-                self.canShowAds = YES;
+                if ([QDVersionManager.shared.versionConfig[@"show_node_ad"] intValue] == 1) {
+                    self.canShowAds = YES;
+                }else {
+                    self.canShowAds = NO;
+                }
                 [QDTrackManager track_button:QDTrackButtonType_7];
                 RefreshViewController* vc = [RefreshViewController new];
                 vc.hidesBottomBarWhenPushed = YES;
@@ -1321,7 +1357,11 @@ static NSString *const kHadRate = @"kHadRate";
 //    if (!QDConfigManager.shared.activeModel || QDConfigManager.shared.activeModel.member_type != 1) {
 //
 //    }
-    self.canShowAds = YES;
+    if ([QDVersionManager.shared.versionConfig[@"show_connect_success_ad"] intValue] == 1) {
+        self.canShowAds = YES;
+    }else {
+        self.canShowAds = NO;
+    }
     QDNativeAdViewController* vc = [[QDNativeAdViewController alloc] init];
 //    vc.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:vc animated:YES];
@@ -1416,13 +1456,21 @@ static NSString *const kHadRate = @"kHadRate";
             }];
             return;
         }
-        self.canShowAds = YES;
+        if ([QDVersionManager.shared.versionConfig[@"show_qrcode_ad"] intValue] == 1) {
+            self.canShowAds = YES;
+        }else {
+            self.canShowAds = NO;
+        }
         [QDTrackManager track_button:QDTrackButtonType_34];
         QDQRCodeViewController* vc = [QDQRCodeViewController new];
         vc.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:vc animated:YES];
     }else {
-        self.canShowAds = YES;
+        if ([QDVersionManager.shared.versionConfig[@"show_payment_ad"] intValue] == 1) {
+            self.canShowAds = YES;
+        }else {
+            self.canShowAds = NO;
+        }
         // 不是会员
         QDPayViewController3* vc = [[QDPayViewController3 alloc]init];
         UIViewController* rootViewController = UIApplication.sharedApplication.keyWindow.rootViewController;
@@ -1436,7 +1484,11 @@ static NSString *const kHadRate = @"kHadRate";
 }
 
 - (void) onBindAction {
-    self.canShowAds = YES;
+    if ([QDVersionManager.shared.versionConfig[@"show_bing_email_ad"] intValue] == 1) {
+        self.canShowAds = YES;
+    }else {
+        self.canShowAds = NO;
+    }
     QDRegisterViewController* vc = [QDRegisterViewController new];
     vc.modalPresentationStyle = UIModalPresentationFullScreen;
     [self presentViewController:vc animated:YES completion:nil];
@@ -1464,7 +1516,11 @@ static NSString *const kHadRate = @"kHadRate";
             [self toRate];
         }
         if ([QDTimerManager shared].connectedTimeValue < 15 && [[userDefault objectForKey:@"ClickButton"] isEqualToString:@"NO"]) {
-            self.canShowAds = YES;
+            if ([QDVersionManager.shared.versionConfig[@"show_feedback_ad"] intValue] == 1) {
+                self.canShowAds = YES;
+            }else {
+                self.canShowAds = NO;
+            }
             QDFeedbackViewController* vc = [QDFeedbackViewController new];
             vc.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:vc animated:YES];
@@ -1476,17 +1532,22 @@ static NSString *const kHadRate = @"kHadRate";
     
     // 若断开，则连接
     if (QDVPNManager.shared.status == NEVPNStatusInvalid || QDVPNManager.shared.status == NEVPNStatusDisconnected) {
+        if ((QDVPNManager.shared.status == NEVPNStatusDisconnected) || (QDVPNManager.shared.status == NEVPNStatusInvalid)) {
+            [[QDConfigManager shared] getOtherTwoLinsWith:QDConfigManager.shared.node.ip];
+        }
         [self startPing];
     }
 }
 
 - (void)startPingWIthAction:(int)action complete:(void(^)(void))complete {
-    
+//    NSArray * arr = @[QDConfigManager.shared.node.host];
+    NSMutableArray * arr = [NSMutableArray array];
+    if (QDConfigManager.shared.node.host) {
+        [arr addObject:QDConfigManager.shared.node.host];
+    }else {
+        return;
+    }
     [self.connectButton updateUIStatus:status_button_loading];
-    NSArray * arr = @[QDConfigManager.shared.node.host];
-    
-    NSLog(@"otherLinesNodes:%@ ------nodename：%@",QDConfigManager.shared.otherLinesNodes, QDConfigManager.shared.node.name);
-    
     self.pingHelper = [[NENPingManager alloc] init];
     [self.pingHelper getFatestAddress:arr requestTimes:1 completionHandler:^(NSString * _Nonnull host, NSArray * _Nullable itemArr) {
         if (host && itemArr) {
@@ -1506,7 +1567,11 @@ static NSString *const kHadRate = @"kHadRate";
                 }else {
                     [self.connectButton updateUIStatus:status_button_fail];
                     [QDDialogManager showDialog:NSLocalizedString(@"Connect_fail", nil) message:NSLocalizedString(@"Ping_fail_info", nil) ok:NSLocalizedString(@"Connect_success_ok", nil) cancel:nil okBlock:^{
-                        self.canShowAds = YES;
+                        if ([QDVersionManager.shared.versionConfig[@"show_feedback_ad"] intValue] == 1) {
+                            self.canShowAds = YES;
+                        }else {
+                            self.canShowAds = NO;
+                        }
                         QDFeedbackViewController* vc = [QDFeedbackViewController new];
                         vc.hidesBottomBarWhenPushed = YES;
                         [self.navigationController pushViewController:vc animated:YES];
@@ -1531,7 +1596,11 @@ static NSString *const kHadRate = @"kHadRate";
             }else {
                 [self.connectButton updateUIStatus:status_button_fail];
                 [QDDialogManager showDialog:NSLocalizedString(@"Connect_fail", nil) message:NSLocalizedString(@"Ping_fail_info", nil) ok:NSLocalizedString(@"Connect_success_ok", nil) cancel:nil okBlock:^{
-                    self.canShowAds = YES;
+                    if ([QDVersionManager.shared.versionConfig[@"show_feedback_ad"] intValue] == 1) {
+                        self.canShowAds = YES;
+                    }else {
+                        self.canShowAds = NO;
+                    }
                     QDFeedbackViewController* vc = [QDFeedbackViewController new];
                     vc.hidesBottomBarWhenPushed = YES;
                     [self.navigationController pushViewController:vc animated:YES];
@@ -1556,8 +1625,10 @@ static NSString *const kHadRate = @"kHadRate";
                 [self.connectButton updateUI];
             } else {
                 
-                // 显示插屏广告
-                [self showInsertAd];
+                if ([QDVersionManager.shared.versionConfig[@"show_link_ad"] intValue] == 1) {
+                    // 显示插屏广告
+                    [self showInsertAd];
+                }
                 
                 // 移除安装配置任务
                 [QDTaskManager.shared remove:QDTaskTypeInstallConfig];
@@ -1694,8 +1765,10 @@ static NSString *const kHadRate = @"kHadRate";
             [self.connectButton updateUI];
         } else {
             
-            // 显示插屏广告
-            [self showInsertAd];
+            if ([QDVersionManager.shared.versionConfig[@"show_link_ad"] intValue] == 1) {
+                // 显示插屏广告
+                [self showInsertAd];
+            }
             
             // 移除安装配置任务
             [QDTaskManager.shared remove:QDTaskTypeInstallConfig];
@@ -1777,33 +1850,15 @@ static NSString *const kHadRate = @"kHadRate";
 - (void) showInsertAd {
     BOOL isVIP = (QDConfigManager.shared.activeModel && QDConfigManager.shared.activeModel.member_type == 1);
     if (QDConfigManager.shared.isNoneFirstEnterApp && !isVIP) {
-        BOOL show_interstitial_ad = [QDVersionManager.shared.versionConfig[@"show_interstitial_ad"] intValue] == 1;
-        if (show_interstitial_ad) {
-            [QDAdManager.shared showOpenAd];
-            return;
-        }
+        [QDAdManager.shared showInterstitial];
+        UnityOpenAds.shared.interstitialCallback = ^() {
+        };
+        return;
     }
 }
-
-
-// 显示插屏,每次进入首页显示
-- (void) showInsertAds {
-    BOOL isVIP = (QDConfigManager.shared.activeModel && QDConfigManager.shared.activeModel.member_type == 1);
-    if (!isVIP) {
-        BOOL show_interstitial_ad = [QDVersionManager.shared.versionConfig[@"show_interstitial_ad"] intValue] == 1;
-        if (show_interstitial_ad) {
-            [QDAdManager.shared showInterstitial];
-            UnityOpenAds.shared.interstitialCallback = ^() {
-            };
-            return;
-        }
-    }
-}
-
 
 // 显示开屏
 - (void) showOpenAd {
-    
     BOOL isVIP = (QDConfigManager.shared.activeModel && QDConfigManager.shared.activeModel.member_type == 1);
     if (QDConfigManager.shared.isNoneFirstEnterApp && !isVIP) {
         BOOL show_open_ad = [QDVersionManager.shared.versionConfig[@"show_open_ad"] intValue] == 1;

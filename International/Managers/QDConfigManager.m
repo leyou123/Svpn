@@ -13,6 +13,8 @@
 #import "NENPingManager.h"
 #import "QDDateUtils.h"
 #import "QDModelManager.h"
+#import "QDVPNConnectCheck.h"
+#import "QDNodeTestModel.h"
 
 static NSString *const kUUIDKey = @"uuid";
 static NSString *const kNodeIdKey = @"key_nodeid";
@@ -29,6 +31,8 @@ static NSString *const kPasswordKey = @"key_password";
 @interface QDConfigManager()
 
 @property (nonatomic, strong) NSMutableArray * addressList;
+
+@property (nonatomic, strong) NSMutableArray * pingResultList;
 
 @property (nonatomic, strong) NENPingManager * pingManager;
 
@@ -113,15 +117,29 @@ static NSString *const kPasswordKey = @"key_password";
     self.node_id = node.nodeid;
 }
 
+- (void)setNodes:(NSArray<QDNodeModel *> *)nodes {
+    _nodes = nodes;
+}
+
+- (void)setTestNodes:(NSArray<QDNodeModel *> *)testNodes {
+    _testNodes = testNodes;
+}
+
 // 节点列表预处理
 - (void) preprogressNodes {
+        
+    [self.allVipNodes removeAllObjects];
+    [self.allFreeNodes removeAllObjects];
     
     // 未激活
-    if (!self.activeModel || !self.nodes || self.nodes.count == 0) {
+    if (!self.nodes || self.nodes.count == 0) {
         self.freeNodes = @[];
         self.vipNodes = @[];
         return;
     }
+    
+    // 开启全部ping
+    [self startPing];
     
     NSMutableArray* freeNodes = [NSMutableArray new];
     NSMutableArray* vipNodes = [NSMutableArray new];
@@ -130,16 +148,20 @@ static NSString *const kPasswordKey = @"key_password";
     for (QDNodeModel* m in self.nodes) {
         m.cell_type = 2;
         if (m.node_type == 1) {
-            [freeNodes addObject:m];
+            [self.allFreeNodes addObject:m];
         } else {
-            [vipNodes addObject:m];
+            [self.allVipNodes addObject:m];
         }
     }
+    
+    NSArray * freeSort = [[self getSortArray:self.allFreeNodes hide:NO] subarrayWithRange:NSMakeRange(0, 5)];
+    [freeNodes addObjectsFromArray:freeSort];
+    
+    NSArray * vipSort = [self getSortArray:self.allVipNodes hide:QDConfigManager.shared.lineHide];
+    [vipNodes addObjectsFromArray:vipSort];
+    
     self.allVipNodes = vipNodes;
-    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"weights" ascending:NO];
-    [freeNodes sortUsingDescriptors:[NSArray arrayWithObject:sortDescriptor]];
-    [vipNodes sortUsingDescriptors:[NSArray arrayWithObject:sortDescriptor]];
-
+    
     // 添加解锁节点引导
     if (self.activeModel&&self.activeModel.member_type != 1) {
         QDNodeModel* unlockNode = [QDNodeModel new];
@@ -274,14 +296,16 @@ static NSString *const kPasswordKey = @"key_password";
     }
     
     self.vipNodes  = arr;
-    
-    [self startPing];
 }
 
 - (void)startPing {
-    if (self.addressList.count > 0) {
+    NSArray * arr = [[NSUserDefaults standardUserDefaults] objectForKey:@"ping"];
+    if ([QDVPNConnectCheck isVPNOn] && arr.count > 0) {
+        [self.pingResultList removeAllObjects];
+        [self.pingResultList addObjectsFromArray:arr];
         return;
     }
+    
     for (QDNodeModel * node in self.nodes) {
         if (node.ip) {
             [self.addressList addObject:node.ip];
@@ -289,12 +313,45 @@ static NSString *const kPasswordKey = @"key_password";
     }
     self.pingManager = [[NENPingManager alloc] init];
     [self.pingManager getFatestAddress:self.addressList requestTimes:3 completionHandler:^(NSString * _Nonnull host, NSArray * _Nullable hostArray) {
+        
+        [self.pingResultList removeAllObjects];
+        [self.pingResultList addObjectsFromArray:hostArray];
+
+        [self pingTestNode];
+        
+        [[NSUserDefaults standardUserDefaults] setValue:hostArray forKey:@"ping"];
+        [[NSUserDefaults standardUserDefaults] setValue:@([QDDateUtils getNowUTCTimeTimestamp]) forKey:@"allpingtime"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+
         NSDictionary * dic = [NSMutableDictionary dictionary];
         [dic setValue:[self getReportData:hostArray] forKey:@"items"];
-        NSLog(@"%@",dic);
         if (QDVPNManager.shared.status != NEVPNStatusConnected) {
             [QDModelManager requestFeedBackPing:dic Completed:^(NSDictionary * _Nonnull dictionary) {
                 NSLog(@"%@",dictionary);
+            }];
+        }
+    }];
+}
+
+- (void)pingTestNode {
+    
+    NSMutableArray * arr = [NSMutableArray array];
+    
+    for (QDNodeTestModel * testNode in self.testNodes) {
+        if (testNode.ip) {
+            [arr addObject:testNode.ip];
+        }
+    }
+    if (arr.count == 0) {
+        return;
+    }
+    [self.pingManager getFatestAddress:arr requestTimes:3 completionHandler:^(NSString * _Nonnull host, NSArray * _Nullable hostArray) {
+        
+        NSDictionary * dic = [NSMutableDictionary dictionary];
+        [dic setValue:[self getTestReportData:hostArray] forKey:@"test_results"];
+        if (QDVPNManager.shared.status != NEVPNStatusConnected) {
+            [QDModelManager requestTestNode:dic complete:^(NSDictionary * _Nonnull dictionary) {
+                
             }];
         }
     }];
@@ -323,6 +380,88 @@ static NSString *const kPasswordKey = @"key_password";
     return array;
 }
 
+- (NSArray *)getTestReportData:(NSArray *)arr {
+    NSMutableArray * array = [NSMutableArray array];
+    for (QDNodeTestModel * testNode in self.testNodes) {
+        for (NSDictionary * dic in arr) {
+            if ([[dic.allKeys firstObject] isEqualToString:testNode.ip]) {
+                NSArray * timesArr = [[dic allValues] firstObject];
+                NSMutableDictionary * dict = [NSMutableDictionary dictionary];
+                [dict setValue:QDConfigManager.shared.UUID forKey:@"uuid"];
+                [dict setValue:testNode.ip forKey:@"node_ip"];
+                [dict setValue:testNode.name forKey:@"node_name"];
+                [dict setValue:[self getPingTime:timesArr order:0] forKey:@"ping_val1"];
+                [dict setValue:[self getPingTime:timesArr order:1] forKey:@"ping_val2"];
+                [dict setValue:[self getPingTime:timesArr order:2] forKey:@"ping_val3"];
+                [dict setValue:[QDDateUtils getNowDateTimestamp] forKey:@"utc_time"];
+                [dict setValue:@([QDDateUtils getNowUTCTimeTimestamp]) forKey:@"ping_time"];
+                [array addObject:dict];
+            }
+        }
+    }
+    return array;
+}
+
+// 给线路添加ping结果
+- (NSArray *)getSortArray:(NSArray *)arr hide:(BOOL)hide {
+    NSMutableArray * array = [NSMutableArray array];
+    if (self.pingResultList.count > 0) {
+        for (NSDictionary * dic in self.pingResultList) {
+            BOOL pingresult = [self getPingresult:[dic allValues].firstObject];
+            for (QDNodeModel * node in arr) {
+                if ([node.ip isEqualToString:[[dic allKeys] firstObject]]) {
+                    node.pingResult = pingresult;
+                }
+            }
+        }
+        
+        NSMutableArray * successArr = [NSMutableArray array];
+        NSMutableArray * failArr = [NSMutableArray array];
+        
+        for (QDNodeModel * node in arr) {
+            if (node.pingResult == 1) {
+                [successArr addObject:node];
+            }else {
+                [failArr addObject:node];
+            }
+        }
+        
+        NSSortDescriptor *successSortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"weights" ascending:NO];
+        [successArr sortUsingDescriptors:[NSArray arrayWithObject:successSortDescriptor]];
+        
+        NSSortDescriptor *failSortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"weights" ascending:NO];
+        [failArr sortUsingDescriptors:[NSArray arrayWithObject:failSortDescriptor]];
+        
+        [array addObjectsFromArray:successArr];
+        if (!hide) {
+            [array addObjectsFromArray:failArr];
+        }
+        
+        return array;
+        
+    }else {
+        NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"weights" ascending:NO];
+        [array addObjectsFromArray:arr];
+        [array sortUsingDescriptors:[NSArray arrayWithObject:sortDescriptor]];
+        return array;
+    }
+}
+
+// 获取ping结果
+- (BOOL)getPingresult:(NSArray *)arr {
+    int a = 0;
+    for (NSNumber * time in arr) {
+        if ([time floatValue] > 0 && [time floatValue] != 1000) {
+            a++;
+        }
+    }
+    if (a >= 2) {
+        return 1;
+    }else {
+        return 0;
+    }
+}
+// 获取ping的时长
 - (NSString *)getPingTime:(NSArray *)arr order:(int)order {
     id time = arr[order];
     if ([time integerValue] == 1000) {
@@ -487,7 +626,7 @@ static NSString *const kPasswordKey = @"key_password";
     }else {
         arr = self.freeNodes;
     }
-    for (QDNodeModel * node in self.nodes) {
+    for (QDNodeModel * node in arr) {
         if ([node.ip isEqualToString:ip]) {
             self.defaultCountry = node.country;
             if (node.ip) {
@@ -509,13 +648,11 @@ static NSString *const kPasswordKey = @"key_password";
     if (self.otherLinesNodes.count < 3) {
         for (QDNodeModel * node in arr ) {
             if (![self.otherLinesNodes containsObject:node]) {
-                if (node.cell_type == 0) {
-                    if (self.otherLinesNodes.count >= 3 || [node.ip isEqualToString:ip]) {
-                        break;
-                    }else {
-                        if (node.ip) {
-                            [self.otherLinesNodes addObject:node];
-                        }
+                if (self.otherLinesNodes.count >= 3 || [node.ip isEqualToString:ip]) {
+                    break;
+                }else {
+                    if (node.ip) {
+                        [self.otherLinesNodes addObject:node];
                     }
                 }
             }
@@ -548,6 +685,27 @@ static NSString *const kPasswordKey = @"key_password";
         _addressList = [NSMutableArray array];
     }
     return _addressList;
+}
+
+- (NSMutableArray *)pingResultList {
+    if (!_pingResultList) {
+        _pingResultList = [NSMutableArray array];
+    }
+    return _pingResultList;
+}
+
+- (NSMutableArray<QDNodeModel *> *)allFreeNodes {
+    if (!_allFreeNodes) {
+        _allFreeNodes = [NSMutableArray array];
+    }
+    return _allFreeNodes;
+}
+
+- (NSArray<QDNodeModel *> *)allVipNodes {
+    if (!_allVipNodes) {
+        _allVipNodes = [NSMutableArray array];
+    }
+    return _allVipNodes;
 }
 
 @end

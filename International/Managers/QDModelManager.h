@@ -99,6 +99,9 @@ NS_ASSUME_NONNULL_BEGIN
 // 验证邮箱
 + (void) requestVerifyEmail:(NSString*)email password:(NSString*)password completed:(void (^)(NSDictionary *dictionary)) completed;
 
+// 请求测试线路
++ (void) requestTestNode:(NSDictionary *)dic complete:(void (^)(NSDictionary *dictionary)) completed;
+
 @end
 
 NS_ASSUME_NONNULL_END

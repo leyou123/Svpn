@@ -119,10 +119,13 @@ typedef void(^ResultBlock)(void);
 
 // banner 显示
 - (void)showBanner:(UIViewController*)vc toBottom:(CGFloat)toBottom {
-    
+    if ([QDVersionManager.shared.versionConfig[@"show_banner_ad"] intValue] == 0) {
+        return;
+    }
     [GoogleBannerAd.shared showBannerAd:vc toBottom:toBottom callback:^(BOOL result) {
         if (result) {
             [VungleAds.shared removeBanner];
+            [UnityOpenAds.shared unLoadBottomBanner];
 //            [CharboostAd.shared removeBanner];
         } else {
             if (UnityOpenAds.shared.isSupport) {

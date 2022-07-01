@@ -41,9 +41,9 @@
 
 #if DEBUG
 //    // 开发环境
-    #define HOST_URLs @[@"https://api.9527.click"]
+//    #define HOST_URLs @[@"https://api.9527.click"]
 //#define HOST_URLs @[@"https://test.9527.click"]
-//#define HOST_URLs @[@"http://54.177.55.54:10050"]
+#define HOST_URLs @[@"http://54.177.55.54:10050"]
 
 
 #else
@@ -151,7 +151,10 @@ typedef NS_ENUM(NSInteger, APIType) {
     kAPIFeedBackPing,
     
     //验证邮箱
-    kAPIVerifyEmail
+    kAPIVerifyEmail,
+    
+    // 请求广告开关
+    kAPITypeTestNode
 };
 
 // 声明全局的字典，用于将枚举APIType和对应的URL关联起来
@@ -217,7 +220,9 @@ typedef NS_ENUM(NSInteger, APIType) {
     [NSNumber numberWithInteger:kAPIFeedBackPing]:\
     @"/report/ping", \
     [NSNumber numberWithInteger:kAPIVerifyEmail]:\
-    @"/user/verify_email"}
+    @"/user/verify_email", \
+    [NSNumber numberWithInteger:kAPITypeTestNode]:\
+    @"/node/update_nodeconfig"}
 
 
 // 请求状态码

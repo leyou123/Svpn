@@ -10,7 +10,8 @@
 @implementation QDNodesResultModel
 
 + (NSDictionary *)mj_objectClassInArray {
-    return @{ @"data" : [QDNodeModel class]};
+    return @{ @"data" : [QDNodeModel class],
+              @"test_nodes": [QDNodeTestModel class]};
 }
 
 @end

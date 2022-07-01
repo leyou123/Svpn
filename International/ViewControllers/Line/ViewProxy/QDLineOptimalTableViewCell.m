@@ -169,7 +169,9 @@
 //    }
     
     // delay
-    self.delayImageView.image = [QDLineTableViewBaseCell getDelayImage:model.weights];
+//    self.delayImageView.image = [QDLineTableViewBaseCell getDelayImage:model.weights];
+    
+    self.delayImageView.image = [QDLineTableViewBaseCell getSpeedImage:model.pingResult];
     
     // tag
     for (UIView* v in self.tagView.subviews) {

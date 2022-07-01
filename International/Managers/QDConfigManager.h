@@ -64,7 +64,9 @@
 @property(nonatomic, strong) NSArray<QDNodeModel*>* freeNodes;
 @property(nonatomic, strong) NSArray<QDNodeModel*>* vipNodes;
 @property(nonatomic, strong) NSMutableArray<QDNodeModel*>* otherLinesNodes;
-@property(nonatomic, strong) NSArray<QDNodeModel*>* allVipNodes;
+@property(nonatomic, strong) NSMutableArray<QDNodeModel*>* allVipNodes;
+@property(nonatomic, strong) NSMutableArray<QDNodeModel*>* allFreeNodes;
+@property(nonatomic, strong) NSArray<QDNodeModel*>* testNodes;
 
 // 防封机制
 @property (nonatomic, assign) NSInteger failTimes;
@@ -96,6 +98,11 @@
 
 // 选择的国家
 @property (nonatomic, assign) BOOL lineChanged;
+
+// 是否隐藏线路 1隐藏 0不隐藏
+@property (nonatomic, assign) BOOL lineHide;
+
+- (NSArray *)getSortArray:(NSArray *)arr hide:(BOOL)hide;
 
 @end
 

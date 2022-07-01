@@ -16,6 +16,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (NSString *)getDeviceIPAddresses;
 
++ (BOOL)isVPNOn;
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -22,8 +22,8 @@
 
 - (NSString*) getUrlByType:(APIType) type {
 //    if (type == kAPIGithub) return @"https://api.github.com/repos/huangzugang/github_api_test/contents/serve.json";
-    if (type == kAPILookupApp) return
-        [NSString stringWithFormat:@"http://itunes.apple.com/lookup?id=%@", APPLE_ID];
+    if (type == kAPILookupApp)
+        return [NSString stringWithFormat:@"http://itunes.apple.com/lookup?id=%@", APPLE_ID];
     return [NSString stringWithFormat:@"%@/%@%@", QDConfigManager.shared.currentUrl, APP_V, API_PATH[[NSNumber numberWithInteger:type]]];
 }
 

@@ -75,8 +75,12 @@
     [self.backFrame addSubview:templateView];
     CGFloat height = 0.0;
     if (QDConfigManager.shared.activeModel.member_type != 1) {
-        height = 300*kScreenScale;
-        templateView.hidden = NO;
+        if ([QDVersionManager.shared.versionConfig[@"show_base_node_ad"] intValue] == 1) {
+            height = 300*kScreenScale;
+            templateView.hidden = NO;
+        }else {
+            templateView.hidden = YES;
+        }
     }else {
         templateView.hidden = YES;
     }
@@ -144,11 +148,7 @@
         for (QDNodeModel * node in resultModel.data) {
             node.cell_type = 2;
         }
-        
-        NSMutableArray * array = [NSMutableArray arrayWithArray:resultModel.data];
-        NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"weights" ascending:NO];
-        [array sortUsingDescriptors:[NSArray arrayWithObject:sortDescriptor]];
-        self.tableViewProxy.dataArray = array;
+        self.tableViewProxy.dataArray = [[QDConfigManager shared] getSortArray:resultModel.data hide:QDConfigManager.shared.lineHide];
         [self.tableViewProxy.tableView reloadData];
         [self.tableViewProxy.tableView.mj_header endRefreshing];
     }];

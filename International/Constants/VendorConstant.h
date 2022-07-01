@@ -12,6 +12,6 @@
 #import "MJRefresh.h"
 #import "RMStore.h"
 #import "SVProgressHUD.h"
-
+//#import "XHLaunchAd.h"
 
 #endif
