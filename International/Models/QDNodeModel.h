@@ -70,6 +70,12 @@ NS_ASSUME_NONNULL_BEGIN
 // ping结果
 @property (nonatomic, assign) int pingResult;
 
+// 快捷分组名称
+@property(nonatomic, copy) NSString* group_name;
+
+// 快捷分组图片
+@property(nonatomic, copy) NSString* group_image;
+
 @end
 
 NS_ASSUME_NONNULL_END

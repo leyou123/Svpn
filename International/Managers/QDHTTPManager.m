@@ -60,6 +60,8 @@
     };
     
     
+    self.requestSerializer.timeoutInterval = 10;
+    
     if (method == HTTPMethodTypeGet) {
         [self GET:url parameters:parameters headers:nil progress:nil success:successBlock failure:failureBlock];
     } else if (method == HTTPMethodTypePut) {
@@ -94,6 +96,7 @@
         completed(@{@"code":@(-1), @"message":error.localizedDescription});
     };
     
+    self.requestSerializer.timeoutInterval = 10;
     
     if (method == HTTPMethodTypeGet) {
         [self GET:url parameters:parameters headers:nil progress:nil success:successBlock failure:failureBlock];

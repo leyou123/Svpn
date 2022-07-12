@@ -153,7 +153,12 @@
     // delay
 //    self.delayImageView.image = [QDLineTableViewBaseCell getDelayImage:model.weights];
     
-    self.delayImageView.image = [QDLineTableViewBaseCell getSpeedImage:model.pingResult];
+//    self.delayImageView.image = [QDLineTableViewBaseCell getSpeedImage:model.pingResult];
+    if (model.pingResult == 1) {
+        self.delayImageView.image = [QDLineTableViewBaseCell getDelayImage:model.weights];
+    }else {
+        self.delayImageView.image = [QDLineTableViewBaseCell getSpeedImage:model.pingResult];
+    }
     
     // tag
     for (UIView* v in self.tagView.subviews) {

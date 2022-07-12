@@ -67,6 +67,7 @@ PODS:
     - GoogleUtilities/Environment (~> 7.7)
     - GoogleUtilities/UserDefaults (~> 7.7)
     - PromisesObjC (~> 2.1)
+  - FLAnimatedImage (1.0.16)
   - Google-Mobile-Ads-SDK (9.5.0):
     - GoogleAppMeasurement (< 10.0, >= 7.0)
     - GoogleUserMessagingPlatform (>= 1.1)
@@ -151,6 +152,8 @@ PODS:
   - SVProgressHUD (2.2.5)
   - UnityAds (4.2.1)
   - VungleSDK-iOS (6.10.5)
+  - XHLaunchAd (3.9.12):
+    - FLAnimatedImage (~> 1.0.12)
 
 DEPENDENCIES:
   - AFNetworking (~> 4.0)
@@ -172,6 +175,7 @@ DEPENDENCIES:
   - SVProgressHUD
   - UnityAds
   - VungleSDK-iOS (= 6.10.5)
+  - XHLaunchAd
 
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
@@ -184,6 +188,7 @@ SPEC REPOS:
     - FirebaseCoreInternal
     - FirebaseCrashlytics
     - FirebaseInstallations
+    - FLAnimatedImage
     - Google-Mobile-Ads-SDK
     - GoogleAppMeasurement
     - GoogleDataTransport
@@ -205,6 +210,7 @@ SPEC REPOS:
     - SVProgressHUD
     - UnityAds
     - VungleSDK-iOS
+    - XHLaunchAd
 
 SPEC CHECKSUMS:
   AFNetworking: 7864c38297c79aaca1500c33288e429c3451fdce
@@ -216,6 +222,7 @@ SPEC CHECKSUMS:
   FirebaseCoreInternal: f3c838ae0b41cd840bbf34f90debfede78d352e5
   FirebaseCrashlytics: 8e21736dcf15d814b79229eb7e79ba3a5eec5f30
   FirebaseInstallations: a91c74276b544524ce144c8315d8cdbce2dbe30b
+  FLAnimatedImage: 8f3e854ebf9680b71f0b6e700939687fc4d82b4b
   Google-Mobile-Ads-SDK: caf686ba55108412e02a3eedb136e12e488dbfaa
   GoogleAppMeasurement: 8ecc717f2abe3f9ee95a5d38db08827852894acc
   GoogleDataTransport: 5fffe35792f8b96ec8d6775f5eccd83c998d5a3b
@@ -237,7 +244,8 @@ SPEC CHECKSUMS:
   SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
   UnityAds: a2274b216f9ed1e4d1d74c08178f21223f08e17a
   VungleSDK-iOS: bee61557642964b441d799bf88e6ea6f6eb29afc
+  XHLaunchAd: 6320f9c68732667323072fc3a5f104e40fbe9cfe
 
-PODFILE CHECKSUM: 89f6cb21aa14be46254198abb378aab465887383
+PODFILE CHECKSUM: b0e61b2d0ccc844ddfb1b5d3f56b64eddc619f22
 
 COCOAPODS: 1.11.3

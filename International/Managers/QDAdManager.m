@@ -38,6 +38,10 @@ typedef void(^ResultBlock)(void);
 }
 
 - (void) setup:(BOOL)showAuth {
+    if (GoogleInterstitialAd.shared.canPresent) {
+        return;
+    }
+    
     if (!showAuth) {
         [self loadAd];
         return;
@@ -214,11 +218,33 @@ typedef void(^ResultBlock)(void);
 - (void) showInterstitial {
     
     if (QDAdManager.shared.forbidAd) return;
-    if (GoogleOpenAd.shared.isShow) return;
+//    if (GoogleOpenAd.shared.isShow) return;
     if (GoogleInterstitialAd.shared.isShow) return;
 //    if (VungleAds.shared.isShow) return;
 //    if (CharboostAd.shared.isShow) returcn;
 
+    if ([GoogleInterstitialAd.shared canPresent]) {
+        [GoogleInterstitialAd.shared show];
+        return;
+    } else {
+        [GoogleInterstitialAd.shared loadAd];
+    }
+    if ([UnityOpenAds shared].isSupport && [UnityOpenAds shared].isInitialized) {
+        [UnityOpenAds.shared showInterstitialAd:^() {
+            
+        }];
+        return;
+    }else {
+        [UnityOpenAds.shared setup];
+    }
+    if ([VungleAds.shared isCachedInsert]) {
+        [VungleAds.shared showInsertAd];
+        return;
+    } else {
+        [VungleAds.shared cacheInsert];
+    }
+    
+    
     
 //    if (self.showOrder == 0) {
 //        self.showOrder = 1;
@@ -244,26 +270,26 @@ typedef void(^ResultBlock)(void);
 //        }
 //    }else if (self.showOrder == 1) {
 //        self.showOrder = 0;
-        if ([GoogleInterstitialAd.shared canPresent]) {
-            [GoogleInterstitialAd.shared show];
-            return;
-        } else {
-            [GoogleInterstitialAd.shared loadAd];
-        }
-        if ([UnityOpenAds shared].isSupport && [UnityOpenAds shared].isInitialized) {
-            [UnityOpenAds.shared showInterstitialAd:^() {
-                
-            }];
-            return;
-        }else {
-            [UnityOpenAds.shared setup];
-        }
-        if ([VungleAds.shared isCachedInsert]) {
-            [VungleAds.shared showInsertAd];
-            return;
-        } else {
-            [VungleAds.shared cacheInsert];
-        }
+//        if ([GoogleInterstitialAd.shared canPresent]) {
+//            [GoogleInterstitialAd.shared show];
+//            return;
+//        } else {
+//            [GoogleInterstitialAd.shared loadAd];
+//        }
+//        if ([UnityOpenAds shared].isSupport && [UnityOpenAds shared].isInitialized) {
+//            [UnityOpenAds.shared showInterstitialAd:^() {
+//
+//            }];
+//            return;
+//        }else {
+//            [UnityOpenAds.shared setup];
+//        }
+//        if ([VungleAds.shared isCachedInsert]) {
+//            [VungleAds.shared showInsertAd];
+//            return;
+//        } else {
+//            [VungleAds.shared cacheInsert];
+//        }
 //    }
     
 //    else {
@@ -292,6 +318,12 @@ typedef void(^ResultBlock)(void);
 
 - (void) reloadNativeAd {
     [GoogleNatvieAd.shared reloadAd];
+}
+
+- (void)setBecomeActiveStatus {
+    if (GoogleInterstitialAd.shared.isShow) {
+        GoogleInterstitialAd.shared.isShow = NO;
+    }
 }
 
 @end

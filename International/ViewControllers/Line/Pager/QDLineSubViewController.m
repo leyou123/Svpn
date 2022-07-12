@@ -122,25 +122,29 @@
     }];
     self.tableViewProxy.tableView.backgroundColor = [UIColor clearColor];
 
-    self.tableViewProxy.tableView.mj_header = [QDRefreshNormalHeader headerWithRefreshingBlock:^{
-        [self requestCountryLines];
-    }];
-    [self.tableViewProxy.tableView.mj_header beginRefreshing];
+    if (self.requestData) {
+        self.tableViewProxy.tableView.mj_header = [QDRefreshNormalHeader headerWithRefreshingBlock:^{
+            [self requestCountryLines];
+        }];
+        [self.tableViewProxy.tableView.mj_header beginRefreshing];
+    }else {
+        [self setTableViewData];
+    }
 }
 
-//- (void) setTableViewData {
-//    self.tableViewProxy.dataArray = [self createTempData];
-//    [self.tableViewProxy.tableView reloadData];
-//}
-//
-//- (NSMutableArray*) createTempData {
-//    NSMutableArray* array = [NSMutableArray new];
-//    QDNodeModel* virtureNode = [QDNodeModel new];
-//    virtureNode.cell_type = 4;
-//    [array addObject:virtureNode];
-//    if (self.data) [array addObjectsFromArray:self.data];
-//    return array;
-//}
+- (void) setTableViewData {
+    self.tableViewProxy.dataArray = [self createTempData];
+    [self.tableViewProxy.tableView reloadData];
+}
+
+- (NSMutableArray*) createTempData {
+    NSMutableArray* array = [NSMutableArray new];
+    QDNodeModel* virtureNode = [QDNodeModel new];
+    virtureNode.cell_type = 4;
+    [array addObject:virtureNode];
+    if (self.data) [array addObjectsFromArray:self.data];
+    return array;
+}
 
 - (void)requestCountryLines {
     [QDModelManager requestCountrySublinesCountry:self.country completed:^(NSDictionary * _Nonnull dictionary) {

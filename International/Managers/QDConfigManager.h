@@ -96,11 +96,14 @@
 // 选择的国家
 @property (nonatomic, copy) NSString *defaultCountry;
 
-// 选择的国家
+// 线路页选择了线路
 @property (nonatomic, assign) BOOL lineChanged;
 
 // 是否隐藏线路 1隐藏 0不隐藏
 @property (nonatomic, assign) BOOL lineHide;
+
+// 开启全部ping
+- (void)startPing:(void(^)(void))complete;
 
 - (NSArray *)getSortArray:(NSArray *)arr hide:(BOOL)hide;
 

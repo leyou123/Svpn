@@ -207,8 +207,8 @@
 		3CFA02282789864A007F41E0 /* QDFeedbackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CFA02272789864A007F41E0 /* QDFeedbackViewController.m */; };
 		3CFA022C278C0797007F41E0 /* QDCheckBoxButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CFA022B278C0797007F41E0 /* QDCheckBoxButton.m */; };
 		3CFA022F278C3477007F41E0 /* QDAppTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CFA022E278C3476007F41E0 /* QDAppTitleView.m */; };
+		AD1362992873E6ED001BCE03 /* QDAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = AD1362982873E6ED001BCE03 /* QDAnimation.m */; };
 		AD469015286E988000C61072 /* QDNodeTestModel.m in Sources */ = {isa = PBXBuildFile; fileRef = AD469014286E988000C61072 /* QDNodeTestModel.m */; };
-		AD46901B286EECD500C61072 /* open_loading.gif in Resources */ = {isa = PBXBuildFile; fileRef = AD46901A286EECD500C61072 /* open_loading.gif */; };
 		AD5812B5281793A200E4D5FE /* SFUIDisplay-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = AD5812B1281793A200E4D5FE /* SFUIDisplay-Light.otf */; };
 		AD5812B6281793A200E4D5FE /* SFUIText-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AD5812B2281793A200E4D5FE /* SFUIText-Regular.ttf */; };
 		AD5812B7281793A200E4D5FE /* SFUIDisplay-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = AD5812B3281793A200E4D5FE /* SFUIDisplay-Regular.otf */; };
@@ -668,9 +668,10 @@
 		3CFA022B278C0797007F41E0 /* QDCheckBoxButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QDCheckBoxButton.m; sourceTree = "<group>"; };
 		3CFA022D278C3476007F41E0 /* QDAppTitleView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QDAppTitleView.h; sourceTree = "<group>"; };
 		3CFA022E278C3476007F41E0 /* QDAppTitleView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QDAppTitleView.m; sourceTree = "<group>"; };
+		AD1362972873E6ED001BCE03 /* QDAnimation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QDAnimation.h; sourceTree = "<group>"; };
+		AD1362982873E6ED001BCE03 /* QDAnimation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QDAnimation.m; sourceTree = "<group>"; };
 		AD469013286E988000C61072 /* QDNodeTestModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QDNodeTestModel.h; sourceTree = "<group>"; };
 		AD469014286E988000C61072 /* QDNodeTestModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QDNodeTestModel.m; sourceTree = "<group>"; };
-		AD46901A286EECD500C61072 /* open_loading.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = open_loading.gif; sourceTree = "<group>"; };
 		AD5812B1281793A200E4D5FE /* SFUIDisplay-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFUIDisplay-Light.otf"; sourceTree = "<group>"; };
 		AD5812B2281793A200E4D5FE /* SFUIText-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFUIText-Regular.ttf"; sourceTree = "<group>"; };
 		AD5812B3281793A200E4D5FE /* SFUIDisplay-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFUIDisplay-Regular.otf"; sourceTree = "<group>"; };
@@ -1112,6 +1113,7 @@
 		3C558BB2266E175900FECA47 /* Vendors */ = {
 			isa = PBXGroup;
 			children = (
+				AD1362962873E6CA001BCE03 /* Animation */,
 				ADDA7418286C5A15001F2359 /* NSObjectSafe */,
 				AD87B6BE28508D890072836A /* NetSpeed */,
 				164D00B7283F489100625213 /* UnityAds */,
@@ -1219,7 +1221,6 @@
 				1625EB2C282932BD00FD78D4 /* home_crow.gif */,
 				164D00AC282E441500625213 /* home_connecting.gif */,
 				164D00AE282E442600625213 /* home_disconnecting.gif */,
-				AD46901A286EECD500C61072 /* open_loading.gif */,
 				00F6022523839C2200A0E295 /* Localizable.strings */,
 				00F6018F23838F7A00A0E295 /* LaunchScreen.storyboard */,
 			);
@@ -1526,6 +1527,15 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		AD1362962873E6CA001BCE03 /* Animation */ = {
+			isa = PBXGroup;
+			children = (
+				AD1362972873E6ED001BCE03 /* QDAnimation.h */,
+				AD1362982873E6ED001BCE03 /* QDAnimation.m */,
+			);
+			path = Animation;
+			sourceTree = "<group>";
+		};
 		AD5812B0281793A200E4D5FE /* font */ = {
 			isa = PBXGroup;
 			children = (
@@ -1680,7 +1690,6 @@
 				AD5812B6281793A200E4D5FE /* SFUIText-Regular.ttf in Resources */,
 				00F6019723838F7A00A0E295 /* Assets.xcassets in Resources */,
 				00F6019923838F7A00A0E295 /* LaunchScreen.storyboard in Resources */,
-				AD46901B286EECD500C61072 /* open_loading.gif in Resources */,
 				3C7F52DC269DCAF20055840B /* GADTMediumTemplateView.xib in Resources */,
 				AD5812B5281793A200E4D5FE /* SFUIDisplay-Light.otf in Resources */,
 			);
@@ -1923,6 +1932,7 @@
 				3C558B9B266E0E7200FECA47 /* QDReceiptModel.m in Sources */,
 				3C558BA6266E0E7200FECA47 /* QDDeviceActiveModel.m in Sources */,
 				3CDFFAF6268D903000A723E3 /* QDPayButtonView.m in Sources */,
+				AD1362992873E6ED001BCE03 /* QDAnimation.m in Sources */,
 				AD7F54AB284EF0F200A83A84 /* NENPingManager.m in Sources */,
 				00F602012383988800A0E295 /* QDSubscriptionViewController.m in Sources */,
 				3C558B3E266DF65500FECA47 /* QDConfigManager.m in Sources */,
@@ -2132,7 +2142,7 @@
 				CODE_SIGN_ENTITLEMENTS = International/International.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 10;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = FPCZYL3D8P;
 				ENABLE_BITCODE = NO;
@@ -2165,7 +2175,7 @@
 				CODE_SIGN_ENTITLEMENTS = International/International.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 10;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = FPCZYL3D8P;
 				ENABLE_BITCODE = NO;
@@ -2195,7 +2205,7 @@
 				CODE_SIGN_ENTITLEMENTS = PacketTunnel/PacketTunnel.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 10;
 				DEFINES_MODULE = NO;
 				DEVELOPMENT_TEAM = FPCZYL3D8P;
 				ENABLE_BITCODE = NO;
@@ -2233,7 +2243,7 @@
 				CODE_SIGN_ENTITLEMENTS = PacketTunnel/PacketTunnel.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 10;
 				DEFINES_MODULE = NO;
 				DEVELOPMENT_TEAM = FPCZYL3D8P;
 				ENABLE_BITCODE = NO;

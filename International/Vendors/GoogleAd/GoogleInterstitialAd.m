@@ -66,6 +66,9 @@
     _isShow = YES;
     UIViewController* vc = [UIUtils getCurrentVC];
     NSError* err;
+    
+    NSLog(@"fullScreenContentDelegate:%@",self.interstitial.fullScreenContentDelegate);
+    
     BOOL canPresent = [self.interstitial canPresentFromRootViewController:vc error:&err];
     if (canPresent) {
         [self.interstitial presentFromRootViewController:vc];

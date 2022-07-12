@@ -41,9 +41,9 @@
 
 #if DEBUG
 //    // 开发环境
-//    #define HOST_URLs @[@"https://api.9527.click"]
+    #define HOST_URLs @[@"https://api.9527.click"]
 //#define HOST_URLs @[@"https://test.9527.click"]
-#define HOST_URLs @[@"http://54.177.55.54:10050"]
+//#define HOST_URLs @[@"http://54.177.55.54:10050"]
 
 
 #else

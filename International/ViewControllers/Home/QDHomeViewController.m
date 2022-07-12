@@ -117,6 +117,7 @@ static NSString *const kHadRate = @"kHadRate";
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
+    
     [self setup];
     [self setData];
     
@@ -151,8 +152,6 @@ static NSString *const kHadRate = @"kHadRate";
             self.canShowAds = NO;
         }
     }
-    
-    
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -166,6 +165,7 @@ static NSString *const kHadRate = @"kHadRate";
     QDVPNManager.shared.statusChangedHandler = ^(NEVPNStatus status) {
         [self updateConnectStatus];
     };
+    
     long lastTime = [[[NSUserDefaults standardUserDefaults] objectForKey:@"allpingtime"] longValue];
     
     if ([QDDateUtils getNowUTCTimeTimestamp] - lastTime > 24*60*60 && lastTime != 0) {
@@ -189,9 +189,15 @@ static NSString *const kHadRate = @"kHadRate";
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notifyConfigUpdate) name:kNotificationConfigUpdate object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notifyRecommandApp) name:kNotificationRecommandApp object:nil];
     
-    // 加载数据
-    [self.scrollView.mj_header beginRefreshing];
+//    // 加载数据
+//    [self.scrollView.mj_header beginRefreshing];
    // [self requestUserInfo];
+    if (self.isUserSelectEnter) {
+        [self.scrollView.mj_header beginRefreshing];
+    }else {
+        [self resetData];
+    }
+    
 }
 
 - (void)dealloc {
@@ -220,9 +226,7 @@ static NSString *const kHadRate = @"kHadRate";
     if (resultModel.code == kHttpStatusCode200) {
         
         QDConfigManager.shared.activeModel = resultModel.data;
-        if (!self.hadShowAds) {
-            [self showAds];// 展示开屏广告
-        }
+        
         if (isRegister) {
             QDConfigManager.shared.local_UID = QDConfigManager.shared.activeModel.uid;
         }
@@ -280,23 +284,17 @@ static NSString *const kHadRate = @"kHadRate";
 //            [self responseRequestUserInfo:YES result:dictionary]; 
         }];
     }
-    // 请求全部节点信息
-//    if (!QDConfigManager.shared.nodes || QDConfigManager.shared.nodes.count == 0) {
-        [self requestNodes];
-//    } else {
-//        // 刷新节点列表
-//        [QDConfigManager.shared preprogressNodes];
-//        [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationLineRefresh object:nil];
-//    }
-    if (QDVPNManager.shared.status == NEVPNStatusConnected) {
-        [self.connectButton updateUIStatus:status_button_connected];
-    }
+    
+    // 请求全部线路
+    [self requestNodes];
 }
 
 // 唤醒app后设置按钮状态
 - (void)appBecomeActive {
     if (QDVPNManager.shared.status == NEVPNStatusDisconnected) {
-        [self.connectButton updateUIStatus:status_button_disconnected];
+        if (self.connectButton.connectStatus != status_button_loading && self.connectButton.connectStatus != status_button_connecting && self.connectButton.connectStatus != status_button_disconnecting) {
+            [self.connectButton updateUIStatus:status_button_disconnected];
+        }
     }
 }
 
@@ -325,6 +323,18 @@ static NSString *const kHadRate = @"kHadRate";
             NSLog(@"requestNodes request failed %@", resultModel.message);
         }
     }];
+}
+
+- (void)resetData {
+    // 默认第一条线路
+    [QDConfigManager.shared preprogressNodes];
+    [QDConfigManager.shared setDefaultNode];
+    [self notifyUserActive];
+    [self notifyLineRefresh];
+    //杀掉进程后再次进入对连接状态改变
+    if (QDVPNManager.shared.status == NEVPNStatusConnected) {
+        [self.connectButton updateUIStatus:status_button_connected];
+    }
 }
 
 #pragma mark -- ui
@@ -924,6 +934,9 @@ static NSString *const kHadRate = @"kHadRate";
     }];
     v.callback = ^{
         if (!QDConfigManager.shared.isAccepted) {
+            
+            NSLog(@"%@",QDVersionManager.shared.versionConfig);
+            
             BOOL hide_privacy = (QDVersionManager.shared.versionConfig && [QDVersionManager.shared.versionConfig[@"hide_privacy"] intValue] == 1);
             if (hide_privacy) {
                 [self setupGuide];
@@ -972,6 +985,9 @@ static NSString *const kHadRate = @"kHadRate";
     [QDTrackManager track:QDTrackType_app_inited data:@{}];
 //    [QDLocalNoticationManager.shared setup];
 //    [QDAdManager.shared setup:YES];
+    if (!self.hadShowAds) {
+        [self showAds];// 展示开屏广告
+    }
 }
 // 展示开屏广告
 - (void)showAds {
@@ -1200,6 +1216,9 @@ static NSString *const kHadRate = @"kHadRate";
 - (void) doConnectFail:(NSString*)log {
     NSLog(@"doConnectFail====>%@", log);
     
+    // 取消定时执行
+    [self cancelTimingPerform];
+    
     // 上报
     [QDModelManager requestConnectRecord:[QDDateUtils getNowDateString] pingResult:1 connectResult:0 completed:^(NSDictionary * _Nonnull dictionary) {
         
@@ -1221,9 +1240,6 @@ static NSString *const kHadRate = @"kHadRate";
     
     // 刷新页面
     [self.connectButton updateUI];
-    
-    // 取消定时执行
-    [self cancelTimingPerform];
 
     [self.connectButton updateUIStatus:status_button_fail];
     
@@ -1246,7 +1262,7 @@ static NSString *const kHadRate = @"kHadRate";
     }
     
     if (QDConfigManager.shared.otherLinesNodes.count == 0) {
-        [QDDialogManager showDialog:NSLocalizedString(@"Connect_fail", nil) message:NSLocalizedString(@"Connect_fail_info", nil) ok:NSLocalizedString(@"Dialog_Ok", nil) cancel:nil okBlock:^{
+        [QDDialogManager showDialog:NSLocalizedString(@"Connect_fail", nil) message:NSLocalizedString(@"Connect_fail_info", nil) ok:NSLocalizedString(@"Dialog_Ok", nil) cancel:NSLocalizedString(@"Dialog_Cancel", nil) okBlock:^{
             // 安装VPN config
             [QDVPNManager.shared reStartInstallConfig:^(NSError * _Nonnull error) {
                 if (error) {
@@ -1540,7 +1556,6 @@ static NSString *const kHadRate = @"kHadRate";
 }
 
 - (void)startPingWIthAction:(int)action complete:(void(^)(void))complete {
-//    NSArray * arr = @[QDConfigManager.shared.node.host];
     NSMutableArray * arr = [NSMutableArray array];
     if (QDConfigManager.shared.node.host) {
         [arr addObject:QDConfigManager.shared.node.host];
@@ -1551,7 +1566,7 @@ static NSString *const kHadRate = @"kHadRate";
     self.pingHelper = [[NENPingManager alloc] init];
     [self.pingHelper getFatestAddress:arr requestTimes:1 completionHandler:^(NSString * _Nonnull host, NSArray * _Nullable itemArr) {
         if (host && itemArr) {
-            NSInteger delayTimes = [[[[itemArr firstObject] objectForKey:host] firstObject] integerValue];
+            CGFloat delayTimes = [[[[itemArr firstObject] objectForKey:host] firstObject] floatValue];
             if (delayTimes == 1000) {
                 [QDModelManager requestConnectRecord:[QDDateUtils getNowDateString] pingResult:0 connectResult:2 completed:^(NSDictionary * _Nonnull dictionary) {
 
@@ -1742,10 +1757,16 @@ static NSString *const kHadRate = @"kHadRate";
     
     // 若有任务
     if ([QDTaskManager.shared hasTask]) return;
-    
-    NSLog(@"%@",[NSNotificationCenter defaultCenter]);
-    
-    [self changeStartPing];
+        
+    if (QDVPNManager.shared.status == NEVPNStatusConnected) {
+        [self.connectButton updateUIStatus:status_button_disconnecting];
+        [QDVPNManager.shared stop];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self changeStartPing];
+        });
+    }else {
+        [self changeStartPing];
+    }
 }
 
 - (void)changeStartPing {
@@ -1776,15 +1797,19 @@ static NSString *const kHadRate = @"kHadRate";
             // 添加超时
             [self performSelector:@selector(autoConnectFail) withObject:nil afterDelay:15];
             
-            // 连接或断开上一个节点，重新连接新的节点
-            if (QDVPNManager.shared.status == NEVPNStatusDisconnected || QDVPNManager.shared.status == NEVPNStatusInvalid) {
-                [self startConnnectVPN];
-            } else {
-                [QDTaskManager.shared add:QDTaskTypeConnected];
-                [QDTaskManager.shared add:QDTaskTypeDisconnected];
-                [QDVPNManager.shared stop];
-                [self startConnnectVPN];
-            }
+            //重新连接新的节点
+            [self startConnnectVPN];
+            
+//            // 连接或断开上一个节点，重新连接新的节点
+//            if (QDVPNManager.shared.status == NEVPNStatusDisconnected || QDVPNManager.shared.status == NEVPNStatusInvalid) {
+//                [self startConnnectVPN];
+//            } else {
+//                [QDTaskManager.shared add:QDTaskTypeConnected];
+//                [QDTaskManager.shared add:QDTaskTypeDisconnected];
+//                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//                    [self startConnnectVPN];
+//                });
+//            }
         }
     }];
 }
@@ -1801,11 +1826,11 @@ static NSString *const kHadRate = @"kHadRate";
 
 // 网络状态发生变化
 - (void) notifyNetworkChanged {
-    if (AFNetworkReachabilityManager.sharedManager.isReachable) {
-        [self requestUserInfo];
-    } else {
-//        [self stopVPN];
-    }
+//    if (AFNetworkReachabilityManager.sharedManager.isReachable) {
+//        [self requestUserInfo];
+//    } else {
+////        [self stopVPN];
+//    }
 }
 
 // 配置安装开始

@@ -52,7 +52,7 @@ void SFLog(const char* file, const char* func, int line, NSString* fmt, ...)
 - (void)dealException:(NSString*)info
 {
     NSString* msg = [NSString stringWithFormat:@"NSSafeProxy: %@", info];
-    SFAssert(0, msg);
+//    SFAssert(0, msg);
 }
 @end
 
@@ -144,27 +144,27 @@ void swizzleInstanceMethod(Class cls, SEL origSelector, SEL newSelector)
 - (void) hookAddObserver:(NSObject *)observer forKeyPath:(NSString *)keyPath options:(NSKeyValueObservingOptions)options context:(void *)context
 {
     if (!observer || !keyPath.length) {
-        SFAssert(NO, @"hookAddObserver invalid args: %@", self);
+//        SFAssert(NO, @"hookAddObserver invalid args: %@", self);
         return;
     }
     @try {
         [self hookAddObserver:observer forKeyPath:keyPath options:options context:context];
     }
     @catch (NSException *exception) {
-        NSLog(@"hookAddObserver ex: %@", [exception callStackSymbols]);
+//        NSLog(@"hookAddObserver ex: %@", [exception callStackSymbols]);
     }
 }
 - (void) hookRemoveObserver:(NSObject *)observer forKeyPath:(NSString *)keyPath
 {
     if (!observer || !keyPath.length) {
-        SFAssert(NO, @"hookRemoveObserver invalid args: %@", self);
+//        SFAssert(NO, @"hookRemoveObserver invalid args: %@", self);
         return;
     }
     @try {
         [self hookRemoveObserver:observer forKeyPath:keyPath];
     }
     @catch (NSException *exception) {
-        NSLog(@"hookRemoveObserver ex: %@", [exception callStackSymbols]);
+//        NSLog(@"hookRemoveObserver ex: %@", [exception callStackSymbols]);
     }
 }
 
@@ -234,7 +234,7 @@ void swizzleInstanceMethod(Class cls, SEL origSelector, SEL newSelector)
     if (NULL != nullTerminatedCString) {
         return [self hookStringWithUTF8String:nullTerminatedCString];
     }
-    SFAssert(NO, @"NSString invalid args hookStringWithUTF8String nil cstring");
+//    SFAssert(NO, @"NSString invalid args hookStringWithUTF8String nil cstring");
     return nil;
 }
 + (nullable instancetype) hookStringWithCString:(const char *)cString encoding:(NSStringEncoding)enc
@@ -242,7 +242,7 @@ void swizzleInstanceMethod(Class cls, SEL origSelector, SEL newSelector)
     if (NULL != cString){
         return [self hookStringWithCString:cString encoding:enc];
     }
-    SFAssert(NO, @"NSString invalid args hookStringWithCString nil cstring");
+//    SFAssert(NO, @"NSString invalid args hookStringWithCString nil cstring");
     return nil;
 }
 - (nullable instancetype) hookInitWithString:(NSString *)aString
@@ -250,7 +250,7 @@ void swizzleInstanceMethod(Class cls, SEL origSelector, SEL newSelector)
     if (aString){
         return [self hookInitWithString:aString];
     }
-    SFAssert(NO, @"NSString invalid args hookInitWithString nil aString");
+//    SFAssert(NO, @"NSString invalid args hookInitWithString nil aString");
     return nil;
 }
 - (nullable instancetype) hookInitWithUTF8String:(const char *)nullTerminatedCString
@@ -258,7 +258,7 @@ void swizzleInstanceMethod(Class cls, SEL origSelector, SEL newSelector)
     if (NULL != nullTerminatedCString) {
         return [self hookInitWithUTF8String:nullTerminatedCString];
     }
-    SFAssert(NO, @"NSString invalid args hookInitWithUTF8String nil aString");
+//    SFAssert(NO, @"NSString invalid args hookInitWithUTF8String nil aString");
     return nil;
 }
 - (nullable instancetype) hookInitWithCString:(const char *)nullTerminatedCString encoding:(NSStringEncoding)encoding
@@ -266,7 +266,7 @@ void swizzleInstanceMethod(Class cls, SEL origSelector, SEL newSelector)
     if (NULL != nullTerminatedCString){
         return [self hookInitWithCString:nullTerminatedCString encoding:encoding];
     }
-    SFAssert(NO, @"NSString invalid args hookInitWithCString nil cstring");
+//    SFAssert(NO, @"NSString invalid args hookInitWithCString nil cstring");
     return nil;
 }
 - (NSString *)hookStringByAppendingString:(NSString *)aString
@@ -318,7 +318,7 @@ void swizzleInstanceMethod(Class cls, SEL origSelector, SEL newSelector)
             }
             return NSMakeRange(NSNotFound, 0);
         }else{
-            SFAssert(NO, @"hookRangeOfString:options:range:locale: searchString is nil");
+//            SFAssert(NO, @"hookRangeOfString:options:range:locale: searchString is nil");
             return NSMakeRange(NSNotFound, 0);
         }
     }
@@ -352,7 +352,7 @@ void swizzleInstanceMethod(Class cls, SEL origSelector, SEL newSelector)
     if (aString){
         return [self hookInitWithString:aString];
     }
-    SFAssert(NO, @"NSString invalid args hookInitWithString nil aString");
+//    SFAssert(NO, @"NSString invalid args hookInitWithString nil aString");
     return nil;
 }
 - (nullable instancetype) hookInitWithUTF8String:(const char *)nullTerminatedCString
@@ -360,7 +360,7 @@ void swizzleInstanceMethod(Class cls, SEL origSelector, SEL newSelector)
     if (NULL != nullTerminatedCString) {
         return [self hookInitWithUTF8String:nullTerminatedCString];
     }
-    SFAssert(NO, @"NSString invalid args hookInitWithUTF8String nil aString");
+//    SFAssert(NO, @"NSString invalid args hookInitWithUTF8String nil aString");
     return nil;
 }
 - (nullable instancetype) hookInitWithCString:(const char *)nullTerminatedCString encoding:(NSStringEncoding)encoding
@@ -368,7 +368,7 @@ void swizzleInstanceMethod(Class cls, SEL origSelector, SEL newSelector)
     if (NULL != nullTerminatedCString){
         return [self hookInitWithCString:nullTerminatedCString encoding:encoding];
     }
-    SFAssert(NO, @"NSMutableString invalid args hookInitWithCString nil cstring");
+//    SFAssert(NO, @"NSMutableString invalid args hookInitWithCString nil cstring");
     return nil;
 }
 - (void) hookAppendString:(NSString *)aString
@@ -377,7 +377,7 @@ void swizzleInstanceMethod(Class cls, SEL origSelector, SEL newSelector)
         if (aString){
             [self hookAppendString:aString];
         }else{
-            SFAssert(NO, @"NSMutableString invalid args hookAppendString:[%@]", aString);
+//            SFAssert(NO, @"NSMutableString invalid args hookAppendString:[%@]", aString);
         }
     }
 }
@@ -387,7 +387,7 @@ void swizzleInstanceMethod(Class cls, SEL origSelector, SEL newSelector)
         if (aString && loc <= self.length) {
             [self hookInsertString:aString atIndex:loc];
         }else{
-            SFAssert(NO, @"NSMutableString invalid args hookInsertString:[%@] atIndex:[%@]", aString, @(loc));
+//            SFAssert(NO, @"NSMutableString invalid args hookInsertString:[%@] atIndex:[%@]", aString, @(loc));
         }
     }
 }
@@ -397,7 +397,7 @@ void swizzleInstanceMethod(Class cls, SEL origSelector, SEL newSelector)
         if (NSSafeMaxRange(range) <= self.length){
             [self hookDeleteCharactersInRange:range];
         }else{
-            SFAssert(NO, @"NSMutableString invalid args hookDeleteCharactersInRange:[%@]", NSStringFromRange(range));
+//            SFAssert(NO, @"NSMutableString invalid args hookDeleteCharactersInRange:[%@]", NSStringFromRange(range));
         }
     }
 }
@@ -607,7 +607,7 @@ void swizzleInstanceMethod(Class cls, SEL origSelector, SEL newSelector)
                 [self hookAddAttribute:name value:value range:NSMakeRange(range.location, self.length-range.location)];
             }
         }else {
-            SFAssert(NO, @"hookAddAttribute:value:range: value is nil");
+//            SFAssert(NO, @"hookAddAttribute:value:range: value is nil");
         }
     }
 }
@@ -622,7 +622,7 @@ void swizzleInstanceMethod(Class cls, SEL origSelector, SEL newSelector)
                 [self hookAddAttributes:attrs range:NSMakeRange(range.location, self.length-range.location)];
             }
         }else{
-            SFAssert(NO, @"hookAddAttributes:range: attrs is nil");
+//            SFAssert(NO, @"hookAddAttributes:range: attrs is nil");
         }
     }
 }
@@ -637,7 +637,7 @@ void swizzleInstanceMethod(Class cls, SEL origSelector, SEL newSelector)
                 [self hookSetAttributes:attrs range:NSMakeRange(range.location, self.length-range.location)];
             }
         }else{
-            SFAssert(NO, @"hookSetAttributes:range:  attrs is nil");
+//            SFAssert(NO, @"hookSetAttributes:range:  attrs is nil");
         }
     }
 }
@@ -652,7 +652,7 @@ void swizzleInstanceMethod(Class cls, SEL origSelector, SEL newSelector)
                 [self hookRemoveAttribute:name range:NSMakeRange(range.location, self.length-range.location)];
             }
         }else{
-            SFAssert(NO, @"hookRemoveAttribute:range:  name is nil");
+//            SFAssert(NO, @"hookRemoveAttribute:range:  name is nil");
         }
     }
 }
@@ -674,7 +674,7 @@ void swizzleInstanceMethod(Class cls, SEL origSelector, SEL newSelector)
                 [self hookReplaceCharactersInRange:NSMakeRange(range.location, self.length-range.location) withString:str];
             }
         }else{
-            SFAssert(NO, @"hookReplaceCharactersInRange:withString:  str is nil");
+//            SFAssert(NO, @"hookReplaceCharactersInRange:withString:  str is nil");
         }
     }
 }
@@ -687,7 +687,7 @@ void swizzleInstanceMethod(Class cls, SEL origSelector, SEL newSelector)
                 [self hookReplaceCharactersInRange:NSMakeRange(range.location, self.length-range.location) withAttributedString:str];
             }
         }else{
-            SFAssert(NO, @"hookReplaceCharactersInRange:withString:  str is nil");
+//            SFAssert(NO, @"hookReplaceCharactersInRange:withString:  str is nil");
         }
     }
 }
@@ -759,7 +759,7 @@ void swizzleInstanceMethod(Class cls, SEL origSelector, SEL newSelector)
     if (anObject) {
         return [self hookArrayWithObject:anObject];
     }
-    SFAssert(NO, @"NSArray invalid args hookArrayWithObject:[%@]", anObject);
+//    SFAssert(NO, @"NSArray invalid args hookArrayWithObject:[%@]", anObject);
     return nil;
 }
 
@@ -768,7 +768,7 @@ void swizzleInstanceMethod(Class cls, SEL origSelector, SEL newSelector)
         if (index < self.count) {
             return [self hookObjectAtIndex:index];
         }
-        SFAssert(NO, @"NSArray invalid index:[%@]", @(index));
+//        SFAssert(NO, @"NSArray invalid index:[%@]", @(index));
         return nil;
     }
 }
@@ -777,7 +777,7 @@ void swizzleInstanceMethod(Class cls, SEL origSelector, SEL newSelector)
         if (index < self.count) {
             return [self hookObjectAtIndexedSubscript:index];
         }
-        SFAssert(NO, @"NSArray invalid index:[%@]", @(index));
+//        SFAssert(NO, @"NSArray invalid index:[%@]", @(index));
         return nil;
     }
 }
@@ -801,7 +801,7 @@ void swizzleInstanceMethod(Class cls, SEL origSelector, SEL newSelector)
             if (objects[i]) {
                 objs[index++] = objects[i];
             } else {
-                SFAssert(NO, @"NSArray invalid args hookArrayWithObjects:[%@] atIndex:[%@]", objects[i], @(i));
+//                SFAssert(NO, @"NSArray invalid args hookArrayWithObjects:[%@] atIndex:[%@]", objects[i], @(i));
             }
         }
         return [self hookArrayWithObjects:objs count:index];
@@ -852,7 +852,7 @@ void swizzleInstanceMethod(Class cls, SEL origSelector, SEL newSelector)
         if (index < self.count) {
             return [self hookObjectAtIndex:index];
         }
-        SFAssert(NO, @"NSArray invalid index:[%@]", @(index));
+//        SFAssert(NO, @"NSArray invalid index:[%@]", @(index));
         return nil;
     }
 }
@@ -861,7 +861,7 @@ void swizzleInstanceMethod(Class cls, SEL origSelector, SEL newSelector)
         if (index < self.count) {
             return [self hookObjectAtIndexedSubscript:index];
         }
-        SFAssert(NO, @"NSArray invalid index:[%@]", @(index));
+//        SFAssert(NO, @"NSArray invalid index:[%@]", @(index));
         return nil;
     }
 }
@@ -871,10 +871,10 @@ void swizzleInstanceMethod(Class cls, SEL origSelector, SEL newSelector)
             [self hookInsertObject:anObject atIndex:index];
         } else {
             if (!anObject) {
-                SFAssert(NO, @"NSMutableArray invalid args hookInsertObject:[%@] atIndex:[%@]", anObject, @(index));
+//                SFAssert(NO, @"NSMutableArray invalid args hookInsertObject:[%@] atIndex:[%@]", anObject, @(index));
             }
             if (index > self.count) {
-                SFAssert(NO, @"NSMutableArray hookInsertObject[%@] atIndex:[%@] out of bound:[%@]", anObject, @(index), @(self.count));
+//                SFAssert(NO, @"NSMutableArray hookInsertObject[%@] atIndex:[%@] out of bound:[%@]", anObject, @(index), @(self.count));
             }
         }
     }
@@ -885,7 +885,7 @@ void swizzleInstanceMethod(Class cls, SEL origSelector, SEL newSelector)
         if (index < self.count) {
             [self hookRemoveObjectAtIndex:index];
         } else {
-            SFAssert(NO, @"NSMutableArray hookRemoveObjectAtIndex:[%@] out of bound:[%@]", @(index), @(self.count));
+//            SFAssert(NO, @"NSMutableArray hookRemoveObjectAtIndex:[%@] out of bound:[%@]", @(index), @(self.count));
         }
     }
 }
@@ -897,10 +897,10 @@ void swizzleInstanceMethod(Class cls, SEL origSelector, SEL newSelector)
             [self hookReplaceObjectAtIndex:index withObject:anObject];
         } else {
             if (!anObject) {
-                SFAssert(NO, @"NSMutableArray invalid args hookReplaceObjectAtIndex:[%@] withObject:[%@]", @(index), anObject);
+//                SFAssert(NO, @"NSMutableArray invalid args hookReplaceObjectAtIndex:[%@] withObject:[%@]", @(index), anObject);
             }
             if (index >= self.count) {
-                SFAssert(NO, @"NSMutableArray hookReplaceObjectAtIndex:[%@] withObject:[%@] out of bound:[%@]", @(index), anObject, @(self.count));
+//                SFAssert(NO, @"NSMutableArray hookReplaceObjectAtIndex:[%@] withObject:[%@] out of bound:[%@]", @(index), anObject, @(self.count));
             }
         }
     }
@@ -911,7 +911,7 @@ void swizzleInstanceMethod(Class cls, SEL origSelector, SEL newSelector)
         if (NSSafeMaxRange(range) <= self.count) {
             [self hookRemoveObjectsInRange:range];
         }else {
-            SFAssert(NO, @"NSMutableArray invalid args hookRemoveObjectsInRange:[%@]", NSStringFromRange(range));
+//            SFAssert(NO, @"NSMutableArray invalid args hookRemoveObjectsInRange:[%@]", NSStringFromRange(range));
         }
     }
 }
@@ -976,7 +976,7 @@ void swizzleInstanceMethod(Class cls, SEL origSelector, SEL newSelector)
             }
             return NSMakeRange(NSNotFound, 0);
         }else{
-            SFAssert(NO, @"hookRangeOfData:options:range: dataToFind is nil");
+//            SFAssert(NO, @"hookRangeOfData:options:range: dataToFind is nil");
             return NSMakeRange(NSNotFound, 0);
         }
     }
@@ -1016,10 +1016,10 @@ void swizzleInstanceMethod(Class cls, SEL origSelector, SEL newSelector)
             if (range.location <= self.length) {
                 [self hookReplaceBytesInRange:range withBytes:bytes];
             }else {
-                SFAssert(NO, @"hookReplaceBytesInRange:withBytes: range.location error");
+//                SFAssert(NO, @"hookReplaceBytesInRange:withBytes: range.location error");
             }
         }else if (!NSEqualRanges(range, NSMakeRange(0, 0))){
-            SFAssert(NO, @"hookReplaceBytesInRange:withBytes: bytes is nil");
+//            SFAssert(NO, @"hookReplaceBytesInRange:withBytes: bytes is nil");
         }
     }
 }
@@ -1053,7 +1053,7 @@ void swizzleInstanceMethod(Class cls, SEL origSelector, SEL newSelector)
     if (object && key) {
         return [self hookDictionaryWithObject:object forKey:key];
     }
-    SFAssert(NO, @"NSDictionary invalid args hookDictionaryWithObject:[%@] forKey:[%@]", object, key);
+//    SFAssert(NO, @"NSDictionary invalid args hookDictionaryWithObject:[%@] forKey:[%@]", object, key);
     return nil;
 }
 + (instancetype) hookDictionaryWithObjects:(const id [])objects forKeys:(const id [])keys count:(NSUInteger)cnt
@@ -1088,7 +1088,7 @@ void swizzleInstanceMethod(Class cls, SEL origSelector, SEL newSelector)
         if (anObject && aKey) {
             [self hookSetObject:anObject forKey:aKey];
         } else {
-            SFAssert(NO, @"NSMutableDictionary invalid args hookSetObject:[%@] forKey:[%@]", anObject, aKey);
+//            SFAssert(NO, @"NSMutableDictionary invalid args hookSetObject:[%@] forKey:[%@]", anObject, aKey);
         }
     }
 }
@@ -1098,7 +1098,7 @@ void swizzleInstanceMethod(Class cls, SEL origSelector, SEL newSelector)
         if (aKey) {
             [self hookRemoveObjectForKey:aKey];
         } else {
-            SFAssert(NO, @"NSMutableDictionary invalid args hookRemoveObjectForKey:[%@]", aKey);
+//            SFAssert(NO, @"NSMutableDictionary invalid args hookRemoveObjectForKey:[%@]", aKey);
         }
     }
 }
@@ -1109,7 +1109,7 @@ void swizzleInstanceMethod(Class cls, SEL origSelector, SEL newSelector)
         if (key){
             [self hookSetObject:obj forKeyedSubscript:key];
         } else {
-            SFAssert(NO, @"NSMutableDictionary invalid args hookSetObject:forKeyedSubscript:");
+//            SFAssert(NO, @"NSMutableDictionary invalid args hookSetObject:forKeyedSubscript:");
         }
     }
 }
@@ -1131,7 +1131,7 @@ void swizzleInstanceMethod(Class cls, SEL origSelector, SEL newSelector)
     if (object){
         return [self hookSetWithObject:object];
     }
-    SFAssert(NO, @"NSSet invalid args hookSetWithObject:[%@]", object);
+//    SFAssert(NO, @"NSSet invalid args hookSetWithObject:[%@]", object);
     return nil;
 }
 @end
@@ -1152,7 +1152,7 @@ void swizzleInstanceMethod(Class cls, SEL origSelector, SEL newSelector)
         if (object) {
             [self hookAddObject:object];
         } else {
-            SFAssert(NO, @"NSMutableSet invalid args hookAddObject[%@]", object);
+//            SFAssert(NO, @"NSMutableSet invalid args hookAddObject[%@]", object);
         }
     }
 }
@@ -1162,7 +1162,7 @@ void swizzleInstanceMethod(Class cls, SEL origSelector, SEL newSelector)
         if (object) {
             [self hookRemoveObject:object];
         } else {
-            SFAssert(NO, @"NSMutableSet invalid args hookRemoveObject[%@]", object);
+//            SFAssert(NO, @"NSMutableSet invalid args hookRemoveObject[%@]", object);
         }
     }
 }
@@ -1189,7 +1189,7 @@ void swizzleInstanceMethod(Class cls, SEL origSelector, SEL newSelector)
     if (object) {
         return [self hookOrderedSetWithObject:object];
     }
-    SFAssert(NO, @"NSOrderedSet invalid args hookOrderedSetWithObject:[%@]", object);
+//    SFAssert(NO, @"NSOrderedSet invalid args hookOrderedSetWithObject:[%@]", object);
     return nil;
 }
 - (instancetype)hookInitWithObject:(id)object
@@ -1197,7 +1197,7 @@ void swizzleInstanceMethod(Class cls, SEL origSelector, SEL newSelector)
     if (object){
         return [self hookInitWithObject:object];
     }
-    SFAssert(NO, @"NSOrderedSet invalid args hookInitWithObject:[%@]", object);
+//    SFAssert(NO, @"NSOrderedSet invalid args hookInitWithObject:[%@]", object);
     return nil;
 }
 - (id)hookObjectAtIndex:(NSUInteger)idx
@@ -1239,7 +1239,7 @@ void swizzleInstanceMethod(Class cls, SEL origSelector, SEL newSelector)
         if (object) {
             [self hookAddObject:object];
         } else {
-            SFAssert(NO, @"NSMutableOrderedSet invalid args hookAddObject:[%@]", object);
+//            SFAssert(NO, @"NSMutableOrderedSet invalid args hookAddObject:[%@]", object);
         }
     }
 }
@@ -1249,7 +1249,7 @@ void swizzleInstanceMethod(Class cls, SEL origSelector, SEL newSelector)
         if (object && idx <= self.count) {
             [self hookInsertObject:object atIndex:idx];
         }else{
-            SFAssert(NO, @"NSMutableOrderedSet invalid args hookInsertObject:[%@] atIndex:[%@]", object, @(idx));
+//            SFAssert(NO, @"NSMutableOrderedSet invalid args hookInsertObject:[%@] atIndex:[%@]", object, @(idx));
         }
     }
 }
@@ -1259,7 +1259,7 @@ void swizzleInstanceMethod(Class cls, SEL origSelector, SEL newSelector)
         if (idx < self.count){
             [self hookRemoveObjectAtIndex:idx];
         }else{
-            SFAssert(NO, @"NSMutableOrderedSet invalid args hookRemoveObjectAtIndex:[%@]", @(idx));
+//            SFAssert(NO, @"NSMutableOrderedSet invalid args hookRemoveObjectAtIndex:[%@]", @(idx));
         }
     }
 }
@@ -1269,7 +1269,7 @@ void swizzleInstanceMethod(Class cls, SEL origSelector, SEL newSelector)
         if (object && idx < self.count) {
             [self hookReplaceObjectAtIndex:idx withObject:object];
         }else{
-            SFAssert(NO, @"NSMutableOrderedSet invalid args hookReplaceObjectAtIndex:[%@] withObject:[%@]", @(idx), object);
+//            SFAssert(NO, @"NSMutableOrderedSet invalid args hookReplaceObjectAtIndex:[%@] withObject:[%@]", @(idx), object);
         }
     }
 }
@@ -1299,7 +1299,7 @@ void swizzleInstanceMethod(Class cls, SEL origSelector, SEL newSelector)
     if (aKey) {
         [self hookSetObject:value forKey:aKey];
     } else {
-        SFAssert(NO, @"NSUserDefaults invalid args hookSetObject:[%@] forKey:[%@]", value, aKey);
+//        SFAssert(NO, @"NSUserDefaults invalid args hookSetObject:[%@] forKey:[%@]", value, aKey);
     }
 }
 - (void) hookRemoveObjectForKey:(NSString*)aKey
@@ -1307,7 +1307,7 @@ void swizzleInstanceMethod(Class cls, SEL origSelector, SEL newSelector)
     if (aKey) {
         [self hookRemoveObjectForKey:aKey];
     } else {
-        SFAssert(NO, @"NSUserDefaults invalid args hookRemoveObjectForKey:[%@]", aKey);
+//        SFAssert(NO, @"NSUserDefaults invalid args hookRemoveObjectForKey:[%@]", aKey);
     }
 }
 
@@ -1329,7 +1329,7 @@ void swizzleInstanceMethod(Class cls, SEL origSelector, SEL newSelector)
     if (obj) {
         [self hookSetObject:obj forKey:key];
     }else {
-        SFAssert(NO, @"NSCache invalid args hookSetObject:[%@] forKey:[%@]", obj, key);
+//        SFAssert(NO, @"NSCache invalid args hookSetObject:[%@] forKey:[%@]", obj, key);
     }
 }
 - (void)hookSetObject:(id)obj forKey:(id)key cost:(NSUInteger)g
@@ -1337,7 +1337,7 @@ void swizzleInstanceMethod(Class cls, SEL origSelector, SEL newSelector)
     if (obj) {
         [self hookSetObject:obj forKey:key cost:g];
     }else {
-        SFAssert(NO, @"NSCache invalid args hookSetObject:[%@] forKey:[%@] cost:[%@]", obj, key, @(g));
+//        SFAssert(NO, @"NSCache invalid args hookSetObject:[%@] forKey:[%@] cost:[%@]", obj, key, @(g));
     }
 }
 @end

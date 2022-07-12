@@ -8,6 +8,7 @@
 // 用户信息更新
 static NSString * const kNotificationUserLoginSuccess = @"NotificationUserLoginSuccess";
 static NSString * const kNotificationUserGoHomeView = @"NotificationUserGoHomeView";
+static NSString * const kNotificationAnimationStopGoHome = @"NotificationAnimationStopGoHome";
 static NSString * const kNotificationUserGoLoginSelectView = @"NotificationUserGoLoginSelectView";
 static NSString * const kNotificationUserChange = @"NotificationUserChange";
 static NSString * const kNotificationUserActive = @"NotificationUserActive";

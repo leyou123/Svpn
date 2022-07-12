@@ -185,6 +185,7 @@
                         [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"Dialog_Sign_Out_Success", nil)];
                         QDConfigManager.shared.email    = nil;
                         QDConfigManager.shared.password = nil;
+                        QDConfigManager.shared.activeModel = nil;
                         [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationUserGoLoginSelectView object:nil];
                     } else {
                         [SVProgressHUD showErrorWithStatus:resultModel.message];

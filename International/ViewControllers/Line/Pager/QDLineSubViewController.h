@@ -15,6 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 //传递过来已经组织好的数据（全量数据）
 @property (nonatomic , strong) NSArray        *data;
 @property (nonatomic , strong) NSString       *country;
+@property (nonatomic , assign) BOOL           requestData;
 
 @end
 

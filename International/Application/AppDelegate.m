@@ -83,30 +83,30 @@ static BOOL isEnterBackground = NO;
     // 开屏广告
     if (QDVPNManager.shared.isInstallerVPNConfig&&QDConfigManager.shared.isNoneFirstEnterApp && !isVIP) {
         
-//        // 开屏广告
-//        BOOL show_open_ad = [QDVersionManager.shared.versionConfig[@"show_open_ad"] intValue] == 1;
-//        if (!show_open_ad) return;
-//
-//        int interval = [QDVersionManager.shared.versionConfig[@"show_open_ad_interval"] intValue];
-//        if (interval < 0) interval = 0;
-//        NSTimeInterval currentTimestamp = [[NSDate date] timeIntervalSince1970];
-//        if (self.lastShowTimestamp == 0) self.lastShowTimestamp = currentTimestamp;
-//        if (currentTimestamp - self.lastShowTimestamp < interval) {
-//            return;
-//        }
-//        self.lastShowTimestamp = currentTimestamp;
-        
-        if (![QDVersionManager.shared.versionConfig[@"show_awaken_ad"] intValue]) {
+        // 开屏广告
+        BOOL show_open_ad = [QDVersionManager.shared.versionConfig[@"show_awaken_ad"] intValue] == 1;
+        if (!show_open_ad) return;
+
+        int interval = [QDVersionManager.shared.versionConfig[@"show_open_ad_interval"] intValue];
+        if (interval < 0) interval = 0;
+        NSTimeInterval currentTimestamp = [[NSDate date] timeIntervalSince1970];
+        if (self.lastShowTimestamp == 0) self.lastShowTimestamp = currentTimestamp;
+        if (currentTimestamp - self.lastShowTimestamp < interval) {
             return;
         }
+        self.lastShowTimestamp = currentTimestamp;
+        
+//        if (![QDVersionManager.shared.versionConfig[@"show_awaken_ad"] intValue]) {
+//            return;
+//        }
         
         UIViewController * vc = [UIUtils getCurrentVC];
         if ([vc isKindOfClass:[QDPayViewController3 class]]) {
             return;
         }
+        [QDAdManager.shared setBecomeActiveStatus];
         [QDAdManager.shared showOpenAd];
     }
-
 }
 
 //handle token received from APNS
@@ -168,6 +168,7 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
 
 // 注册通知
 - (void) registerNotification {
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(nofityGoHome) name:kNotificationAnimationStopGoHome object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(nofityGoHomeController) name:kNotificationUserGoHomeView object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(nofityGoLoginSelectController) name:kNotificationUserGoLoginSelectView object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(nofityTabbarChanged) name:kNotificationtabChanged object:nil];
@@ -178,6 +179,7 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:kNotificationUserGoHomeView object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:kNotificationUserGoLoginSelectView object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:kNotificationtabChanged object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kNotificationAnimationStopGoHome object:nil];
 }
 
 // 更新本地价格
@@ -353,27 +355,26 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
 //    initBar.selectedIndex = 0;
     
     
-    QDHomeViewController *homeVC = [[QDHomeViewController alloc]init];
-    QDUserViewController *leftVC = [[QDUserViewController alloc] init];
     
-    QDBaseNavigationViewController *homeNavigation = [[QDBaseNavigationViewController alloc]initWithRootViewController:homeVC];
-    QDBaseNavigationViewController *leftNavigation = [[QDBaseNavigationViewController alloc] initWithRootViewController:leftVC];
-    
-    //3、使用MMDrawerController
-    self.drawerController = [[MMDrawerController alloc]initWithCenterViewController:homeNavigation leftDrawerViewController:leftNavigation];
-    
-    self.drawerController.openDrawerGestureModeMask = MMOpenDrawerGestureModeNone;
-    self.drawerController.maximumLeftDrawerWidth = [UIScreen mainScreen].bounds.size.width;
     
     QDADsViewController * vc = [[QDADsViewController alloc] init];
     if (isUserSelectEnter) {
+        QDHomeViewController *homeVC = [[QDHomeViewController alloc]init];
+        homeVC.isUserSelectEnter = isUserSelectEnter;
+        QDUserViewController *leftVC = [[QDUserViewController alloc] init];
+        
+        QDBaseNavigationViewController *homeNavigation = [[QDBaseNavigationViewController alloc]initWithRootViewController:homeVC];
+        QDBaseNavigationViewController *leftNavigation = [[QDBaseNavigationViewController alloc] initWithRootViewController:leftVC];
+        
+        //3、使用MMDrawerController
+        self.drawerController = [[MMDrawerController alloc]initWithCenterViewController:homeNavigation leftDrawerViewController:leftNavigation];
+        
+        self.drawerController.openDrawerGestureModeMask = MMOpenDrawerGestureModeNone;
+        self.drawerController.maximumLeftDrawerWidth = [UIScreen mainScreen].bounds.size.width;
+        
         self.window.rootViewController = self.drawerController;
     }else {
         self.window.rootViewController = vc;
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            // 需要延迟执行的代码
-            self.window.rootViewController = self.drawerController;
-        });
     }
     [self.window makeKeyAndVisible];
 }
@@ -406,6 +407,23 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
 // 跳转主界面
 - (void) nofityGoHomeController {
     [self initTabBar:YES];
+}
+
+- (void)nofityGoHome {
+    QDHomeViewController *homeVC = [[QDHomeViewController alloc]init];
+    homeVC.isUserSelectEnter = NO;
+    QDUserViewController *leftVC = [[QDUserViewController alloc] init];
+    
+    QDBaseNavigationViewController *homeNavigation = [[QDBaseNavigationViewController alloc]initWithRootViewController:homeVC];
+    QDBaseNavigationViewController *leftNavigation = [[QDBaseNavigationViewController alloc] initWithRootViewController:leftVC];
+    
+    //3、使用MMDrawerController
+    self.drawerController = [[MMDrawerController alloc]initWithCenterViewController:homeNavigation leftDrawerViewController:leftNavigation];
+    
+    self.drawerController.openDrawerGestureModeMask = MMOpenDrawerGestureModeNone;
+    self.drawerController.maximumLeftDrawerWidth = [UIScreen mainScreen].bounds.size.width;
+    
+    self.window.rootViewController = self.drawerController;
 }
 
 // 跳转登录选择界面

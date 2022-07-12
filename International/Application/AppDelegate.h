@@ -12,5 +12,7 @@
 
 @property (strong, nonatomic) UIWindow *window;
 
+- (void)changeRootVC:(BOOL)isUserSelected;
+
 @end
 

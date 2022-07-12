@@ -29,6 +29,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void) updateUIStatus:(ConnectButtonStatus)status;
 - (void)makeAnimation;
 
+@property (nonatomic, assign) ConnectButtonStatus connectStatus;
+
 @end
 
 NS_ASSUME_NONNULL_END

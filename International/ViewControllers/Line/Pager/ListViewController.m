@@ -186,6 +186,7 @@
                     QDLineSubViewController* vc = [QDLineSubViewController new];
                     vc.data = node.subNodes;
                     vc.country = node.country;
+                    vc.requestData = node.group_name.length > 0;
                     [weakSelf.navigationController pushViewController:vc animated:YES];
                 }
                     return;
