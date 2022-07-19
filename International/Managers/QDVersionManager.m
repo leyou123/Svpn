@@ -166,8 +166,7 @@
 // 请求商店信息
 - (void) requestAppstoreInfo:(dispatch_group_t) group {
     dispatch_group_enter(group);
-    
-    [QDHTTPManager.shared request:HTTPMethodTypeGet url:[NSString stringWithFormat:@"http://itunes.apple.com/lookup?id=%@", APPLE_ID] parameters:@{} completed:^(NSDictionary * _Nonnull dictionary) {
+    [QDHTTPManager.shared request:HTTPMethodTypeGet url:[NSString stringWithFormat:@"http://itunes.apple.com/lookup?bundleId=%@", @"com.superoversea"] parameters:@{} completed:^(NSDictionary * _Nonnull dictionary) {
         self.appstoreInfoDict = dictionary;
         dispatch_group_leave(group);
     }];
@@ -178,7 +177,15 @@
     dispatch_group_enter(group);
     [QDModelManager requestVersionInfo:^(NSDictionary * _Nonnull dictionary) {
         self.appInfoDict = dictionary;
-        dispatch_group_leave(group);
+        NSLog(@"%@ --------- %@",dictionary,self.appstoreInfoDict);
+        if ([dictionary[@"data"][@"current_version"] isEqualToString:self.appstoreInfoDict[@"results"][0][@"version"]]) {
+            dispatch_group_leave(group);
+        }else {
+            [QDHTTPManager.shared request:HTTPMethodTypeGet url:[NSString stringWithFormat:@"http://itunes.apple.com/lookup?id=%@", APPLE_ID] parameters:@{} completed:^(NSDictionary * _Nonnull dictionary) {
+                self.appstoreInfoDict = dictionary;
+                dispatch_group_leave(group);
+            }];
+        }
     }];
 }
 

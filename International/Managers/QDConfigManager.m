@@ -308,7 +308,7 @@ static NSString *const kPasswordKey = @"key_password";
     self.vipNodes  = arr;
 }
 
-//  获取分组
+//  快捷访问获取分组
 - (NSMutableArray *)groupAction1:(NSMutableArray *)arr {
 
     NSMutableSet *set = [NSMutableSet set];
@@ -342,19 +342,18 @@ static NSString *const kPasswordKey = @"key_password";
             virtureNode.subNodes = tempArr;
             [groupArr addObject:virtureNode];
         }
-        
-//        [groupArr addObject:tempArr];
-
     }];
     return groupArr;
 }
 
+// 开始全部ping检测
 - (void)startPing:(void(^)(void))complete {
-    
     NSArray * arr = [[NSUserDefaults standardUserDefaults] objectForKey:@"ping"];
-    if ([QDVPNConnectCheck isVPNOn] && arr.count > 0) {
-        [self.pingResultList removeAllObjects];
-        [self.pingResultList addObjectsFromArray:arr];
+    if ([QDVPNConnectCheck isVPNOn]) {
+        if (arr.count > 0) {
+            [self.pingResultList removeAllObjects];
+            [self.pingResultList addObjectsFromArray:arr];
+        }
         complete();
         return;
     }
@@ -384,11 +383,9 @@ static NSString *const kPasswordKey = @"key_password";
 
         NSDictionary * dic = [NSMutableDictionary dictionary];
         [dic setValue:[self getReportData:hostArray] forKey:@"items"];
-        if (QDVPNManager.shared.status != NEVPNStatusConnected) {
-            [QDModelManager requestFeedBackPing:dic Completed:^(NSDictionary * _Nonnull dictionary) {
-                NSLog(@"%@",dictionary);
-            }];
-        }
+        [QDModelManager requestFeedBackPing:dic Completed:^(NSDictionary * _Nonnull dictionary) {
+            NSLog(@"%@",dictionary);
+        }];
     }];
 }
 
@@ -422,7 +419,7 @@ static NSString *const kPasswordKey = @"key_password";
     }];
 }
 
-//
+// 获取全部ping上报数据
 - (NSArray *)getReportData:(NSArray *)arr {
     NSMutableArray * array = [NSMutableArray array];
     for (QDNodeModel * node in self.nodes) {
@@ -445,6 +442,7 @@ static NSString *const kPasswordKey = @"key_password";
     return array;
 }
 
+// 获取test上报数据
 - (NSArray *)getTestReportData:(NSArray *)arr {
     NSMutableArray * array = [NSMutableArray array];
     for (QDNodeTestModel * testNode in self.testNodes) {
@@ -467,6 +465,7 @@ static NSString *const kPasswordKey = @"key_password";
     return array;
 }
 
+// 所有线路赋ping结果
 - (void)setNodePingResult {
     if (self.pingResultList.count > 0) {
         for (NSDictionary * dic in self.pingResultList) {
@@ -476,6 +475,10 @@ static NSString *const kPasswordKey = @"key_password";
                     node.pingResult = pingresult;
                 }
             }
+        }
+    }else {
+        for (QDNodeModel * node in self.nodes) {
+            node.pingResult = 1;
         }
     }
 }
@@ -703,7 +706,7 @@ static NSString *const kPasswordKey = @"key_password";
     for (QDNodeModel * node in arr) {
         if ([node.ip isEqualToString:ip]) {
             self.defaultCountry = node.country;
-            if (node.ip) {
+            if (node.ip && node.pingResult == 1) {
                 [self.otherLinesNodes insertObject:node atIndex:0];
             }
         }
@@ -713,7 +716,7 @@ static NSString *const kPasswordKey = @"key_password";
             if (self.otherLinesNodes.count >= 3 || [node.ip isEqualToString:ip]) {
                 
             }else {
-                if (node.ip) {
+                if (node.ip && node.pingResult == 1) {
                     [self.otherLinesNodes addObject:node];
                 }
             }
@@ -725,7 +728,7 @@ static NSString *const kPasswordKey = @"key_password";
                 if (self.otherLinesNodes.count >= 3 || [node.ip isEqualToString:ip]) {
                     break;
                 }else {
-                    if (node.ip) {
+                    if (node.ip && node.pingResult == 1) {
                         [self.otherLinesNodes addObject:node];
                     }
                 }

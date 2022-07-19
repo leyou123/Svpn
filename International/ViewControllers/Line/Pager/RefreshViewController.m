@@ -142,6 +142,9 @@
         if (resultModel.code == kHttpStatusCode200) {
             // 默认第一条线路
             QDConfigManager.shared.nodes = resultModel.data;
+            [QDConfigManager.shared startPing:^{
+                
+            }];
             [QDConfigManager.shared preprogressNodes];
             [QDConfigManager.shared setDefaultNode];
             [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationLineRefresh object:nil];

@@ -90,6 +90,7 @@
         make.left.equalTo(self.view).offset(15);
         make.height.mas_equalTo(height);
     }];
+    templateView.hidden = YES;
     
     NSString *myBlueColor = @"#5C84F0";
     NSDictionary *styles = @{
@@ -139,20 +140,29 @@
 
 - (NSMutableArray*) createTempData {
     NSMutableArray* array = [NSMutableArray new];
-    QDNodeModel* virtureNode = [QDNodeModel new];
-    virtureNode.cell_type = 4;
-    [array addObject:virtureNode];
+    if (QDConfigManager.shared.activeModel.member_type != 1 && [QDVersionManager.shared.versionConfig[@"show_base_node_ad"] intValue] == 1) {
+        QDNodeModel* virtureNode = [QDNodeModel new];
+        virtureNode.cell_type = 4;
+        [array addObject:virtureNode];
+    }
     if (self.data) [array addObjectsFromArray:self.data];
     return array;
 }
 
 - (void)requestCountryLines {
     [QDModelManager requestCountrySublinesCountry:self.country completed:^(NSDictionary * _Nonnull dictionary) {
+        NSMutableArray * dataArray = [NSMutableArray array];
         QDNodesResultModel* resultModel = [QDNodesResultModel mj_objectWithKeyValues:dictionary];
+        if (QDConfigManager.shared.activeModel.member_type != 1 && [QDVersionManager.shared.versionConfig[@"show_base_node_ad"] intValue] == 1) {
+            QDNodeModel* virtureNode = [QDNodeModel new];
+            virtureNode.cell_type = 4;
+            [dataArray addObject:virtureNode];
+        }
         for (QDNodeModel * node in resultModel.data) {
             node.cell_type = 2;
+            [dataArray addObject:node];
         }
-        self.tableViewProxy.dataArray = [[QDConfigManager shared] getSortArray:resultModel.data hide:QDConfigManager.shared.lineHide];
+        self.tableViewProxy.dataArray = [[QDConfigManager shared] getSortArray:dataArray hide:QDConfigManager.shared.lineHide];
         [self.tableViewProxy.tableView reloadData];
         [self.tableViewProxy.tableView.mj_header endRefreshing];
     }];

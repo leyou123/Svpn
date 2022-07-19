@@ -166,10 +166,15 @@ static NSString *const kHadRate = @"kHadRate";
         [self updateConnectStatus];
     };
     
+    // 连接超过一天未ping，ping值不再准确，再次开启先关闭vpn再ping
     long lastTime = [[[NSUserDefaults standardUserDefaults] objectForKey:@"allpingtime"] longValue];
-    
     if ([QDDateUtils getNowUTCTimeTimestamp] - lastTime > 24*60*60 && lastTime != 0) {
         [self stopVPN];
+    }
+    
+    //杀掉进程后再次进入对连接状态改变
+    if (QDVPNManager.shared.status == NEVPNStatusConnected) {
+        [self.connectButton updateUIStatus:status_button_connected];
     }
 }
 
@@ -400,7 +405,7 @@ static NSString *const kHadRate = @"kHadRate";
     [self setupTimeView];
     [self setupLine];
 //    [self setupAnnualPayView];
-    [self setupRecommand];
+//    [self setupRecommand];
     [self setupSemicircle];
     [self setupNotice];
     [self setupConnect];

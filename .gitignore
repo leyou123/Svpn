@@ -25,3 +25,5 @@ Gemfile*
 Pods
 !Podfile
 Podfile.lock
+International.xcodeproj/xcshareddata/xcschemes/International.xcscheme
+International.xcodeproj/xcshareddata/xcschemes/PacketTunnel.xcscheme

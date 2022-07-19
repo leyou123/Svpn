@@ -49,7 +49,6 @@
     [premiumBtn setBackgroundImage:[UIImage imageNamed:@"home_premium"] forState:UIControlStateNormal];
     [premiumBtn addTarget:self action:@selector(premiumAction:) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:premiumBtn];
-    
     [premiumBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.top.width.height.equalTo(self);
     }];
