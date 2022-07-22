@@ -67,14 +67,17 @@ NS_ASSUME_NONNULL_BEGIN
 // 节点携带数据
 @property(nonatomic, strong) NSArray* subNodes;
 
-// ping结果
-@property (nonatomic, assign) int pingResult;
-
 // 快捷分组名称
 @property(nonatomic, copy) NSString* group_name;
 
 // 快捷分组图片
 @property(nonatomic, copy) NSString* group_image;
+
+// ping结果
+@property (nonatomic, assign) int pingResult;
+
+// 连接方式
+@property (nonatomic, assign) int connectStatus;
 
 @end
 

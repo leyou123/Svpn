@@ -191,7 +191,8 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
 
 // 检查版本更新
 - (void) checkVersionUpdate {
-    [QDVersionManager.shared check:YES];
+//    [QDVersionManager.shared check:YES];
+    [QDVersionManager.shared check];
 }
 
 - (void) setupAnalysis {

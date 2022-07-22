@@ -40,16 +40,18 @@
     [QDModelManager requestVersionConfig:^(NSDictionary * _Nonnull dictionary) {
         QDVersionConfigResultModel* result = [QDVersionConfigResultModel mj_objectWithKeyValues:dictionary];
         if (result&&result.code == kHttpStatusCode200 && result.data) {
-            if ([QDVersionManager.shared.versionConfig[@"overwrite_local"] intValue] == 1) {
-                [userDefault setValue:result.data.json_config forKey:@"Config"];
-                [userDefault setValue:@(result.data.operator_switch) forKey:@"operator_switch"];
-                [userDefault synchronize];
-            }
             QDVersionManager.shared.versionConfig = [result.data.json_config mj_JSONObject];
             QDVersionManager.shared.operator_switch = result.data.operator_switch;
             NSLog(@"versionConfig = %@", QDVersionManager.shared.versionConfig);
             [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationConfigUpdate object:nil];
             [QDTrackManager track:QDTrackType_connect_cms_suc data:@{}];
+            
+            if ([QDVersionManager.shared.versionConfig[@"overwrite_local"] intValue] == 1) {
+                [userDefault setValue:result.data.json_config forKey:@"Config"];
+                [userDefault setValue:@(result.data.operator_switch) forKey:@"operator_switch"];
+                [userDefault setValue:QDVersionManager.shared.versionConfig[@"open_anim_ping"] forKey:@"open_anim_ping"];
+                [userDefault synchronize];
+            }
         } else {
             // 失败
             [QDTrackManager track:QDTrackType_connect_cms_fail data:@{}];

@@ -126,6 +126,11 @@ static NSString *const kHadRate = @"kHadRate";
         self.isLoading = YES;
 //        [SVProgressHUD show];
     }
+    
+    //杀掉进程后再次进入对连接状态改变
+    if (QDVPNManager.shared.status == NEVPNStatusConnected) {
+        [self.connectButton updateUIStatus:status_button_connected];
+    }
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -170,11 +175,6 @@ static NSString *const kHadRate = @"kHadRate";
     long lastTime = [[[NSUserDefaults standardUserDefaults] objectForKey:@"allpingtime"] longValue];
     if ([QDDateUtils getNowUTCTimeTimestamp] - lastTime > 24*60*60 && lastTime != 0) {
         [self stopVPN];
-    }
-    
-    //杀掉进程后再次进入对连接状态改变
-    if (QDVPNManager.shared.status == NEVPNStatusConnected) {
-        [self.connectButton updateUIStatus:status_button_connected];
     }
 }
 
@@ -990,8 +990,12 @@ static NSString *const kHadRate = @"kHadRate";
     [QDTrackManager track:QDTrackType_app_inited data:@{}];
 //    [QDLocalNoticationManager.shared setup];
 //    [QDAdManager.shared setup:YES];
-    if (!self.hadShowAds) {
-        [self showAds];// 展示开屏广告
+    if (QDVersionManager.shared.changed) {
+        [QDVersionManager.shared showAlert:YES];
+    }else {
+        if (!self.hadShowAds) {
+            [self showAds];// 展示开屏广告
+        }
     }
 }
 // 展示开屏广告
@@ -1207,9 +1211,9 @@ static NSString *const kHadRate = @"kHadRate";
 //                // 验证网络是否可访问
 //                [self verifyCanAccessUrl];
             }
-            if (QDVPNManager.shared.status == NEVPNStatusConnected) {
-                [self.connectButton updateUIStatus:status_button_connected];
-            }
+//            if (QDVPNManager.shared.status == NEVPNStatusConnected) {
+//                [self.connectButton updateUIStatus:status_button_connected];
+//            }
         }
             break;
         default:
@@ -1428,7 +1432,13 @@ static NSString *const kHadRate = @"kHadRate";
             if (QDConfigManager.shared.remainMins > 30*24*60) {
                 mins = 30*24*60;
             }
-            NSDictionary* dict = @{@"remainMins":@(mins),@"host":QDConfigManager.shared.node.host, @"port":QDConfigManager.shared.node.port, @"password":QDConfigManager.shared.UUID};
+            NSDictionary* dict = @{@"remainMins":@(mins),
+                                   @"host":QDConfigManager.shared.node.host,
+                                   @"port":QDConfigManager.shared.node.port,
+                                   @"password":QDConfigManager.shared.UUID,
+                                   @"ip":QDConfigManager.shared.node.ip,
+                                   @"connectStatus":@(QDConfigManager.shared.node.connectStatus)
+            };
             
             [QDTaskManager.shared add:QDTaskTypeConnected];
             [QDTaskManager.shared remove:QDTaskTypeNodeRegister];
@@ -1563,7 +1573,10 @@ static NSString *const kHadRate = @"kHadRate";
 - (void)startPingWIthAction:(int)action complete:(void(^)(void))complete {
     NSMutableArray * arr = [NSMutableArray array];
     if (QDConfigManager.shared.node.host) {
-        [arr addObject:QDConfigManager.shared.node.host];
+        [arr addObject:QDConfigManager.shared.node.ip];
+//        if ([QDVersionManager.shared.versionConfig[@"connect_version_switch"] intValue] == 1) {
+//            [arr addObject:QDConfigManager.shared.node.host];
+//        }
     }else {
         return;
     }
@@ -1573,32 +1586,68 @@ static NSString *const kHadRate = @"kHadRate";
         if (host && itemArr) {
             CGFloat delayTimes = [[[[itemArr firstObject] objectForKey:host] firstObject] floatValue];
             if (delayTimes == 1000) {
-                [QDModelManager requestConnectRecord:[QDDateUtils getNowDateString] pingResult:0 connectResult:2 completed:^(NSDictionary * _Nonnull dictionary) {
+//                if ([QDVersionManager.shared.versionConfig[@"connect_version_switch"] intValue] == 1) {
+//                    CGFloat delayTimes = [[[[itemArr firstObject] objectForKey:host] lastObject] floatValue];
+//                    if (delayTimes == 1000) {
+//                        [QDModelManager requestConnectRecord:[QDDateUtils getNowDateString] pingResult:0 connectResult:2 completed:^(NSDictionary * _Nonnull dictionary) {
+//
+//                        }];
+//                        if (QDConfigManager.shared.otherLinesNodes.count > 0) {
+//                            QDNodeModel * node = [QDConfigManager.shared connectFailUpdateLines];
+//                            [self.lineButton updateNode:QDConfigManager.shared.node];
+//                            if (action == 1) {
+//                                [self startPing];
+//                            }else {
+//                                [self changeStartPing];
+//                            }
+//                        }else {
+//                            [self.connectButton updateUIStatus:status_button_fail];
+//                            [QDDialogManager showDialog:NSLocalizedString(@"Connect_fail", nil) message:NSLocalizedString(@"Ping_fail_info", nil) ok:NSLocalizedString(@"Connect_success_ok", nil) cancel:nil okBlock:^{
+//                                if ([QDVersionManager.shared.versionConfig[@"show_feedback_ad"] intValue] == 1) {
+//                                    self.canShowAds = YES;
+//                                }else {
+//                                    self.canShowAds = NO;
+//                                }
+//                                QDFeedbackViewController* vc = [QDFeedbackViewController new];
+//                                vc.hidesBottomBarWhenPushed = YES;
+//                                [self.navigationController pushViewController:vc animated:YES];
+//                            } cancelBlock:^{
+//                            }];
+//                       }
+//                    }else {
+//                        QDConfigManager.shared.node.connectStatus = [QDVersionManager.shared.versionConfig[@"trojan_mode"] intValue] ? [QDVersionManager.shared.versionConfig[@"trojan_mode"] intValue] : 0;
+//                        complete();
+//                    }
+//                }else {
+                    [QDModelManager requestConnectRecord:[QDDateUtils getNowDateString] pingResult:0 connectResult:2 completed:^(NSDictionary * _Nonnull dictionary) {
 
-                }];
-                if (QDConfigManager.shared.otherLinesNodes.count > 0) {
-                    QDNodeModel * node = [QDConfigManager.shared connectFailUpdateLines];
-                    [self.lineButton updateNode:QDConfigManager.shared.node];
-                    if (action == 1) {
-                        [self startPing];
-                    }else {
-                        [self changeStartPing];
-                    }
-                }else {
-                    [self.connectButton updateUIStatus:status_button_fail];
-                    [QDDialogManager showDialog:NSLocalizedString(@"Connect_fail", nil) message:NSLocalizedString(@"Ping_fail_info", nil) ok:NSLocalizedString(@"Connect_success_ok", nil) cancel:nil okBlock:^{
-                        if ([QDVersionManager.shared.versionConfig[@"show_feedback_ad"] intValue] == 1) {
-                            self.canShowAds = YES;
-                        }else {
-                            self.canShowAds = NO;
-                        }
-                        QDFeedbackViewController* vc = [QDFeedbackViewController new];
-                        vc.hidesBottomBarWhenPushed = YES;
-                        [self.navigationController pushViewController:vc animated:YES];
-                    } cancelBlock:^{
                     }];
-                }
+                    if (QDConfigManager.shared.otherLinesNodes.count > 0) {
+                        QDNodeModel * node = [QDConfigManager.shared connectFailUpdateLines];
+                        [self.lineButton updateNode:QDConfigManager.shared.node];
+                        if (action == 1) {
+                            [self startPing];
+                        }else {
+                            [self changeStartPing];
+                        }
+                    }else {
+                        [self.connectButton updateUIStatus:status_button_fail];
+                        [QDDialogManager showDialog:NSLocalizedString(@"Connect_fail", nil) message:NSLocalizedString(@"Ping_fail_info", nil) ok:NSLocalizedString(@"Connect_success_ok", nil) cancel:nil okBlock:^{
+                            if ([QDVersionManager.shared.versionConfig[@"show_feedback_ad"] intValue] == 1) {
+                                self.canShowAds = YES;
+                            }else {
+                                self.canShowAds = NO;
+                            }
+                            QDFeedbackViewController* vc = [QDFeedbackViewController new];
+                            vc.hidesBottomBarWhenPushed = YES;
+                            [self.navigationController pushViewController:vc animated:YES];
+                        } cancelBlock:^{
+                        }];
+                   }
+//                }
+                
             }else {
+                QDConfigManager.shared.node.connectStatus = [QDVersionManager.shared.versionConfig[@"default_trojan_mode"] intValue] ? [QDVersionManager.shared.versionConfig[@"default_trojan_mode"] intValue] : 0;
                 complete();
             }
         }else {
@@ -1764,7 +1813,7 @@ static NSString *const kHadRate = @"kHadRate";
     if ([QDTaskManager.shared hasTask]) return;
         
     if (QDVPNManager.shared.status == NEVPNStatusConnected) {
-        [self.connectButton updateUIStatus:status_button_disconnecting];
+        [self.connectButton updateUIStatus:status_button_loading];
         [QDVPNManager.shared stop];
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             [self changeStartPing];
@@ -1953,6 +2002,5 @@ static NSString *const kHadRate = @"kHadRate";
     NSTimeInterval value=[date2 timeIntervalSinceDate:date1];
     return [NSString stringWithFormat:@"%ld",(NSInteger)value];
 }
-
 
 @end

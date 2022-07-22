@@ -32,5 +32,4 @@ target 'International' do
   pod "MMDrawerController", "0.5.7"
   pod 'UnityAds'
   
-  pod 'XHLaunchAd'
 end

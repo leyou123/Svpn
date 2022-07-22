@@ -169,12 +169,7 @@
 //    }
     
     // delay
-//    self.delayImageView.image = [QDLineTableViewBaseCell getDelayImage:model.weights];
-    if (model.pingResult == 1) {
-        self.delayImageView.image = [QDLineTableViewBaseCell getDelayImage:model.weights];
-    }else {
-        self.delayImageView.image = [QDLineTableViewBaseCell getSpeedImage:model.pingResult];
-    }
+    self.delayImageView.image = [QDLineTableViewBaseCell getDelayImage:model.weights];
     
     
     // tag

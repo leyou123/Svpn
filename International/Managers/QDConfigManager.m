@@ -468,12 +468,25 @@ static NSString *const kPasswordKey = @"key_password";
 // 所有线路赋ping结果
 - (void)setNodePingResult {
     if (self.pingResultList.count > 0) {
+        CGFloat failCount = 0.0;
         for (NSDictionary * dic in self.pingResultList) {
             BOOL pingresult = [self getPingresult:[dic allValues].firstObject];
             for (QDNodeModel * node in self.nodes) {
                 if ([node.ip isEqualToString:[[dic allKeys] firstObject]]) {
                     node.pingResult = pingresult;
+                    if (pingresult != 1) {
+                        failCount++;
+                    }else {
+                        if (node.weights < -2000) {
+                            node.weights += 10000;
+                        }
+                    }
                 }
+            }
+        }
+        if (failCount/self.nodes.count > 0.85) {
+            for (QDNodeModel * node in self.nodes) {
+                node.pingResult = 1;
             }
         }
     }else {
@@ -706,8 +719,12 @@ static NSString *const kPasswordKey = @"key_password";
     for (QDNodeModel * node in arr) {
         if ([node.ip isEqualToString:ip]) {
             self.defaultCountry = node.country;
-            if (node.ip && node.pingResult == 1) {
-                [self.otherLinesNodes insertObject:node atIndex:0];
+            if (node.ip) {
+                if ([QDVersionManager.shared.versionConfig[@"trojan_mode"] intValue] > 0) {
+                    [self.otherLinesNodes insertObject:node atIndex:0];
+                }else if (node.pingResult == 1) {
+                    [self.otherLinesNodes insertObject:node atIndex:0];
+                }
             }
         }
     }
@@ -716,8 +733,12 @@ static NSString *const kPasswordKey = @"key_password";
             if (self.otherLinesNodes.count >= 3 || [node.ip isEqualToString:ip]) {
                 
             }else {
-                if (node.ip && node.pingResult == 1) {
-                    [self.otherLinesNodes addObject:node];
+                if (node.ip) {
+                    if ([QDVersionManager.shared.versionConfig[@"trojan_mode"] intValue] > 0) {
+                        [self.otherLinesNodes addObject:node];
+                    }else if (node.pingResult == 1) {
+                        [self.otherLinesNodes addObject:node];
+                    }
                 }
             }
         }
@@ -728,8 +749,12 @@ static NSString *const kPasswordKey = @"key_password";
                 if (self.otherLinesNodes.count >= 3 || [node.ip isEqualToString:ip]) {
                     break;
                 }else {
-                    if (node.ip && node.pingResult == 1) {
-                        [self.otherLinesNodes addObject:node];
+                    if (node.ip) {
+                        if ([QDVersionManager.shared.versionConfig[@"trojan_mode"] intValue] > 0) {
+                            [self.otherLinesNodes addObject:node];
+                        }else if (node.pingResult == 1) {
+                            [self.otherLinesNodes addObject:node];
+                        }
                     }
                 }
             }

@@ -16,8 +16,14 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, strong) NSDictionary* versionConfig;
 //是否上传
 @property(nonatomic, assign) int operator_switch;
+//是否一致
+@property(nonatomic, assign) BOOL changed;
 
 - (void) check:(BOOL)isAuto;
+
+- (void)check;
+
+- (void)showAlert:(BOOL)isAuto;
 
 @end
 

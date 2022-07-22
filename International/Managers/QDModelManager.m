@@ -24,7 +24,8 @@
 
 // 请求节点列表
 + (void) requestNodes:(void (^)(NSDictionary *dictionary)) completed {
-    [[QDHTTPManager shared] request:HTTPMethodTypePost type:kAPITypeNodes parameters:@{@"uid":@(QDConfigManager.shared.UID), @"key":QDConfigManager.shared.key,@"uuid":QDConfigManager.shared.UUID,@"allNode":@(1)} completed:completed];
+    NSString* version = [[[NSBundle mainBundle] infoDictionary] valueForKey:@"CFBundleShortVersionString"];
+    [[QDHTTPManager shared] request:HTTPMethodTypePost type:kAPITypeNodes parameters:@{@"uid":@(QDConfigManager.shared.UID), @"key":QDConfigManager.shared.key,@"uuid":QDConfigManager.shared.UUID,@"allNode":@(1),@"version":version} completed:completed];
 }
 
 // 注册节点

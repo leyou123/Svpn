@@ -47,9 +47,15 @@
             QDConfigManager.shared.nodes = resultModel.data;
             QDConfigManager.shared.lineHide = resultModel.node_hide_switch;
             QDConfigManager.shared.testNodes = resultModel.test_nodes;
-            [QDConfigManager.shared startPing:^{
-                [self setRootVC];
-            }];
+//            int open_anim_ping = [[[NSUserDefaults standardUserDefaults] objectForKey:@"open_anim_ping"] intValue];
+//            if (open_anim_ping == 1) {
+                [QDConfigManager.shared startPing:^{
+                    [self setRootVC];
+                }];
+//            }else {
+//                [self setRootVC];
+//            }
+            
         } else {
             NSLog(@"requestNodes request failed %@", resultModel.message);
             // 请求失败

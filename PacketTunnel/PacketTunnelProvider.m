@@ -77,6 +77,39 @@
             }
             NSLog(@"dns===>%@", dns);
             
+            NSString * trojan = @"";
+//            trojan = [NSString stringWithFormat:@"Trojan = trojan, %@, %@, password=%@, sni=%@, ws=true, ws-path=/etc/trojan/bin/example/, ws-host=%@, shadowsocks=true, method=AES-128-GCM, password=leyou20222, mux=true, concurrency=8, idle_timeout=60",options[@"host"], options[@"port"], /*options[@"password"]*/@"leyou20222",options[@"host"],options[@"host"]];
+            
+//            switch ([options[@"connectStatus"] intValue]) {
+//                case 1:
+//                    trojan = [NSString stringWithFormat:@"Trojan = trojan, %@, %@, password=%@, sni=%@", options[@"ip"], options[@"port"], options[@"password"], options[@"host"]];
+//                    break;
+//
+//                case 2:
+                    trojan = [NSString stringWithFormat:@"Trojan = trojan, %@, %@, password=%@ , mux=true", options[@"host"], options[@"port"], options[@"password"]];
+//                    break;
+//
+//                case 3:
+//                    trojan = [NSString stringWithFormat:@"Trojan = trojan, %@, %@, password=%@, sni=%@, ws=true, ws-path=/root/trojan/example/, host=%@",options[@"host"], options[@"port"],options[@"password"],options[@"host"],options[@"host"]];
+//                    break;
+//
+//                case 4:
+//                    trojan = [NSString stringWithFormat:@"Trojan = trojan, %@, %@, password=%@, sni=%@, ws=true, ws-path=/root/trojan/example/, host=%@, mux=true, concurrency=8, idle_timeout=60",options[@"host"], options[@"port"], options[@"password"],options[@"host"],options[@"host"]];
+//                    break;
+//
+//                case 5:
+//                    trojan = [NSString stringWithFormat:@"Trojan = trojan, %@, %@, password=%@ , mux=true", options[@"host"], options[@"port"], options[@"password"]];
+//                    break;
+//
+//                case 6:
+//                    trojan = [NSString stringWithFormat:@"Trojan = trojan, %@, %@, password=%@ , mux=true", options[@"host"], options[@"port"], options[@"password"]];
+//                    break;
+//
+//                default:
+//                    trojan = [NSString stringWithFormat:@"Trojan = trojan, %@, %@, password=%@ , mux=true", options[@"host"], options[@"port"], options[@"password"]];
+//                    break;
+//            }
+            
             NSArray* array = @[
                 @"\n[General]",
                 @"loglevel = trace",
@@ -86,10 +119,9 @@
                 @"routing-domain-resolve = true",
                 @"[Proxy]",
                 @"Direct = direct",
-                [NSString stringWithFormat:@"Trojan = trojan, %@, %@, password=%@, mux=true", options[@"host"], options[@"port"], options[@"password"]],
-//                [NSString stringWithFormat:@"Trojan = trojan,a.lytest.tk, 443, password=123456.com, sni=a.lytest.tk, ws=true, ws-path=/root/trojan/example/"],
+                trojan,
                 @"[Rule]",
-                @"DOMAIN-SUFFIX, api.9527.click, Direct",
+//                @"DOMAIN-SUFFIX, api.9527.click, Direct",
                 @"EXTERNAL, site:cn, Direct",
                 @"EXTERNAL, mmdb:cn, Direct",
                 @"FINAL, Trojan"

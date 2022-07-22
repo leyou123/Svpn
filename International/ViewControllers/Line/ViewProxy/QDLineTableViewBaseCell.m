@@ -10,7 +10,7 @@
 @implementation QDLineTableViewBaseCell
 
 + (UIImage*) getDelayImage:(int)weights {
-    NSString* imageNamed = @"line_speed_bad";
+    NSString* imageNamed = @"line_speed_more_slow";
     if (weights >= 60) {
         imageNamed = @"line_speed_normal";
     } else if (weights > 0) {
